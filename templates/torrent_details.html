@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ torrent.name }}</title>
+</head>
+<body>
+    <div style="text-align: right;">
+        <a href="/">StableBay</a>
+    </div>
+    <h1>{{ torrent.name }}</h1>
+    <p>Uploaded by {{ torrent.uploaded_by }} on {{ torrent.upload_date }}</p>
+    <p>Category: {{ torrent.tags }}</p>
+    <p>Description: {{ torrent.description }}</p>
+    <p>Magnet link: <a href="{{ torrent.magnet_link }}"><img src="/static/magnet_icon.jpg" alt="Magnet Link" style="height: 30px;"></a></p>
+    <p><a href="{{ url_for('edit_torrent', torrent_name=torrent.name) }}">Edit torrent</a></p>
+</body>
+</html>
+

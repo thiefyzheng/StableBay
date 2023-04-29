@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Latest Torrents</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Latest Torrents</h1>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Size</th>
+            <th>Downloaded</th>
+            <th>Progress</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="torrents">
+        </tbody>
+      </table>
+    </div>
+    <script>
+      $(document).ready(function() {
+        // Function to update the table with torrent data
+        function updateTorrents() {
+          $.getJSON("/torrents", function(data) {
+            var table = '';
+            $.each(data, function(index, torrent) {
+              table += '<tr>';
+              table += '<td>' + torrent['name'] + '</td>';
+              table += '<td>' + torrent['size'] + '</td>';
+              table += '<td>' + torrent['downloaded'] + '</td>';
+              table += '<td>' + torrent['progress'] + '</td>';
+              table += '<td>' + torrent['status'] + '</td>';
+              table += '</tr>';
+            });
+            $('#torrents').html(table);
+          });
+        }
+        // Update the table every 5 seconds
+        setInterval(updateTorrents, 5000);
+      });
+    </script>
+  </body>
+</html>
+

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Torrents</title>
+</head>
+<body>
+    <div style="text-align: right;">
+        {% if session.logged_in %}
+            <span>Welcome, {{ session.username }}!</span> |
+            <a href="/upload">Upload Torrent</a> |
+            <a href="/account/{{ session.username }}">My Account</a> |
+            <a href="/logout">Logout</a>
+        {% else %}
+            <a href="/login">Login</a> |
+            <a href="/register">Create Account</a>
+        {% endif %}
+    </div>
+    <div style="text-align: center;">
+        <h1>Welcome to Stablebay UwU</h1>
+        <a href="/torrents" style="display: block; font-size: 24px; padding: 20px;">View Torrents</a>
+    </div>
+</body>
+</html>
+

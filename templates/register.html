@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Register - StableBay</title>
+</head>
+<body>
+    <div>
+        <h1>Register</h1>
+        <form method="POST" action="{{ url_for('register_user') }}">
+            <label>Email:</label>
+            <input type="email" name="email" required>
+            <br>
+            <label>Username:</label>
+            <input type="text" name="username" required>
+            <br>
+            <label>Password:</label>
+            <input type="password" name="password" required>
+            <br>
+            <label>Confirm Password:</label>
+            <input type="password" name="confirm_password" required>
+            <br>
+            <input type="submit" value="Register">
+        </form>
+    </div>
+    <div>
+        <a href="{{ url_for('index') }}">
+            <button>StableBay</button>
+        </a>
+    </div>
+</body>
+</html>
+

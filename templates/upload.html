@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload</title>
+</head>
+<body>
+    {% if error %}
+        <p style="color: red">{{ error }}</p>
+    {% endif %}
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <label for="model_name">Model name:</label>
+        <input type="text" name="model_name" id="model_name"><br>
+        <label for="short_description">Short description:</label>
+        <textarea name="short_description" id="short_description"></textarea><br>
+        <label for="torrent_file">Torrent file:</label>
+        <input type="file" name="torrent_file" id="torrent_file"><br>
+        <label for="tags">Tags:</label>
+        <select name="tags" id="tags" multiple>
+            <option value="checkpoint">Checkpoint</option>
+            <option value="lora">Lora</option>
+            <option value="textual-inversion">Textual Inversion</option>
+        </select><br>
+        <input type="submit" value="Upload">
+    </form>
+</body>
+</html>
+

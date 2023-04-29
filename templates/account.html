@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Torrents</title>
+</head>
+<body>
+    <div style="text-align: right;">
+        <a href="/">StableBay</a>
+    </div>
+    <h1>UwU! Here are your torrents!!</h1>
+    <table style="border-collapse: collapse; border: 1px solid black;">
+        <thead>
+            <tr>
+                <th style="border: 1px solid black; padding: 5px;">Name</th>
+                <th style="border: 1px solid black; padding: 5px;">User</th>
+                <th style="border: 1px solid black; padding: 5px;">Upload Date</th>
+                <th style="border: 1px solid black; padding: 5px;">Download</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for torrent in torrents %}
+                <tr>
+                    <td style="border: 1px solid black; padding: 5px;"><a href="/torrents/{{ torrent.name }}">{{ torrent.name }}</a></td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ torrent.uploaded_by }}</td>
+                    <td style="border: 1px solid black; padding: 5px;">{{ torrent.upload_date }}</td>
+                    <td style="border: 1px solid black; padding: 5px;"><a href="{{ torrent.download_url }}">Download</a></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+

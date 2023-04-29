@@ -1,0 +1,4 @@
+Flask~=2.2.3
+meilisearch~=0.25.0
+Werkzeug~=2.2.3
+bencodepy~=0.9.5

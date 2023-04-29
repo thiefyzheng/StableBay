@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Edit Torrent - {{ torrent.name }}</title>
+</head>
+<body>
+    <div style="text-align: right;">
+        <a href="/">StableBay</a>
+    </div>
+    <h1>Edit Torrent - {{ torrent.name }}</h1>
+    <form method="POST">
+        <label for="name">Torrent Name:</label><br>
+        <input type="text" id="name" name="name" value="{{ torrent.name }}"><br><br>
+        <label for="category">Category:</label><br>
+        <input type="text" id="category" name="category" value="{{ torrent.category }}"><br><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description">{{ torrent.description }}</textarea><br><br>
+        <input type="submit" value="Save">
+    </form>
+</body>
+</html>
+
