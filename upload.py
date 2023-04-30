@@ -34,7 +34,7 @@ def upload():
                 return render_template('upload.html', error=error)
 
         filename = secure_filename(torrent_file.filename)
-        file_path = os.path.join('/home/stablebay/PycharmProjects/StableBay/uploads', model_name, filename)
+        file_path = os.path.join('/home/stablebay/uploads', model_name, filename)
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         torrent_file.save(file_path)
 
