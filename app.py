@@ -10,9 +10,13 @@ from authent import register
 from upload import upload
 
 from account import get_user_torrents
+from magnetmaker import generate_magnet_links
+import magnetmaker
 
 
 # Rest of the code for app.py
+
+
 
 app = Flask(__name__)
 app.secret_key = 'my_secret_key'
@@ -88,15 +92,15 @@ def login():
         return render_template('login.html')
 
 
-
-
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_route():
     if request.method == 'POST':
         result = upload()
+
         return result
 
     return render_template('upload.html')
+
 
 # Route for logging out
 @app.route('/logout')

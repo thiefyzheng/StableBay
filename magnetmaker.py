@@ -20,7 +20,7 @@ jokes = [
     "What did the magnet link say to the torrent file? Let's get together and download some content!",
 ]
 
-while True:
+def generate_magnet_links():
     # Iterate through all subdirectories in uploads directory
     for model_name in os.listdir(uploads_path):
         model_dir = os.path.join(uploads_path, model_name)
@@ -61,5 +61,6 @@ while True:
 
     # Print a random joke about magnet links
     print(random.choice(jokes))
-    # Wait for one minute before running again
-    time.sleep(1)
+
+# Call the function once when the file is imported
+generate_magnet_links()
