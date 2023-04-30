@@ -7,7 +7,7 @@ import base64
 import random
 import time
 
-uploads_path = '/home/stablebay/PycharmProjects/StableBay/uploads'
+uploads_path = '/home/stablebay/uploads'
 
 # List of jokes about magnet links
 jokes = [
@@ -62,4 +62,4 @@ while True:
     # Print a random joke about magnet links
     print(random.choice(jokes))
     # Wait for one minute before running again
-    time.sleep(60)
+    time.sleep(1)
