@@ -25,7 +25,7 @@ with open('torrents.json', 'r') as f:
 @app.route('/')
 def index():
     torrents = []
-    for filename in os.listdir('/home/stablebay/PycharmProjects/StableBay/uploads/'):
+    for filename in os.listdir('/home/stablebay/uploads/'):
         if filename.endswith('.torrent'):
             filepath = os.path.join('stablebay/uploads', filename)
             torrent = Torrent.from_file(filepath)
