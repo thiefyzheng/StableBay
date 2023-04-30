@@ -185,7 +185,7 @@ def account(username):
 
 
 
-app.config['UPLOAD_FOLDER'] = '/home/stablebay/PycharmProjects/StableBay/uploads'
+app.config['UPLOAD_FOLDER'] = '/home/stablebay/uploads'
 
 
 
