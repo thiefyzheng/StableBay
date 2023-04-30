@@ -10,8 +10,7 @@ from authent import register
 from upload import upload
 
 from account import get_user_torrents
-from magnetmaker import generate_magnet_links
-import magnetmaker
+
 
 
 # Rest of the code for app.py
