@@ -41,7 +41,7 @@ def upload():
         # create dictionary for model info and save as JSON file
         model_info = {'name': model_name, 'description': short_description, 'file_path': file_path, 'tags': tags,
                       'uploaded_by': session.get('username'), 'upload_date': datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')}
-        json_path = os.path.join('/home/stablebay/PycharmProjects/StableBay/uploads', model_name, 'info.json')
+        json_path = os.path.join('/home/stablebay/uploads', model_name, 'info.json')
         with open(json_path, 'w') as f:
             json.dump(model_info, f)
 
