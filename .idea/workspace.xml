@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Fixed individual torrent page, was just one line of code.">
-      <change afterPath="$PROJECT_DIR$/comments.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/confirm_delete_torrent.html" afterDir="false" />
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Ignore users.json...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
@@ -186,7 +184,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682896320890</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Added comments ...">
+      <created>1682987460176</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1682987460176</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Ignore users.json...">
+      <created>1682987964208</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1682987964208</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -205,7 +217,9 @@
     <MESSAGE value="Changed the directory uploads to be external" />
     <MESSAGE value="Changes" />
     <MESSAGE value="Fixed individual torrent page, was just one line of code." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed individual torrent page, was just one line of code." />
+    <MESSAGE value="Added comments ..." />
+    <MESSAGE value="Ignore users.json..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Ignore users.json..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

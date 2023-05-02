@@ -16,6 +16,10 @@
             margin-top: 5px;
             margin-bottom: 5px;
         }
+        .comment .vote {
+            margin-top: 10px;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
@@ -40,16 +44,20 @@
     <h2>Comments:</h2>
     <ul>
         {% for comment in comments %}
-        <li class="comment">
+        <li class="comment" id="comment-{{ comment.id }}">
             <div class="meta">{{ comment.username }} - {{ comment.timestamp }} <a href="#" onclick="deleteComment('{{ comment.id }}')">Delete</a></div>
             <div class="content">{{ comment.comment }}</div>
+            <div class="vote">
+                <span id="vote-count-{{ comment.id }}">{{ comment.upvotes - comment.downvotes }}</span> 
+                <button onclick="upvoteComment('{{ comment.id }}')" id="upvote-button-{{ comment.id }}">Upvote</button>
+                <button onclick="downvoteComment('{{ comment.id }}')" id="downvote-button-{{ comment.id }}">Downvote</button>
+            </div>
         </li>
         {% endfor %}
     </ul>
     {% else %}
     <p>No comments yet.</p>
     {% endif %}
-
     <script>
         function deleteComment(commentId) {
             if (confirm("Are you sure you want to delete this comment?")) {
@@ -64,6 +72,74 @@
                 });
             }
         }
+function upvoteComment(commentId) {
+  const votedComments = JSON.parse(localStorage.getItem('votedComments')) || [];
+  const index = votedComments.indexOf(commentId);
+  if (index > -1) {
+    votedComments.splice(index, 1);
+  }
+
+  fetch(`/torrents/{{ torrent.name }}/comments/${commentId}/upvote`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error upvoting comment.');
+    }
+    return response.json();
+  })
+  .then(data => {
+    document.querySelector(`#vote-count-${commentId}`).textContent = data.upvotes - data.downvotes;
+    document.querySelector(`#upvote-button-${commentId}`).disabled = true;
+    document.querySelector(`#downvote-button-${commentId}`).disabled = false;
+    
+    votedComments.push(commentId);
+    localStorage.setItem('votedComments', JSON.stringify(votedComments));
+  })
+  .catch(error => {
+    console.error('Error upvoting comment:', error);
+    // Remove the alert message and comment out the following line to disable the dialog box
+    alert(error.message);
+  });
+}
+
+function downvoteComment(commentId) {
+  const votedComments = JSON.parse(localStorage.getItem('votedComments')) || [];
+  const index = votedComments.indexOf(commentId);
+  if (index > -1) {
+    votedComments.splice(index, 1);
+  }
+
+  fetch(`/torrents/{{ torrent.name }}/comments/${commentId}/downvote`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Error downvoting comment.');
+    }
+    return response.json();
+  })
+  .then(data => {
+    document.querySelector(`#vote-count-${commentId}`).textContent = data.upvotes - data.downvotes;
+    document.querySelector(`#downvote-button-${commentId}`).disabled = true;
+    document.querySelector(`#upvote-button-${commentId}`).disabled = false;
+
+    votedComments.push(commentId);
+    localStorage.setItem('votedComments', JSON.stringify(votedComments));
+  })
+  .catch(error => {
+    console.error('Error downvoting comment:', error);
+    // Remove the alert message and comment out the following line to disable the dialog box
+    alert(error.message);
+  });
+}
+
     </script>
 </body>
 </html>

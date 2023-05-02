@@ -162,6 +162,7 @@ def rickroll():
 
 import uuid
 
+
 @app.route('/torrents/<string:torrent_name>', methods=['GET', 'POST'])
 def torrent_details(torrent_name):
     # Construct the path to the info.json file for the given torrent
@@ -222,11 +223,15 @@ def torrent_details(torrent_name):
         with open(os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json'), 'r') as f:
             comments_data = json.load(f)
             comments = comments_data['comments']
+
+            # Sort the comments by the highest upvote - downvote count
+            comments.sort(key=lambda x: x['upvotes'] - x['downvotes'], reverse=True)
     else:
         comments = []
 
     # Render the template with the torrent data, tags, and comments
     return render_template('torrent_details.html', torrent=torrent_data, tags=tags, comments=comments)
+
 
 app.config['UPLOAD_FOLDER'] = '/home/stablebay/uploads'
 
@@ -268,7 +273,79 @@ def delete_comment(torrent_name, comment_id):
 
     return '', 204
 
+import os
+import json
+from flask import jsonify, request
 
+@app.route('/torrents/<string:torrent_name>/comments/<int:comment_id>/upvote', methods=['POST'])
+def upvote_comment(torrent_name, comment_id):
+    # Construct path to comments JSON file for the given torrent
+    comments_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')
+
+    # Check if the comments JSON file exists for the given torrent
+    if not os.path.exists(comments_path):
+        return jsonify({'error': 'Comments not found'}), 404
+
+    # Load comments from comments JSON file
+    with open(comments_path, 'r') as f:
+        comments_data = json.load(f)
+
+    # Find the comment with the given ID
+    comment_index = None
+    for i, comment in enumerate(comments_data['comments']):
+        if comment['id'] == comment_id:
+            comment_index = i
+            break
+
+    # If the comment doesn't exist, return a 404 error
+    if comment_index is None:
+        return jsonify({'error': 'Comment not found'}), 404
+
+    # Update the upvote value of the comment
+    comments_data['comments'][comment_index]['upvotes'] += 1
+
+    # Write the updated comments data to the comments JSON file
+    with open(comments_path, 'w') as f:
+        json.dump(comments_data, f)
+
+    # Return the updated comment data as a JSON response
+    return jsonify(comments_data['comments'][comment_index]), 200
+
+
+
+
+@app.route('/torrents/<string:torrent_name>/comments/<int:comment_id>/downvote', methods=['POST'])
+def downvote_comment(torrent_name, comment_id):
+    # Construct path to comments JSON file for the given torrent
+    comments_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')
+
+    # Check if the comments JSON file exists for the given torrent
+    if not os.path.exists(comments_path):
+        return 'Comments not found', 404
+
+    # Load comments from comments JSON file
+    with open(comments_path, 'r') as f:
+        comments_data = json.load(f)
+
+    # Find the comment with the given ID
+    comment_index = None
+    for i, comment in enumerate(comments_data['comments']):
+        if comment['id'] == comment_id:
+            comment_index = i
+            break
+
+    # If the comment doesn't exist, return a 404 error
+    if comment_index is None:
+        return 'Comment not found', 404
+
+    # Update the downvote value of the comment
+    comments_data['comments'][comment_index]['downvotes'] += 1
+
+    # Write the updated comments data to the comments JSON file
+    with open(comments_path, 'w') as f:
+        json.dump(comments_data, f)
+
+    return jsonify({'upvotes': comments_data['comments'][comment_index]['upvotes'], 'downvotes': comments_data['comments'][comment_index]['downvotes']})
 
 
 if __name__ == '__main__':
