@@ -9,7 +9,7 @@ app = Flask(__name__)
 
 
 # List of allowed tags
-allowed_tags = ['checkpoint', 'lora', 'textual-inversion']
+allowed_tags = ['checkpoint', 'lora', 'textual-inversion', 'database-images']
 
 
 @app.route('/upload', methods=['GET', 'POST'])
