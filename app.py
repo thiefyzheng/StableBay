@@ -120,6 +120,7 @@ def torrents():
 
 from flask import render_template, session
 import os
+import datetime
 
 @app.route('/torrents/<string:torrent_name>/edit', methods=['GET', 'POST'])
 def edit_torrent(torrent_name):
@@ -159,7 +160,9 @@ def rickroll():
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ", code=302)
 
 
-@app.route('/torrents/<string:torrent_name>')
+import uuid
+
+@app.route('/torrents/<string:torrent_name>', methods=['GET', 'POST'])
 def torrent_details(torrent_name):
     # Construct the path to the info.json file for the given torrent
     info_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'info.json')
@@ -175,17 +178,96 @@ def torrent_details(torrent_name):
     # Get the tags from the info.json file
     tags = torrent_data.get('tags', [])
 
-    # Render the template with the torrent data and tags
-    return render_template('torrent_details.html', torrent=torrent_data, tags=tags)
+    # Handle comment form submission
+    if request.method == 'POST':
+        if 'username' not in session:
+            return 'You must be logged in to submit a comment', 401
 
-@app.route('/account/<username>')
-def account(username):
-    user_torrents = get_user_torrents(username)
-    return render_template('account.html', torrents=user_torrents)
+        comment = request.form['comment']
+        username = session['username']
+        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
+        # Construct path to comments JSON file for the given torrent
+        comments_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')
 
+        # Load existing comments from comments JSON file (if it exists)
+        if os.path.exists(comments_path):
+            with open(comments_path, 'r') as f:
+                comments_data = json.load(f)
+        else:
+            comments_data = {'comments': []}
+
+        # Generate a unique ID for the new comment
+        comment_id = len(comments_data['comments']) + 1
+
+        # Add the new comment to the comments data with the generated ID
+        comments_data['comments'].append({
+            'id': comment_id,
+            'username': username,
+            'timestamp': timestamp,
+            'comment': comment,
+            'upvotes': 0,
+            'downvotes': 0
+        })
+
+        # Write the updated comments data to the comments JSON file
+        with open(comments_path, 'w') as f:
+            json.dump(comments_data, f)
+
+        # Reload the page to display the new comment
+        return redirect(request.url)
+
+    # Load comments from comments JSON file (if it exists)
+    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')):
+        with open(os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json'), 'r') as f:
+            comments_data = json.load(f)
+            comments = comments_data['comments']
+    else:
+        comments = []
+
+    # Render the template with the torrent data, tags, and comments
+    return render_template('torrent_details.html', torrent=torrent_data, tags=tags, comments=comments)
 
 app.config['UPLOAD_FOLDER'] = '/home/stablebay/uploads'
+
+
+@app.route('/torrents/<string:torrent_name>/comments/<int:comment_id>', methods=['DELETE','POST'])
+def delete_comment(torrent_name, comment_id):
+    # Construct path to comments JSON file for the given torrent
+    comments_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')
+
+    # Check if the comments JSON file exists for the given torrent
+    if not os.path.exists(comments_path):
+        return 'Comments not found', 404
+
+    # Load comments from comments JSON file
+    with open(comments_path, 'r') as f:
+        comments_data = json.load(f)
+
+    # Find the comment with the given ID
+    comment_index = None
+    for i, comment in enumerate(comments_data['comments']):
+        if comment['id'] == comment_id:
+            comment_index = i
+            break
+
+    # If the comment doesn't exist, return a 404 error
+    if comment_index is None:
+        return 'Comment not found', 404
+
+    # Check if the user is authorized to delete the comment
+    if 'username' not in session or comments_data['comments'][comment_index]['username'] != session['username']:
+        return 'You are not authorized to delete this comment', 401
+
+    # Remove the comment from the comments data
+    del comments_data['comments'][comment_index]
+
+    # Write the updated comments data to the comments JSON file
+    with open(comments_path, 'w') as f:
+        json.dump(comments_data, f)
+
+    return '', 204
+
 
 
 
