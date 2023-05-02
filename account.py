@@ -1,7 +1,7 @@
 import os
 import json
 
-TORRENTS_DIR = "/home/stablebay/PycharmProjects/StableBay/uploads/"
+TORRENTS_DIR = "/home/stablebay/uploads/"
 def get_user_torrents(username):
     torrents = []
     for dirname in os.listdir(TORRENTS_DIR):
