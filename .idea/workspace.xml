@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Fixed comments again" />
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Fixed accounts pag" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -222,7 +222,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683032701527</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="Fixed accounts pag">
+      <created>1683033407084</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1683033407085</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -245,7 +252,8 @@
     <MESSAGE value="Ignore users.json..." />
     <MESSAGE value="Fixed comments again and fixed user page" />
     <MESSAGE value="Fixed comments again" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed comments again" />
+    <MESSAGE value="Fixed accounts pag" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed accounts pag" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
