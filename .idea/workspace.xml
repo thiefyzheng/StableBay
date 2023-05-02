@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Ignore users.json...">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
-    </list>
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Fixed comments again" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -198,7 +194,35 @@
       <option name="project" value="LOCAL" />
       <updated>1682987964208</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Fixed comments again and fixed user page">
+      <created>1683031829261</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1683031829261</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Fixed comments again and fixed user page">
+      <created>1683031906203</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1683031906203</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Fixed comments again">
+      <created>1683032480992</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1683032480992</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Fixed comments again">
+      <created>1683032701527</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1683032701527</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -219,7 +243,9 @@
     <MESSAGE value="Fixed individual torrent page, was just one line of code." />
     <MESSAGE value="Added comments ..." />
     <MESSAGE value="Ignore users.json..." />
-    <option name="LAST_COMMIT_MESSAGE" value="Ignore users.json..." />
+    <MESSAGE value="Fixed comments again and fixed user page" />
+    <MESSAGE value="Fixed comments again" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed comments again" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

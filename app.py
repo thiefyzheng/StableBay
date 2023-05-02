@@ -160,7 +160,17 @@ def rickroll():
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ", code=302)
 
 
+
+
+
 import uuid
+
+
+@app.route('/account/<username>')
+def account(username):
+    user_torrents = get_user_torrents(username)
+    return render_template('account.html', torrents=user_torrents)
+
 
 
 @app.route('/torrents/<string:torrent_name>', methods=['GET', 'POST'])
