@@ -1,25 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Torrents</title>
+	<title>Torrents</title>
+	<link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
-    <div style="text-align: right;">
-        {% if session.logged_in %}
-            <span>Welcome, {{ session.username }}!</span> |
-            <a href="/upload">Upload Torrent</a> |
-            <a href="/account/{{ session.username }}">My Account</a> |
-            <a href="/logout">Logout</a>
-        {% else %}
-            <a href="/login">Login</a> |
-            <a href="/register">Create Account</a>
-        {% endif %}
-    </div>
-    <div style="text-align: center;">
-        <h1>Welcome to Stablebay UwU</h1>
-        <a href="/torrents" style="display: block; font-size: 24px; padding: 20px;">View Torrents</a>
-        <p>StableBay takes $10 to run per month. Support us on <a href="https://ko-fi.com/stablebay">Ko-fi</a>.</p>
-    </div>
+	<div class="container">
+		{% if session.logged_in %}
+			<p style="text-align: right; margin: 0;">Welcome, {{ session.username }}! | <a href="/upload" class="button">Upload Torrent</a> | <a href="/account/{{ session.username }}" class="button">My Account</a> | <a href="/logout" class="button">Logout</a></p>
+		{% else %}
+			<p style="text-align: right; margin: 0;"><a href="/login" class="button">Login</a> <a href="/register" class="button">Create Account</a></p>
+		{% endif %}
+		<h1>Welcome to Stablebay</h1>
+		<a href="/torrents" class="button">View Torrents</a>
+    	<p>StableBay takes $10 to run per month. Support us on <a href="https://ko-fi.com/stablebay" target="_blank">Ko-fi</a>.</p>
+	</div>
 </body>
 </html>
 
