@@ -8,26 +8,20 @@
     <div style="text-align: right;">
         <a href="/">StableBay</a>
     </div>
-    <table style="border-collapse: collapse;">
-        <thead>
-            <tr>
-                <th style="border: 1px solid black; padding: 5px;">Name</th>
-                <th style="border: 1px solid black; padding: 5px;">User</th>
-                <th style="border: 1px solid black; padding: 5px;">Upload Date</th>
-                <th style="border: 1px solid black; padding: 5px;">Magnet</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for torrent in torrents %}
-                <tr>
-                    <td style="border: 1px solid black; padding: 5px;"><a href="/torrents/{{ torrent.name }}">{{ torrent.name }}</a></td>
-                    <td style="border: 1px solid black; padding: 5px;">{{ torrent.uploaded_by }}</td>
-                    <td style="border: 1px solid black; padding: 5px;">{{ torrent.upload_date }}</td>
-                    <td style="border: 1px solid black; padding: 5px;"><a href="{{ torrent.magnet_link }}"><img src="/static/magnet_icon.jpg" alt="Magnet Link" style="height: 30px;"></a></td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+    <div class="torrents-container">
+        {% for torrent in torrents %}
+            <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
+                <div class="torrent-box">
+                    <img src="{{ torrent.image_url }}" alt="{{ torrent.name }}">
+                    <div class="torrent-details">
+                        <h3>{{ torrent.name }}</h3>
+                        <p>Uploaded by: {{ torrent.uploaded_by }}</p>
+                        <p>Category: {{ torrent.category }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
 </body>
 </html>
 

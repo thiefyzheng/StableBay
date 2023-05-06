@@ -2,6 +2,20 @@
 <html>
 <head>
     <title>Upload</title>
+    <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+    <script>
+        function extractMagnet() {
+            var torrentFile = document.getElementById('torrent_file').files[0];
+            var client = new WebTorrent();
+            client.on('error', function (err) {
+                console.error(err);
+            });
+            client.add(torrentFile, function (torrent) {
+                var magnetLink = torrent.magnetURI;
+                document.getElementById('magnet_link').value = magnetLink;
+            });
+        }
+    </script>
 </head>
 <body>
     {% if error %}
@@ -13,16 +27,12 @@
         <label for="short_description">Short description:</label>
         <textarea name="short_description" id="short_description"></textarea><br>
         <label for="torrent_file">Torrent file:</label>
-        <input type="file" name="torrent_file" id="torrent_file"><br>
-        <label for="tags">Tags:</label>
-        <select name="tags" id="tags" multiple>
-            <option value="checkpoint">Checkpoint</option>
-            <option value="lora">Lora</option>
-            <option value="textual-inversion">Textual Inversion</option>
-            <option value="database-images">Database of Images</option>
-        </select><br>
+        <input type="file" name="torrent_file" id="torrent_file" onchange="extractMagnet()"><br>
+        <label for="image_link">Image link:</label>
+        <input type="text" name="image_link" id="image_link"><br>
+        <label for="magnet_link" style="display:block;">Magnet link:</label>
+        <textarea name="magnet_link" id="magnet_link" readonly rows="5"></textarea><br>
         <input type="submit" value="Upload">
     </form>
 </body>
 </html>
-

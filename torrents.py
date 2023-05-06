@@ -1,31 +1,41 @@
-import os
-import json
+import mysql.connector
 
 TORRENTS_DIR = "/home/stablebay/uploads"
+db_host = 'localhost'
+db_user = 'stablebay'
+db_password = '5488'
+db_name = 'StableDB'
+
+def execute_query(query, params=None, fetchall=False):
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+    cursor.execute(query, params)
+    result = None
+    if fetchall:
+        result = cursor.fetchall()
+    else:
+        result = cursor.fetchone()
+    cursor.close()
+    conn.commit()
+    conn.close()
+    return result
 
 def get_torrents():
+    query = "SELECT id, name, description, file_path, tags, uploaded_by, upload_date FROM models"
+    result = execute_query(query, fetchall=True)
     torrents = []
-    for dirname in os.listdir(TORRENTS_DIR):
-        if not os.path.isdir(os.path.join(TORRENTS_DIR, dirname)):
-            continue
-        torrent_info_path = os.path.join(TORRENTS_DIR, dirname, "info.json")
-        if not os.path.exists(torrent_info_path):
-            continue
-        with open(torrent_info_path) as f:
-            info = json.load(f)
-        magnet_link = info.get("magnet_link", "")
+    for row in result:
+        torrent_id, name, description, file_path, tags, uploaded_by, upload_date = row
+        tags = tags.split(', ')
         torrent = {
-            "name": info.get("name", dirname),
-            "description": info.get("description", ""),
-            "file_path": os.path.join(TORRENTS_DIR, dirname, f"{dirname}.torrent"),
-            "tags": info.get("tags", []),
-            "uploaded_by": info.get("uploaded_by", ""),
-            "upload_date": info.get("upload_date", ""),
-            "magnet_link": magnet_link,
+            "id": torrent_id,
+            "name": name,
+            "description": description,
+            "file_path": file_path,
+            "tags": tags,
+            "uploaded_by": uploaded_by,
+            "upload_date": upload_date,
+            "magnet_button": "",
         }
-        if magnet_link:
-            torrent["magnet_button"] = f'<a href="{magnet_link}" target="_blank" class="btn btn-primary">Magnet</a>'
-        else:
-            torrent["magnet_button"] = ""
         torrents.append(torrent)
     return torrents

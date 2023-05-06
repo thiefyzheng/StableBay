@@ -100,6 +100,53 @@ def upload_route():
 
     return render_template('upload.html')
 
+from upload2 import get_categories
+
+from upload2 import get_attributes
+
+from upload2 import get_categories, get_attributes
+
+@app.route('/upload2/<string:model_id>', methods=['GET', 'POST'])
+def upload2(model_id):
+    if not session.get('logged_in'):
+        # If user is not logged in, redirect to login page
+        return redirect(url_for('login'))
+
+    categories = get_categories()  # get the list of categories
+
+    if request.method == 'POST' and request.form.get('request_type') == 'POST':
+        category_id = request.form['category_id']
+        print("Selected category ID:", category_id)
+
+        # Get the category attributes for the selected category
+        category_attributes = get_attributes(category_id)
+        print("Category attributes:", category_attributes)
+
+        # Convert the list of attribute dictionaries to a JSON object
+        category_attributes_json = json.dumps(category_attributes)
+
+        # Redirect to the next step in the upload process, passing the model_id and category attributes JSON as parameters
+        return redirect(url_for('uploaded_route', model_id=model_id, category_attributes=category_attributes_json))
+
+    return render_template('upload2.html', model_id=model_id, categories=categories)
+
+from flask import jsonify
+
+
+
+
+
+
+import mysql.connector
+
+
+@app.route('/get_attributes/<int:category_id>')
+def get_attributes_route(category_id):
+    attributes = get_attributes(category_id)
+    if attributes is None:
+        return "Error: Failed to get attributes"
+    return jsonify(attributes)
+
 
 # Route for logging out
 @app.route('/logout')

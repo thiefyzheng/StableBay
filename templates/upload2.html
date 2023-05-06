@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload - Step 2</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            // When a category is selected, send an AJAX request to get the category attributes
+            $('#category').change(function(){
+                var category_id = $(this).val();
+                $.ajax({
+                    type: 'GET',
+                    url: '/get_attributes/' + category_id,
+                    success: function(data){
+                        // Update the attributes section with the returned data
+                        $('#attributes').html(data);
+                    }
+                });
+            });
+        });
+    </script>
+</head>
+<body>
+    {% if error %}
+        <p style="color: red">{{ error }}</p>
+    {% endif %}
+    <form method="post" action="/upload2/{{ model_id }}" enctype="multipart/form-data">
+        <label for="category">Category:</label>
+        <select name="category_id" id="category">
+            {% for category in categories %}
+            <option value="{{ category[0] }}">{{ category[1] }}</option>
+            {% endfor %}
+        </select><br>
+        
+        <div id="attributes"></div>
+        
+        <input type="hidden" name="request_type" value="POST">
+        <input type="submit" value="Upload">
+    </form>
+
+</body>
+</html>
+
