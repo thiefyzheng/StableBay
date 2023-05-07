@@ -90,7 +90,7 @@ def get_attributes(category_id):
 
         # Join the category_attributes and attributes tables to get the attributes for the given category ID
         query = '''
-        SELECT a.name, a.value_type
+        SELECT a.name, a.value_type, ca.is_required
         FROM category_attributes ca
         JOIN attributes a ON ca.attribute_id = a.id
         WHERE ca.category_id = %s
@@ -101,17 +101,17 @@ def get_attributes(category_id):
         # Convert the list of tuples to a list of dictionaries
         attribute_dicts = []
         for attribute in attributes:
-            attribute_dict = {'name': attribute[0], 'value_type': attribute[1]}
+            attribute_dict = {'name': attribute[0], 'value_type': attribute[1], 'required': attribute[2]}
             attribute_dicts.append(attribute_dict)
+
+        print(attribute_dicts)  # Add this line to check the attribute_dicts value
 
         return attribute_dicts
 
     except Exception as e:
-        print(e)  # add a print statement to check the exception
+        print(e)
         return None
 
     finally:
         # Close the database connection
         conn.close()
-
-

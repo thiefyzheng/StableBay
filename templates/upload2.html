@@ -12,11 +12,48 @@
                     type: 'GET',
                     url: '/get_attributes/' + category_id,
                     success: function(data){
-                        // Update the attributes section with the returned data
-                        $('#attributes').html(data);
+                        // Generate HTML for the attributes and append it to the container div
+                        var attributes_html = '';
+                        $.each(data, function(key, value) {
+                            attributes_html += '<label for="' + value.name + '">' + value.label + ':</label>';
+                            attributes_html += '<input type="' + value.type + '" name="' + value.name + '"><br>';
+                        });
+                        $('#attributes_container').html(attributes_html);
+                    },
+                    error: function(){
+                        alert('Failed to get category attributes');
                     }
                 });
             });
+            
+            // Fetch attributes for category on page load
+            var category_id = $('#category').val();
+            fetchAttributes(category_id);
+
+            // Update attributes when category is changed
+            $('#category').on('change', function() {
+              var category_id = $(this).val();
+              fetchAttributes(category_id);
+            });
+
+            function fetchAttributes(category_id) {
+              $.ajax({
+                url: '/get_attributes/' + category_id,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                  var attributesHtml = '';
+                  response.forEach(function(attribute) {
+                    attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
+                    attributesHtml += '<input type="' + attribute['type'] + '" name="' + attribute['name'] + '"><br>';
+                  });
+                  $('#attributes_container').html(attributesHtml);
+                },
+                error: function(xhr, status, error) {
+                  console.error('Failed to fetch attributes:', status, error);
+                }
+              });
+            }
         });
     </script>
 </head>
@@ -32,7 +69,7 @@
             {% endfor %}
         </select><br>
         
-        <div id="attributes"></div>
+        <div id="attributes_container"></div>
         
         <input type="hidden" name="request_type" value="POST">
         <input type="submit" value="Upload">

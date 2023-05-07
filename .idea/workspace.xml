@@ -4,19 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Added some style">
-      <change afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/upload2.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/torrent_details.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/upload2.py" afterDir="false" />
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Started major overhaul...">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/magnets.py" beforeDir="false" afterPath="$PROJECT_DIR$/magnets.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/static/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrents.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrents.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/upload.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/upload.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/upload2.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/upload2.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/torrents.py" beforeDir="false" afterPath="$PROJECT_DIR$/torrents.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/upload.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload2.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -254,7 +248,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683111510463</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="Started major overhaul...">
+      <created>1683371354587</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1683371354587</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -279,7 +280,8 @@
     <MESSAGE value="Fixed comments again" />
     <MESSAGE value="Fixed accounts pag" />
     <MESSAGE value="Added some style" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added some style" />
+    <MESSAGE value="Started major overhaul..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started major overhaul..." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -295,7 +297,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app.py</url>
-          <line>171</line>
+          <line>181</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>

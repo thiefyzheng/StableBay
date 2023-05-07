@@ -59,6 +59,18 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS category_attributes (
                    FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
                )''')
 
+
+
+# Create the model_attributes table if it doesn't exist yet
+cursor.execute('''CREATE TABLE IF NOT EXISTS model_attributes (
+                   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                   model_id VARCHAR(66) NOT NULL,
+                   attribute_id INT NOT NULL,
+                   value TEXT,
+                   FOREIGN KEY (model_id) REFERENCES models(id) ON DELETE CASCADE,
+                   FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
+               )''')
+
 # Define the category-attribute relationships
 category_attributes = [('Checkpoint', 'Training Data', True),
                        ('Checkpoint', 'Merge', True),
@@ -73,24 +85,13 @@ for category_attribute in category_attributes:
     cursor.execute(attribute_query, (category_attribute[1],))
     attribute_id = cursor.fetchone()[0]
 
-    query = "INSERT INTO category_attributes (category_id, attribute_id, is_required) SELECT %s, %s, %s WHERE NOT EXISTS (SELECT * FROM category_attributes WHERE category_id=%s AND attribute_id=%s)"
-    cursor.execute(query, (category_id, attribute_id, category_attribute[2], category_id, attribute_id))
-
-# Insert the category-attribute relationships into the category_attributes table
-for cat_attr in category_attributes:
-    # Get the category_id for the category name
-    query = "SELECT id FROM categories WHERE name=%s"
-    cursor.execute(query, (cat_attr[0],))
-    category_id = cursor.fetchone()[0]
-
-    # Get the attribute_id for the attribute name
-    query = "SELECT id FROM attributes WHERE name=%s"
-    cursor.execute(query, (cat_attr[1],))
-    attribute_id = cursor.fetchone()[0]
-
-    # Insert the category-attribute relationship
-    query = "INSERT INTO category_attributes (category_id, attribute_id, is_required) VALUES (%s, %s, %s)"
-    cursor.execute(query, (category_id, attribute_id, cat_attr[2]))
+    # Check if the category-attribute relationship already exists
+    query = "SELECT * FROM category_attributes WHERE category_id=%s AND attribute_id=%s"
+    cursor.execute(query, (category_id, attribute_id))
+    if not cursor.fetchone():
+        # Insert the category-attribute relationship if it doesn't exist
+        query = "INSERT INTO category_attributes (category_id, attribute_id, is_required) VALUES (%s, %s, %s)"
+        cursor.execute(query, (category_id, attribute_id, category_attribute[2]))
 
 # Commit the changes and close the database connection
 conn.commit()

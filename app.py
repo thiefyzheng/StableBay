@@ -113,6 +113,7 @@ def upload2(model_id):
         return redirect(url_for('login'))
 
     categories = get_categories()  # get the list of categories
+    category_attributes = []  # initialize category_attributes to an empty list
 
     if request.method == 'POST' and request.form.get('request_type') == 'POST':
         category_id = request.form['category_id']
@@ -128,7 +129,21 @@ def upload2(model_id):
         # Redirect to the next step in the upload process, passing the model_id and category attributes JSON as parameters
         return redirect(url_for('uploaded_route', model_id=model_id, category_attributes=category_attributes_json))
 
-    return render_template('upload2.html', model_id=model_id, categories=categories)
+    return render_template('upload2.html', model_id=model_id, categories=categories, category_attributes=category_attributes)
+
+
+from flask import jsonify
+
+@app.route('/get_attributes/<category_id>', methods=['GET'])
+def get_attributes_route(category_id):
+    try:
+        attributes = get_attributes(category_id)
+        return jsonify(attributes)
+    except:
+        return 'Failed to get category attributes', 500
+
+
+
 
 from flask import jsonify
 
@@ -140,12 +155,7 @@ from flask import jsonify
 import mysql.connector
 
 
-@app.route('/get_attributes/<int:category_id>')
-def get_attributes_route(category_id):
-    attributes = get_attributes(category_id)
-    if attributes is None:
-        return "Error: Failed to get attributes"
-    return jsonify(attributes)
+
 
 
 # Route for logging out
