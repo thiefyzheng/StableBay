@@ -1,5 +1,9 @@
-import json
 import mysql.connector
+import mysql.connector
+
+import json
+
+from flask import request
 
 # Database configuration
 db_host = 'localhost'
@@ -8,7 +12,7 @@ db_password = '5488'
 db_name = 'StableDB'
 
 
-def upload2(uuid, category_id):
+def upload2(uuid, category_id, value):
     # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
 
@@ -44,7 +48,14 @@ def upload2(uuid, category_id):
         # Convert the attributes to a dictionary
         attributes_dict = {}
         for attribute in attributes:
-            attributes_dict[attribute['name']] = attribute['value_type']
+            # Get the value for the attribute from the database
+            if attribute['name'] == 'value':
+                attributes_dict[attribute['name']] = value
+            else:
+                attr_query = 'SELECT value FROM model_attributes WHERE model_id = %s AND attribute_id = %s'
+                cursor.execute(attr_query, (uuid, attribute['id']))
+                attr_value = cursor.fetchone()[0]
+                attributes_dict[attribute['name']] = attr_value
 
         # Update the model's category and attributes
         query = 'UPDATE models SET category = %s, attributes = %s WHERE id = %s'
@@ -52,7 +63,8 @@ def upload2(uuid, category_id):
         conn.commit()
 
         # Return a success message
-        return 'Model with UUID {} updated with category {} and attributes {}'.format(uuid, category_name, attributes_dict)
+        return 'Model with UUID {} updated with category {} and attributes {}'.format(uuid, category_name,
+                                                                                      attributes_dict)
 
     finally:
         # Close the database connection
@@ -115,3 +127,46 @@ def get_attributes(category_id):
     finally:
         # Close the database connection
         conn.close()
+
+def add_model_attributes(model_id, attribute_values_json):
+    # Convert JSON to dictionary
+    attribute_values = json.loads(attribute_values_json)
+
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+
+    try:
+        # Create a cursor to execute queries
+        cursor = conn.cursor()
+
+        # Loop through the attributes and insert them into the model_attributes table
+        for key, value in attribute_values.items():
+            # Get the attribute ID
+            query = '''
+            SELECT id FROM attributes
+            WHERE name = %s
+            '''
+            cursor.execute(query, (key,))
+            row = cursor.fetchone()
+            if row is None:
+                raise ValueError(f"Attribute {key} not found in attributes table")
+            attribute_id = row[0]
+
+            # Insert the attribute value into the model_attributes table
+            query = '''
+            INSERT INTO model_attributes (model_id, attribute_id, value)
+            VALUES (%s, %s, %s)
+            '''
+            cursor.execute(query, (model_id, attribute_id, value))
+
+        # Commit changes to the database
+        conn.commit()
+
+    except Exception as e:
+        print(e)
+
+    finally:
+        # Close the database connection
+        conn.close()
+
+

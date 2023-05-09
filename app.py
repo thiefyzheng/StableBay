@@ -104,7 +104,7 @@ from upload2 import get_categories
 
 from upload2 import get_attributes
 
-from upload2 import get_categories, get_attributes
+from upload2 import get_categories, get_attributes, add_model_attributes
 
 @app.route('/upload2/<string:model_id>', methods=['GET', 'POST'])
 def upload2(model_id):
@@ -113,26 +113,37 @@ def upload2(model_id):
         return redirect(url_for('login'))
 
     categories = get_categories()  # get the list of categories
+    print("Categories:", categories)
+
     category_attributes = []  # initialize category_attributes to an empty list
 
     if request.method == 'POST' and request.form.get('request_type') == 'POST':
         category_id = request.form['category_id']
         print("Selected category ID:", category_id)
+        print("Form data:", request.form)
+
 
         # Get the category attributes for the selected category
         category_attributes = get_attributes(category_id)
         print("Category attributes:", category_attributes)
 
-        # Convert the list of attribute dictionaries to a JSON object
-        category_attributes_json = json.dumps(category_attributes)
+        # Save the model attributes to the database
+        attribute_values_json = json.dumps({key: value for key, value in request.form.items() if key not in ['category_id', 'request_type']})
+        add_model_attributes(model_id, attribute_values_json)
 
-        # Redirect to the next step in the upload process, passing the model_id and category attributes JSON as parameters
-        return redirect(url_for('uploaded_route', model_id=model_id, category_attributes=category_attributes_json))
+        # Redirect to the next step in the upload process, passing the model_id as a parameter
+        return redirect(url_for('uploaded_route', model_id=model_id))
 
     return render_template('upload2.html', model_id=model_id, categories=categories, category_attributes=category_attributes)
 
 
+
 from flask import jsonify
+@app.route('/add_model_attributes/<int:model_id>', methods=['POST'])
+def add_model_attributes_endpoint(model_id):
+    attribute_values_json = request.form.get('attribute_values')
+    add_model_attributes(model_id, attribute_values_json)
+    return 'Attributes added to the database.'
 
 @app.route('/get_attributes/<category_id>', methods=['GET'])
 def get_attributes_route(category_id):
@@ -141,7 +152,6 @@ def get_attributes_route(category_id):
         return jsonify(attributes)
     except:
         return 'Failed to get category attributes', 500
-
 
 
 

@@ -36,7 +36,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS attributes (
                    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
                    name VARCHAR(255) NOT NULL UNIQUE,
                    description VARCHAR(255),
-                   value_type VARCHAR(255)
+                   value_type TEXT
                )''')
 
 
