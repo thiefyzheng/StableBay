@@ -36,24 +36,29 @@
               fetchAttributes(category_id);
             });
 
-            function fetchAttributes(category_id) {
-              $.ajax({
-                url: '/get_attributes/' + category_id,
-                type: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                  var attributesHtml = '';
-                  response.forEach(function(attribute) {
-                    attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
-                    attributesHtml += '<input type="' + attribute['type'] + '" name="' + attribute['name'] + '"><br>';
-                  });
-                  $('#attributes_container').html(attributesHtml);
-                },
-                error: function(xhr, status, error) {
-                  console.error('Failed to fetch attributes:', status, error);
-                }
-              });
-            }
+       function fetchAttributes(category_id) {
+    $.ajax({
+        url: '/get_attributes/' + category_id,
+        type: 'GET',
+        dataType: 'json',
+        success: function(response) {
+            var attributesHtml = '';
+            response.forEach(function(attribute) {
+                attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
+                attributesHtml += '<input type="' + attribute['type'] + '" name="' + attribute['name'] + '"><br>';
+            });
+            $('#attributes_container').html(attributesHtml);
+
+            // Add category_id to JSON
+            var category_id_input = '<input type="hidden" name="category_id" value="' + category_id + '">';
+            $('#attributes_container').append(category_id_input);
+        },
+        error: function(xhr, status, error) {
+            console.error('Failed to fetch attributes:', status, error);
+        }
+    });
+}
+
         });
     </script>
 </head>

@@ -1,25 +1,25 @@
-import os
-import json
+import mysql.connector
 
-TORRENTS_DIR = "/home/stablebay/uploads/"
+# Database configuration
+db_host = 'localhost'
+db_user = 'stablebay'
+db_password = '6969'
+db_name = 'StableDB'
+
 def get_user_torrents(username):
-    torrents = []
-    for dirname in os.listdir(TORRENTS_DIR):
-        if not os.path.isdir(os.path.join(TORRENTS_DIR, dirname)):
-            continue
-        torrent_info_path = os.path.join(TORRENTS_DIR, dirname, "info.json")
-        if not os.path.exists(torrent_info_path):
-            continue
-        with open(torrent_info_path) as f:
-            info = json.load(f)
-        if info.get("uploaded_by") == username:
-            torrent = {
-                "name": info.get("name", dirname),
-                "description": info.get("description", ""),
-                "file_path": os.path.join(TORRENTS_DIR, dirname, f"{dirname}.torrent"),
-                "tags": info.get("tags", []),
-                "uploaded_by": info.get("uploaded_by", ""),
-                "upload_date": info.get("upload_date", ""),
-            }
-            torrents.append(torrent)
-    return torrents
+    # Connect to the database
+    cnx = mysql.connector.connect(user=db_user, password=db_password,
+                                  host=db_host, database=db_name)
+    cursor = cnx.cursor(dictionary=True)
+
+    # Execute the query
+    query = "SELECT * FROM models WHERE uploaded_by = %s"
+    cursor.execute(query, (username,))
+    models = cursor.fetchall()
+
+    # Close the database connection
+    cursor.close()
+    cnx.close()
+
+    return models
+

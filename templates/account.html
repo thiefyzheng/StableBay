@@ -2,6 +2,8 @@
 <html>
 <head>
     <title>User Torrents</title>
+    
+    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
     <div style="text-align: right;">
@@ -20,7 +22,7 @@
         <tbody>
             {% for torrent in torrents %}
                 <tr>
-                    <td style="border: 1px solid black; padding: 5px;"><a href="/torrents/{{ torrent.name }}">{{ torrent.name }}</a></td>
+                    <td style="border: 1px solid black; padding: 5px;"><a href="/torrents/{{ torrent.id }}">{{ torrent.name }}</a></td>
                     <td style="border: 1px solid black; padding: 5px;">{{ torrent.uploaded_by }}</td>
                     <td style="border: 1px solid black; padding: 5px;">{{ torrent.upload_date }}</td>
                     <td style="border: 1px solid black; padding: 5px;"><a href="{{ torrent.download_url }}">Download</a></td>

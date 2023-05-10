@@ -87,47 +87,6 @@ color: #0f4c81;
 border: 2px solid #0f4c81;
 }
 
-table {
-border-collapse: collapse;
-width: 100%;
-max-width: 800px;
-margin: 50px auto;
-border-radius: 10px;
-overflow: hidden;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-th {
-border: 1px solid black;
-padding: 5px;
-background-color: #0f4c81;
-color: white;
-text-align: left;
-}
-
-td {
-border: 1px solid black;
-padding: 5px;
-}
-
-tbody tr:nth-child(even) {
-background-color: #f2f2f2;
-}
-
-tbody tr:hover {
-background-color: #e6e6e6;
-}
-
-.magnet-link {
-display: flex;
-align-items: center;
-justify-content: center;
-}
-
-.magnet-link img {
-height: 30px;
-margin-right: 5px;
-}
 /* Style for body */
 body {
 margin: 0;
@@ -151,56 +110,78 @@ font-size: 20px;
 
 /* Style for container of torrents */
 .torrents-container {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-max-width: 800px;
-margin: 50px auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 100%;
 }
 
 /* Style for torrent boxes */
 .torrent-box {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-width: 300px;
-height: 350px;
-margin: 20px;
-border-radius: 10px;
-box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 350px;
+  margin: 20px 40px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+/* this is styles for the accounts pg.
+
+/* Style for the entire page */
+body {
+  background-color: #f5f5f5;
+  font-family: Arial, sans-serif;
 }
 
-/* Style for torrent image */
-.torrent-box img {
-width: 100%;
-height: 60%;
-object-fit: cover;
+/* Style for the page header */
+h1 {
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
 
-/* Style for torrent details */
-.torrent-details {
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-text-align: center;
-padding: 10px;
+/* Style for the table */
+table {
+  margin: 0 auto;
+  border-collapse: collapse;
+  border: 1px solid #ddd;
+  width: 80%;
+  max-width: 800px;
 }
 
-/* Style for torrent name */
-.torrent-details h3 {
-margin: 0;
-margin-top: 10px;
-font-size: 24px;
-font-weight: 700;
-color: #0f4c81;
+/* Style for the table header row */
+thead tr {
+  background-color: #f8f8f8;
 }
 
-/* Style for uploaded by and category */
-.torrent-details p {
-margin: 5px;
-font-size: 16px;
-color: #555;
+/* Style for the table header cells */
+th {
+  padding: 12px 15px;
+  text-align: left;
 }
+
+/* Style for the table data rows */
+td {
+  padding: 12px 15px;
+}
+
+/* Style for the alternating background color of the table data rows */
+tbody tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Style for the link in the table */
+a {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+/* Style for the link when hovering over it */
+a:hover {
+  text-decoration: underline;
+}
+s

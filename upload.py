@@ -8,7 +8,7 @@ app = Flask(__name__)
 # Database configuration
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '5488'
+db_password = '6969'
 db_name = 'StableDB'
 
 # Function to execute queries on MySQL
@@ -32,8 +32,11 @@ execute_query('''CREATE TABLE IF NOT EXISTS models (
                    magnet_link VARCHAR(10000) NOT NULL,
                    image_link VARCHAR(255),
                    uploaded_by VARCHAR(255) NOT NULL,
-                   upload_date DATETIME NOT NULL
+                   upload_date DATETIME NOT NULL,
+                   category INT,
+                   nsfw BOOLEAN DEFAULT FALSE
                )''')
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload():

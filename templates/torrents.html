@@ -3,6 +3,28 @@
 <head>
     <title>Torrents</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <style>
+        .torrents-container {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        {% for torrent in torrents %}
+        .torrent-box-{{ torrent.id }} {
+            background-image: url("{{ torrent.image_url }}");
+            background-size: cover;
+            background-position: center;
+        }
+        {% endfor %}
+
+        .category-box,
+        .torrent-details {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            margin: 10px;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
     <div style="text-align: right;">
@@ -11,12 +33,11 @@
     <div class="torrents-container">
         {% for torrent in torrents %}
             <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
-                <div class="torrent-box">
-                    <img src="{{ torrent.image_url }}" alt="{{ torrent.name }}">
+                <div class="torrent-box torrent-box-{{ torrent.id }}">
+                    <div class="category-box">{{ torrent.category }}</div>
                     <div class="torrent-details">
                         <h3>{{ torrent.name }}</h3>
                         <p>Uploaded by: {{ torrent.uploaded_by }}</p>
-                        <p>Category: {{ torrent.category }}</p>
                     </div>
                 </div>
             </a>

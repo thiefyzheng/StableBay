@@ -3,7 +3,7 @@ import mysql.connector
 # Database configuration
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '5488'
+db_password = '6969'
 db_name = 'StableDB'
 
 # Connect to the database
@@ -43,7 +43,8 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS attributes (
 # Insert some sample attributes
 attributes = [('Training Data', 'The type of training data used'),
               ('Merge', 'Whether the model merges information'),
-              ('Model Type', 'The type of model used, e.g. realism, anime, etc.')]
+              ('Model Type', 'The type of model used, e.g. realism, anime, etc.'),
+              ('LoRA Type', 'The type of LoRA model used')]
 
 for attribute in attributes:
     query = "INSERT INTO attributes (name, description) SELECT %s, %s WHERE NOT EXISTS (SELECT * FROM attributes WHERE name=%s)"
@@ -74,7 +75,8 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS model_attributes (
 # Define the category-attribute relationships
 category_attributes = [('Checkpoint', 'Training Data', True),
                        ('Checkpoint', 'Merge', True),
-                       ('Checkpoint', 'Model Type', True)]
+                       ('Checkpoint', 'Model Type', True),
+                       ('LoRA', 'LoRA Type', True)]
 
 for category_attribute in category_attributes:
     category_query = "SELECT id FROM categories WHERE name=%s"

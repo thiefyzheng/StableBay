@@ -1,17 +1,12 @@
 import hashlib
 import json
 
-import os
-from torrents import get_torrents
-
-from flask import Flask, render_template, request, redirect, url_for, session
-
-from authent import register
-from upload import upload
+from flask import Flask, redirect, url_for
 
 from account import get_user_torrents
-
-
+from authent import register
+from torrents import get_torrents
+from upload import upload
 
 # Rest of the code for app.py
 
@@ -100,11 +95,13 @@ def upload_route():
 
     return render_template('upload.html')
 
-from upload2 import get_categories
-
-from upload2 import get_attributes
 
 from upload2 import get_categories, get_attributes, add_model_attributes
+import mysql.connector
+db_host = 'localhost'
+db_user = 'stablebay'
+db_password = '6969'
+db_name = 'StableDB'
 
 @app.route('/upload2/<string:model_id>', methods=['GET', 'POST'])
 def upload2(model_id):
@@ -122,7 +119,6 @@ def upload2(model_id):
         print("Selected category ID:", category_id)
         print("Form data:", request.form)
 
-
         # Get the category attributes for the selected category
         category_attributes = get_attributes(category_id)
         print("Category attributes:", category_attributes)
@@ -131,14 +127,24 @@ def upload2(model_id):
         attribute_values_json = json.dumps({key: value for key, value in request.form.items() if key not in ['category_id', 'request_type']})
         add_model_attributes(model_id, attribute_values_json)
 
+        # Update the category for the model in the database
+        conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+        cursor = conn.cursor()
+        query = '''
+        UPDATE models
+        SET category = %s
+        WHERE id = %s
+        '''
+        cursor.execute(query, (category_id, model_id))
+        conn.commit()
+        conn.close()
+
         # Redirect to the next step in the upload process, passing the model_id as a parameter
         return redirect(url_for('uploaded_route', model_id=model_id))
 
     return render_template('upload2.html', model_id=model_id, categories=categories, category_attributes=category_attributes)
 
 
-
-from flask import jsonify
 @app.route('/add_model_attributes/<int:model_id>', methods=['POST'])
 def add_model_attributes_endpoint(model_id):
     attribute_values_json = request.form.get('attribute_values')
@@ -154,20 +160,6 @@ def get_attributes_route(category_id):
         return 'Failed to get category attributes', 500
 
 
-
-from flask import jsonify
-
-
-
-
-
-
-import mysql.connector
-
-
-
-
-
 # Route for logging out
 @app.route('/logout')
 def logout():
@@ -179,14 +171,16 @@ def logout():
 def uploaded_route():
     return render_template('uploaded.html')
 
+
+import requests
+
 @app.route('/torrents')
 def torrents():
-    torrents = get_torrents()
+    torrents_json = get_torrents()
+    torrents = json.loads(torrents_json)
     return render_template('torrents.html', torrents=torrents)
 
-
 from flask import render_template, session
-import os
 import datetime
 
 @app.route('/torrents/<string:torrent_name>/edit', methods=['GET', 'POST'])
@@ -218,19 +212,13 @@ def edit_torrent(torrent_name):
             # Render the edit torrent template with the torrent data
             return render_template('edit_torrent.html', torrent=torrent_data)
     else:
-        # Redirect to a "Access Denied" or "Rick Roll" page
+        # Redirect to an "Access Denied" or "Rick Roll" page
         return redirect('/rickroll')
 
 
 @app.route('/rickroll')
 def rickroll():
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ", code=302)
-
-
-
-
-
-import uuid
 
 
 @app.route('/account/<username>')
