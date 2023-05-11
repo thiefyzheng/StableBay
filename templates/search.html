@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Torrents</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <style>
+     .torrents-container {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+{% for torrent in torrents %}
+.torrent-box-{{ torrent.id }} {
+    background-image: url("{{ torrent.image_url }}");
+    background-size: cover;
+    background-position: center;
+}
+{% endfor %}
+
+.category-box,
+.torrent-details {
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 10px;
+    margin: 10px;
+}
+
+.search-container {
+    margin: 10px auto;
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    width: 90%; /* updated */
+    max-width: 600px; /* added */
+    display: flex; /* added */
+}
+
+.search-container input[type="text"] {
+    flex: 1; /* added */
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid #555;
+}
+
+.search-container button[type="submit"] {
+    font-size: 24px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #555;
+    color: #fff;
+    border: none;
+    margin-left: 10px; /* added */
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+    <div style="text-align: right;">
+        <a href="/">StableBay</a>
+    </div>
+    <div class="search-container">
+        <form method="GET" action="/search">
+            <input type="text" name="query" placeholder="Search Torrents" required>
+            <button type="submit">Search</button>
+        </form>
+    </div>
+    <div class="torrents-container">
+        {% for torrent in torrents %}
+            <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
+                <div class="torrent-box torrent-box-{{ torrent.id }}">
+                    <div class="category-box">{{ torrent.category }}</div>
+                    <div class="torrent-details">
+                        <h3>{{ torrent.name }}</h3>
+                        <p>Uploaded by: {{ torrent.uploaded_by }}</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+</body>
+</html>
+

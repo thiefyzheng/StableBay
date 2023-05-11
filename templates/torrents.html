@@ -23,12 +23,46 @@
             padding: 10px;
             margin: 10px;
         }
+
+        .search-container {
+            margin: 10px auto;
+            padding: 10px;
+            border: 1px solid gray;
+            border-radius: 5px;
+            width: 90%; /* updated */
+            max-width: 600px; /* added */
+            display: flex; /* added */
+        }
+
+        .search-container input[type="text"] {
+            flex: 1; /* added */
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #555;
+        }
+
+        .search-container button[type="submit"] {
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #555;
+            color: #fff;
+            border: none;
+            margin-left: 10px; /* added */
+            cursor: pointer;
+        }
     </style>
-    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
     <div style="text-align: right;">
         <a href="/">StableBay</a>
+    </div>
+    <div class="search-container">
+        <form method="GET" action="/search">
+            <input type="text" name="query" placeholder="Search Torrents">
+            <button type="submit">Search</button>
+        </form>
     </div>
     <div class="torrents-container">
         {% for torrent in torrents %}

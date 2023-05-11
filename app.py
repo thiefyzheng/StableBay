@@ -42,6 +42,23 @@ def torrent(id):
         # If the torrent does not exist, redirect to the homepage
         return redirect(url_for('index'))
 
+
+from search import search_torrents
+@app.route('/search')
+def search():
+    query = request.args.get('query')
+    if not query:
+        return 'Please enter a search query.'
+
+    print('Search query:', query)
+
+    results = search_torrents(query)
+    results_json = json.loads(results)
+
+    return render_template('search.html', torrents=results_json)
+
+
+
 # Route for the register page
 @app.route('/register', methods=['GET', 'POST'])
 def register_user():

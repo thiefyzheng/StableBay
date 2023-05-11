@@ -1,22 +1,44 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Torrents</title>
-	<link rel="stylesheet" type="text/css" href="/static/style.css">
+    <title>Torrents</title>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
-	<div class="container">
-		{% if session.logged_in %}
-			<p style="text-align: right; margin: 0;">Welcome, {{ session.username }}! | <a href="/upload" class="button">Upload Torrent</a> | <a href="/account/{{ session.username }}" class="button">My Account</a> | <a href="/logout" class="button">Logout</a></p>
-		{% else %}
-			<p style="text-align: right; margin: 0;"><a href="/login" class="button">Login</a> <a href="/register" class="button">Create Account</a></p>
-		{% endif %}
-		<h1>Welcome to Stablebay</h1>
-		<div style="text-align: center;">
-			<a href="/torrents" class="button">View Torrents</a>
-		</div>
-    	<p>StableBay takes $10 to run per month. Support us on <a href="https://ko-fi.com/stablebay" target="_blank">Ko-fi</a>.</p>
-	</div>
+    <div class="container">
+        {% if session.logged_in %}
+            <p style="text-align: right; margin: 0;">Welcome, {{ session.username }}! | <a href="/upload" class="button">Upload Torrent</a> | <a href="/account/{{ session.username }}" class="button">My Account</a> | <a href="/logout" class="button">Logout</a></p>
+        {% else %}
+            <p style="text-align: right; margin: 0;"><a href="/login" class="button">Login</a> <a href="/register" class="button">Create Account</a></p>
+        {% endif %}
+        <h1 style="text-align: center;">Welcome to Stablebay</h1>
+        <div style="text-align: center; margin-top: 50px;">
+            <form method="GET" action="/search" style="display: inline-block;">
+                <input type="text" name="query" placeholder="Search Torrents" style="font-size: 24px; padding: 10px; border-radius: 5px; border: 2px solid #555;">
+                <button type="submit" style="font-size: 24px; padding: 10px; border-radius: 5px; background-color: #555; color: #fff; border: none;">Search</button>
+            </form>
+        </div>
+        {% if results %}
+            <h2>Search Results:</h2>
+            <div class="torrents-container">
+                {% for torrent in results %}
+                    <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
+                        <div class="torrent-box torrent-box-{{ torrent.id }}">
+                            <div class="category-box">{{ torrent.category }}</div>
+                            <div class="torrent-details">
+                                <h3>{{ torrent.name }}</h3>
+                                <p>Uploaded by: {{ torrent.uploaded_by }}</p>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+        {% endif %}
+        <div style="text-align: center;">
+            <a href="/torrents" class="button" style="font-size: 24px; padding: 10px; border-radius: 5px; margin-top: 50px;">View Torrents</a>
+        </div>
+        <p style="text-align: center;">StableBay takes $10 to run per month. Support us on <a href="https://ko-fi.com/stablebay" target="_blank">Ko-fi</a>.</p>
+    </div>
 </body>
 </html>
 
