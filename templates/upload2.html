@@ -3,81 +3,166 @@
 <head>
     <title>Upload - Step 2</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        select, input[type="text"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            color: #fff;
+            background-color: #0f4c81;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #fff;
+            color: #0f4c81;
+            border: 2px solid #0f4c81;
+        }
+
+        .delete-button {
+          display:inline-block; 
+          padding :8px 16px; 
+          background-color:#0f4c81; 
+          color:#fff; 
+          font-size :14px; 
+          font-weight :700; 
+          text-transform :uppercase; 
+          text-decoration:none; 
+          border-radius :4px; 
+          transition :all .3s ease; 
+          margin-top :30px; 
+          cursor:pointer; 
+        }
+
+        .delete-button:hover {
+          background-color:#fff; 
+          color:#0f4c81; 
+          border :2px solid #0f4c81; 
+        }
+        
+        .guide {
+           font-size :14px ;  
+           color:#555 ;  
+           margin-bottom :20px ;  
+         }
+    </style>
     <script>
-        $(document).ready(function(){
-            // When a category is selected, send an AJAX request to get the category attributes
-            $('#category').change(function(){
-                var category_id = $(this).val();
-                $.ajax({
-                    type: 'GET',
-                    url: '/get_attributes/' + category_id,
-                    success: function(data){
-                        // Generate HTML for the attributes and append it to the container div
-                        var attributes_html = '';
-                        $.each(data, function(key, value) {
-                            attributes_html += '<label for="' + value.name + '">' + value.label + ':</label>';
-                            attributes_html += '<input type="' + value.type + '" name="' + value.name + '"><br>';
-                        });
-                        $('#attributes_container').html(attributes_html);
-                    },
-                    error: function(){
-                        alert('Failed to get category attributes');
-                    }
-                });
-            });
+       $(document).ready(function(){
             
-            // Fetch attributes for category on page load
-            var category_id = $('#category').val();
-            fetchAttributes(category_id);
-
-            // Update attributes when category is changed
-            $('#category').on('change', function() {
-              var category_id = $(this).val();
-              fetchAttributes(category_id);
-            });
-
        function fetchAttributes(category_id) {
     $.ajax({
-        url: '/get_attributes/' + category_id,
-        type: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            var attributesHtml = '';
-            response.forEach(function(attribute) {
-                attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
-                attributesHtml += '<input type="' + attribute['type'] + '" name="' + attribute['name'] + '"><br>';
-            });
-            $('#attributes_container').html(attributesHtml);
+        url:'/get_attributes/' + category_id,
+        type:'GET',
+        dataType:'json',
+        success:function(response) {
+                var attributesHtml = '';
+                response.forEach(function(attribute) {
+                    attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
+                    attributesHtml += '<div class="input-group">';
+                    attributesHtml += '<input type="' + attribute['type'] + '" name="' + attribute['name'] + '">';
+                    attributesHtml += '</div><br>';
+                });
+                $('#attributes_container').html(attributesHtml);
 
-            // Add category_id to JSON
-            var category_id_input = '<input type="hidden" name="category_id" value="' + category_id + '">';
-            $('#attributes_container').append(category_id_input);
+                // Add event listener to create new input field when Tab is pressed
+                $(document).on('keydown', '.input-group input', function(e) {
+                    if (e.which == 9) {
+                        e.preventDefault();
+                        var new_input = $('<input type="' + $(this).attr('type') + '" name="' + $(this).attr('name') + '">');
+                        var delete_button = $('<button class="delete-button">Delete</button>');
+                        var new_input_group = $('<div class="input-group"></div>');
+                        new_input_group.append(new_input);
+                        new_input_group.append(delete_button);
+                        $(this).parent().after(new_input_group);
+                        new_input.focus();
+                    }
+                });
+
+                // Add event listener to delete input field when delete button is clicked
+                $(document).on('click', '.delete-button', function() {
+                    $(this).parent().remove();
+                });
+
+                // Add category_id to JSON
+                var category_id_input = '<input type="hidden" name="category_id" value="' + category_id + '">';
+                $('#attributes_container').append(category_id_input);
+            
         },
-        error: function(xhr, status, error) {
-            console.error('Failed to fetch attributes:', status, error);
-        }
+        
     });
 }
 
-        });
-    </script>
+// When a category is selected, send an AJAX request to get the category attributes
+$('#category').change(function(){
+    var category_id = $(this).val();
+    fetchAttributes(category_id);
+});
+
+// Fetch attributes for category on page load
+var category_id = $('#category').val();
+fetchAttributes(category_id);
+
+// Update attributes when category is changed
+$('#category').on('change', function() {
+    var category_id = $(this).val();
+    fetchAttributes(category_id);
+});
+
+});
+</script>
 </head>
 <body>
     {% if error %}
-        <p style="color: red">{{ error }}</p>
+      <p style="color:red">{{ error }}</p>
     {% endif %}
     <form method="post" action="/upload2/{{ model_id }}" enctype="multipart/form-data">
-        <label for="category">Category:</label>
-        <select name="category_id" id="category">
-            {% for category in categories %}
-            <option value="{{ category[0] }}">{{ category[1] }}</option>
-            {% endfor %}
-        </select><br>
-        
-        <div id="attributes_container"></div>
-        
-        <input type="hidden" name="request_type" value="POST">
-        <input type="submit" value="Upload">
+      <label for="category">Category:</label>
+      <select name="category_id" id="category">
+      {% for category in categories %}
+      <option value="{{ category[0] }}">{{ category[1] }}</option>
+      {% endfor %}
+      </select><br>
+
+      <div id="attributes_container"></div>
+
+      <p class="guide">Tip: Press the `Tab` key after entering a value in any of the input fields to create a new input field for that attribute.</p>
+
+      <input type="hidden" name="request_type" value="POST">
+      <input type="submit" value="Upload">
     </form>
 
 </body>

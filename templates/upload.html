@@ -3,6 +3,56 @@
 <head>
     <title>Upload</title>
     <script src="https://cdn.jsdelivr.net/webtorrent/latest/webtorrent.min.js"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f7f7f7;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], textarea {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        input[type="submit"] {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            font-family: 'Montserrat', sans-serif;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+            color: #fff;
+            background-color: #0f4c81;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #fff;
+            color: #0f4c81;
+            border: 2px solid #0f4c81;
+        }
+    </style>
     <script>
         function extractMagnet() {
             var torrentFile = document.getElementById('torrent_file').files[0];
@@ -19,20 +69,22 @@
 </head>
 <body>
     {% if error %}
-        <p style="color: red">{{ error }}</p>
+      <p style="color:red">{{ error }}</p>
     {% endif %}
     <form method="post" action="/upload" enctype="multipart/form-data">
-        <label for="model_name">Model name:</label>
-        <input type="text" name="model_name" id="model_name"><br>
-        <label for="short_description">Short description:</label>
-        <textarea name="short_description" id="short_description"></textarea><br>
-        <label for="torrent_file">Torrent file:</label>
-        <input type="file" name="torrent_file" id="torrent_file" onchange="extractMagnet()"><br>
-        <label for="image_link">Image link:</label>
-        <input type="text" name="image_link" id="image_link"><br>
-        <label for="magnet_link" style="display:block;">Magnet link:</label>
-        <textarea name="magnet_link" id="magnet_link" readonly rows="5"></textarea><br>
-        <input type="submit" value="Upload">
+      <label for="model_name">Model name:</label>
+      <input type="text" name="model_name" id="model_name"><br>
+      <label for="short_description">Short description:</label>
+      <textarea name="short_description" id="short_description"></textarea><br>
+      <label for="torrent_file">Torrent file:</label>
+      <input type="file" name="torrent_file" id="torrent_file" onchange="extractMagnet()"><br>
+      <label for="image_link">Image link:</label>
+      <input type="text" name="image_link" id="image_link"><br>
+      <label for="magnet_link">Magnet link:</label>
+      <textarea name="magnet_link" id="magnet_link" readonly rows="5"></textarea><br>
+      <input type="submit" value="Upload">
     </form>
+
 </body>
 </html>
+
