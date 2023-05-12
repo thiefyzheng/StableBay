@@ -22,13 +22,23 @@ with open('torrents.json', 'r') as f:
 # Route for the homepage
 @app.route('/')
 def index():
-    torrents = []
-    for filename in os.listdir('/home/stablebay/uploads/'):
-        if filename.endswith('.torrent'):
-            filepath = os.path.join('stablebay/uploads', filename)
-            torrent = Torrent.from_file(filepath)
-            torrents.append(torrent)
-    return render_template('index.html', torrents=torrents, user=session.get('user'))
+    # Establish database connection
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+
+    cursor = conn.cursor()
+
+    # Retrieve category names and ids from the database
+    cursor.execute("SELECT id, name FROM categories")
+    categories = cursor.fetchall()
+
+    # Close database connection
+    cursor.close()
+    conn.close()
+
+    print(categories)
+    return render_template('index.html', categories=categories, user=session.get('user'))
+
+
 
 # Route for displaying a single torrent
 @app.route('/torrent/<int:id>')
@@ -44,19 +54,32 @@ def torrent(id):
 
 
 from search import search_torrents
+
+
 @app.route('/search')
 def search():
     query = request.args.get('query')
-    if not query:
-        return 'Please enter a search query.'
+    category = request.args.get('category')
 
     print('Search query:', query)
+    print('Category:', category)
 
-    results = search_torrents(query)
+    # Open database connection
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+
+    # Retrieve category names and ids from the database
+    cursor.execute("SELECT id, name FROM categories")
+    categories = cursor.fetchall()
+
+    # Close database connection
+    cursor.close()
+    conn.close()
+
+    results = search_torrents(query, category)
     results_json = json.loads(results)
 
-    return render_template('search.html', torrents=results_json)
-
+    return render_template('search.html', torrents=results_json, categories=categories)
 
 
 # Route for the register page
@@ -193,10 +216,21 @@ import requests
 
 @app.route('/torrents')
 def torrents():
+
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+
+    # Retrieve category names and ids from the database
+    cursor.execute("SELECT id, name FROM categories")
+    categories = cursor.fetchall()
+
+    # Close database connection
+    cursor.close()
+    conn.close()
+
     torrents_json = get_torrents()
     torrents = json.loads(torrents_json)
-    return render_template('torrents.html', torrents=torrents)
-
+    return render_template('torrents.html', torrents=torrents, categories=categories)
 from flask import render_template, session
 import datetime
 
@@ -244,78 +278,19 @@ def account(username):
     return render_template('account.html', torrents=user_torrents)
 
 
+from torrent_details import get_torrent_details
+@app.route('/torrents/<string:torrent_id>', methods=['GET'])
+def torrent_details(torrent_id):
+    # Get the torrent details using the provided ID
+    torrent = get_torrent_details(torrent_id)
 
-@app.route('/torrents/<string:torrent_name>', methods=['GET', 'POST'])
-def torrent_details(torrent_name):
-    # Construct the path to the info.json file for the given torrent
-    info_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'info.json')
+    # Check if the torrent exists
+    if not torrent:
+        return "Torrent not found", 404
 
-    # Check if the info.json file exists for the given torrent
-    if not os.path.exists(info_path):
-        return 'Torrent not found', 404
+    # Render the template with the torrent data
+    return render_template('torrent_details.html', torrent=torrent)
 
-    # Read the data from the info.json file
-    with open(info_path, 'r') as f:
-        torrent_data = json.load(f)
-
-    # Get the tags from the info.json file
-    tags = torrent_data.get('tags', [])
-
-    # Handle comment form submission
-    if request.method == 'POST':
-        if 'username' not in session:
-            return 'You must be logged in to submit a comment', 401
-
-        comment = request.form['comment']
-        username = session['username']
-        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-        # Construct path to comments JSON file for the given torrent
-        comments_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')
-
-        # Load existing comments from comments JSON file (if it exists)
-        if os.path.exists(comments_path):
-            with open(comments_path, 'r') as f:
-                comments_data = json.load(f)
-        else:
-            comments_data = {'comments': []}
-
-        # Generate a unique ID for the new comment
-        comment_id = len(comments_data['comments']) + 1
-
-        # Add the new comment to the comments data with the generated ID
-        comments_data['comments'].append({
-            'id': comment_id,
-            'username': username,
-            'timestamp': timestamp,
-            'comment': comment,
-            'upvotes': 0,
-            'downvotes': 0
-        })
-
-        # Write the updated comments data to the comments JSON file
-        with open(comments_path, 'w') as f:
-            json.dump(comments_data, f)
-
-        # Reload the page to display the new comment
-        return redirect(request.url)
-
-    # Load comments from comments JSON file (if it exists)
-    if os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')):
-        with open(os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json'), 'r') as f:
-            comments_data = json.load(f)
-            comments = comments_data['comments']
-
-            # Sort the comments by the highest upvote - downvote count
-            comments.sort(key=lambda x: x['upvotes'] - x['downvotes'], reverse=True)
-    else:
-        comments = []
-
-    # Render the template with the torrent data, tags, and comments
-    return render_template('torrent_details.html', torrent=torrent_data, tags=tags, comments=comments)
-
-
-app.config['UPLOAD_FOLDER'] = '/home/stablebay/uploads'
 
 
 @app.route('/torrents/<string:torrent_name>/comments/<int:comment_id>', methods=['DELETE','POST'])

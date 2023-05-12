@@ -9,15 +9,15 @@ db_password = '6969'
 db_name = 'StableDB'
 
 
-def get_torrents(limit=10):
+def get_torrents(limit=64):
     # Establish database connection
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
 
     cursor = conn.cursor()
 
-    # Define query to get torrent information, uploader name, and category name
+    # Define query to get torrent information, uploader name, category name, and nsfw attribute
     query = """
-        SELECT m.id, m.name, m.uploaded_by, m.image_link, m.upload_date, c.name
+        SELECT m.id, m.name, m.uploaded_by, m.image_link, m.upload_date, c.name, m.nsfw
         FROM models m
         JOIN categories c ON m.category = c.id
         ORDER BY m.upload_date DESC
@@ -41,7 +41,8 @@ def get_torrents(limit=10):
             'uploaded_by': result[2],
             'image_url': result[3],
             'upload_date': str(result[4]),
-            'category': result[5]
+            'category': result[5],
+            'nsfw': bool(result[6])
         }
         print(torrent)
         torrents.append(torrent)

@@ -3,15 +3,71 @@
   <head>
     <meta charset="UTF-8">
     <title>Login Page</title>
+
+    <style>
+      /* styles for the login page */
+      body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+      }
+
+      h1 {
+        color: #333;
+        font-size: 2.5em;
+        text-align: center;
+        margin-top: 50px;
+      }
+
+      form {
+        width: 400px;
+        margin: 50px auto;
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      }
+
+      label {
+        display: block;
+        margin-bottom: 10px;
+        color: #333;
+        font-size: 1.2em;
+      }
+
+      input[type="text"],
+      input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        margin-bottom: 20px;
+        font-size: 1.2em;
+      }
+
+      input[type="submit"] {
+        background-color: #0f4c81;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        font-size: 1.2em;
+        cursor: pointer;
+      }
+
+      input[type="submit"]:hover {
+        background-color: #444;
+      }
+    </style>
+
   </head>
   <body>
     <h1>Login</h1>
     <form action="/login" method="post">
       <label for="username">Username:</label>
-      <input type="text" id="username" name="username"><br>
+      <input type="text" id="username" name="username">
 
       <label for="password">Password:</label>
-      <input type="password" id="password" name="password"><br>
+      <input type="password" id="password" name="password">
 
       <input type="submit" value="Login">
     </form>

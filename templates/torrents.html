@@ -29,13 +29,22 @@
             padding: 10px;
             border: 1px solid gray;
             border-radius: 5px;
-            width: 90%; /* updated */
-            max-width: 600px; /* added */
-            display: flex; /* added */
+            width: 90%;
+            max-width: 600px;
+            display: flex;
+            justify-content: space-between; /* added */
+            align-items: center; /* added */
+        }
+
+        .search-container select {
+            font-size: 24px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid #555;
         }
 
         .search-container input[type="text"] {
-            flex: 1; /* added */
+            flex: 1;
             font-size: 24px;
             padding: 10px;
             border-radius: 5px;
@@ -49,10 +58,16 @@
             background-color: #555;
             color: #fff;
             border: none;
-            margin-left: 10px; /* added */
+            margin-left: 10px;
             cursor: pointer;
         }
     </style>
+    
+    
+
+<head>
+    <title>StableBay - Search Torrents</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <div style="text-align: right;">
@@ -60,10 +75,21 @@
     </div>
     <div class="search-container">
         <form method="GET" action="/search">
-            <input type="text" name="query" placeholder="Search Torrents">
-            <button type="submit">Search</button>
+            <div style="display: inline-block;">
+                <select name="category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                    <option value="{{ category[0] }}">{{ category[1].replace("'", "").replace("(", "").replace(")", "") }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div style="display: inline-block;">
+                <input type="text" name="query" placeholder="Search Torrents">
+                <button type="submit">Search</button>
+            </div>
         </form>
     </div>
+
     <div class="torrents-container">
         {% for torrent in torrents %}
             <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">

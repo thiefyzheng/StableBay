@@ -5,6 +5,7 @@
     <link rel="stylesheet" type="text/css" href="/static/style.css">
 </head>
 <body>
+
     <div class="container">
         {% if session.logged_in %}
             <p style="text-align: right; margin: 0;">Welcome, {{ session.username }}! | <a href="/upload" class="button">Upload Torrent</a> | <a href="/account/{{ session.username }}" class="button">My Account</a> | <a href="/logout" class="button">Logout</a></p>
@@ -14,6 +15,12 @@
         <h1 style="text-align: center;">Welcome to Stablebay</h1>
         <div style="text-align: center; margin-top: 50px;">
             <form method="GET" action="/search" style="display: inline-block;">
+                <select name="category">
+                    <option value="">All Categories</option>
+                    {% for category in categories %}
+                        <option value="{{ category[0] }}">{{ category[1].replace("'", "").replace("(", "").replace(")", "") }}</option>
+                    {% endfor %}
+                </select>
                 <input type="text" name="query" placeholder="Search Torrents" style="font-size: 24px; padding: 10px; border-radius: 5px; border: 2px solid #555;">
                 <button type="submit" style="font-size: 24px; padding: 10px; border-radius: 5px; background-color: #555; color: #fff; border: none;">Search</button>
             </form>
