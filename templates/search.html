@@ -4,6 +4,16 @@
     <title>Torrents</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <style>
+        .header-container {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .header-container a {
+            margin-right: auto;
+        }
+
         .torrents-container {
             display: flex;
             flex-wrap: wrap;
@@ -29,14 +39,14 @@
             padding: 10px;
             border: 1px solid gray;
             border-radius: 5px;
-            width: 90%; /* updated */
-            max-width: 600px; /* added */
-            display: flex; /* added */
+            width: 90%;
+            max-width: 600px;
+            display: flex;
         }
 
         .search-container select[name="category"],
         .search-container input[type="text"] {
-            flex: 1; /* added */
+            flex: 1;
             font-size: 24px;
             padding: 10px;
             border-radius: 5px;
@@ -50,16 +60,15 @@
             background-color: #555;
             color: #fff;
             border: none;
-            margin-left: 10px; /* added */
+            margin-left: 10px;
             cursor: pointer;
         }
     </style>
-<head>
-    <title>StableBay</title>
 </head>
 <body>
-<div style="text-align: right;">
+<div class="header-container">
     <a href="/">StableBay</a>
+    <div style="margin-left: auto;"></div>
 </div>
 <div class="search-container">
     <form method="GET" action="/search">

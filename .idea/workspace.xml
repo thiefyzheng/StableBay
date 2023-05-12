@@ -7,12 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Improved the search and login page, and added the details.">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/torrent_details.py" beforeDir="false" afterPath="$PROJECT_DIR$/torrent_details.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/upload2.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload2.py" afterDir="false" />
-    </list>
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Some more fixes" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -286,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683850451022</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="Added the page for torrent details. Refixed attribute uploading........  . .">
+      <created>1683866494173</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1683866494173</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -316,7 +318,8 @@
     <MESSAGE value="Finally fixed the attribute savingssss" />
     <MESSAGE value="search addeddddddddd" />
     <MESSAGE value="Improved the search and login page, and added the details." />
-    <option name="LAST_COMMIT_MESSAGE" value="Improved the search and login page, and added the details." />
+    <MESSAGE value="Added the page for torrent details. Refixed attribute uploading........  . ." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added the page for torrent details. Refixed attribute uploading........  . ." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
