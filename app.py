@@ -279,6 +279,8 @@ def account(username):
 
 
 from torrent_details import get_torrent_details
+
+
 @app.route('/torrents/<string:torrent_id>', methods=['GET'])
 def torrent_details(torrent_id):
     # Get the torrent details using the provided ID
@@ -288,9 +290,11 @@ def torrent_details(torrent_id):
     if not torrent:
         return "Torrent not found", 404
 
+    # Print the torrent data
+    print(torrent)
+
     # Render the template with the torrent data
     return render_template('torrent_details.html', torrent=torrent)
-
 
 
 @app.route('/torrents/<string:torrent_name>/comments/<int:comment_id>', methods=['DELETE','POST'])

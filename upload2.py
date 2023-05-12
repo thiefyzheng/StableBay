@@ -140,22 +140,8 @@ def add_model_attributes(model_id, attribute_values_json):
         # Create a cursor to execute queries
         cursor = conn.cursor()
 
-        # Insert the category ID into the models table
-        category_id = int(attribute_values['category_id'][0])
-        print("Category ID:", category_id)
-        query = '''
-        UPDATE models
-        SET category = %s
-        WHERE id = %s
-        '''
-        cursor.execute(query, (category_id, model_id))
-
-        # Loop through the remaining attributes and insert them into the model_attributes table
+        # Loop through the attributes and insert them into the model_attributes table
         for key, value in attribute_values.items():
-            # Skip the category_id since we already inserted it into the models table
-            if key == 'category_id':
-                continue
-
             # Get the attribute ID
             query = '''
             SELECT id FROM attributes
@@ -183,3 +169,4 @@ def add_model_attributes(model_id, attribute_values_json):
     finally:
         # Close the database connection
         conn.close()
+

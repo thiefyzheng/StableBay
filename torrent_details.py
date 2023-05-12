@@ -15,7 +15,7 @@ def get_torrent_details(torrent_id):
 
     # Retrieve torrent details from the database
     cursor.execute(
-        "SELECT models.id, models.name, models.description, models.magnet_link, models.image_link, models.uploaded_by, models.upload_date, categories.name as category FROM models INNER JOIN categories ON models.category = categories.id WHERE models.id = %s",
+        "SELECT models.id, models.name, models.description, models.magnet_link, models.image_link, models.uploaded_by, models.upload_date, categories.id as category_id, categories.name as category FROM models INNER JOIN categories ON models.category = categories.id WHERE models.id = %s",
         (torrent_id,))
     torrent = cursor.fetchone()
 
@@ -33,3 +33,4 @@ def get_torrent_details(torrent_id):
         torrent['attributes'][attribute['name']] = attribute['value']
 
     return torrent
+
