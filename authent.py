@@ -1,32 +1,57 @@
-import json
+import yagmail
+import os
+import random
+import string
+import mysql.connector
 import hashlib
 
+# Database configuration
+db_host = 'localhost'
+db_user = 'stablebay'
+db_password = '6969'
+db_name = 'StableDB'
+
 def register(email, username, password):
-    # Load the users from the JSON file
-    with open('users.json', 'r') as f:
-        users = json.load(f)
+    # Load the Gmail password from a text file
+    with open('password.txt', 'r') as f:
+        password = f.read().strip()
+
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+
+    # Create a cursor to execute queries
+    cursor = conn.cursor()
 
     # Check if the email already exists
-    if any('email' in user and user['email'] == email for user in users.values()):
+    query = "SELECT * FROM users WHERE email=%s"
+    cursor.execute(query, (email,))
+    if cursor.fetchone():
         return False, 'Email already exists'
 
     # Check if the username already exists
-    if username in users:
+    query = "SELECT * FROM users WHERE username=%s"
+    cursor.execute(query, (username,))
+    if cursor.fetchone():
         return False, 'Username already exists'
 
     # Hash the password using sha256
     hashed_password = hashlib.sha256(password.encode()).hexdigest()
 
-    # Add the new user to the dictionary of users
-    new_user = {
-        'email': email,
-        'username': username,
-        'password': hashed_password
-    }
-    users[username] = new_user
+    # Generate a random verification code
+    verification_code = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
 
-    # Write the updated dictionary of users back to the JSON file
-    with open('users.json', 'w') as f:
-        json.dump(users, f)
+    # Add the new user to the users table
+    query = "INSERT INTO users (email, username, password, verification_code) VALUES (%s, %s, %s, %s)"
+    cursor.execute(query, (email, username, hashed_password, verification_code))
+
+    # Commit the changes and close the database connection
+    conn.commit()
+    conn.close()
+
+    # Send verification email using yagmail
+    yag = yagmail.SMTP('stablebay.org@gmail.com', password)
+    subject = 'Email Verification'
+    body = f'Please verify your email by clicking on this link: <verification link> or entering this code: {verification_code}'
+    yag.send(email, subject, body)
 
     return True, 'Registration successful'

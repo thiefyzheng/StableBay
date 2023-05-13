@@ -1,13 +1,18 @@
 import hashlib
 import json
 
-from flask import Flask, redirect, url_for
+from flask import Flask, redirect, url_for, session
 
 from account import get_user_torrents
 from authent import register
 from torrents import get_torrents
 from upload import upload
-
+import mysql.connector
+# Database configuration
+db_host = 'localhost'
+db_user = 'stablebay'
+db_password = '6969'
+db_name = 'StableDB'
 # Rest of the code for app.py
 
 
@@ -82,6 +87,18 @@ def search():
     return render_template('search.html', torrents=results_json, categories=categories)
 
 
+
+
+
+
+
+
+
+
+
+from flask import request
+from flask import render_template
+
 # Route for the register page
 @app.route('/register', methods=['GET', 'POST'])
 def register_user():
@@ -97,7 +114,15 @@ def register_user():
     else:
         return render_template('register.html')
 
+
+
 # Route for the login page
+# Database configuration
+db_host = 'localhost'
+db_user = 'stablebay'
+db_password = '6969'
+db_name = 'StableDB'
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -105,12 +130,16 @@ def login():
         username = request.form['username']
         password = request.form['password']
 
-        # Load the users from the JSON file
-        with open('users.json', 'r') as f:
-            users = json.load(f)
+        # Connect to the database
+        conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+
+        # Create a cursor to execute queries
+        cursor = conn.cursor()
 
         # Check if the user exists and the password is correct
-        if username in users and users[username]['password'] == hashlib.sha256(password.encode()).hexdigest():
+        query = "SELECT * FROM users WHERE username=%s AND password=%s"
+        cursor.execute(query, (username, hashlib.sha256(password.encode()).hexdigest()))
+        if cursor.fetchone():
             # Set the user as logged in
             session['logged_in'] = True
             session['username'] = username
@@ -124,7 +153,6 @@ def login():
     else:
         # Render the login page
         return render_template('login.html')
-
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_route():
