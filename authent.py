@@ -14,7 +14,7 @@ db_name = 'StableDB'
 def register(email, username, password):
     # Load the Gmail password from a text file
     with open('password.txt', 'r') as f:
-        password = f.read().strip()
+        gmail_password = f.read().strip()
 
     # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
@@ -49,9 +49,9 @@ def register(email, username, password):
     conn.close()
 
     # Send verification email using yagmail
-    yag = yagmail.SMTP('stablebay.org@gmail.com', password)
+    yag = yagmail.SMTP('stablebay.org@gmail.com', gmail_password)
     subject = 'Email Verification'
-    body = f'Please verify your email by clicking on this link: <verification link> or entering this code: {verification_code}'
+    body = f'Please verify your email by clicking on this link: https://stablebay.org/verify?code={verification_code} or entering this code: {verification_code}'
     yag.send(email, subject, body)
 
     return True, 'Registration successful'

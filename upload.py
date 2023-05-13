@@ -16,26 +16,29 @@ def execute_query(query, params=None, fetchall=False):
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
     cursor = conn.cursor()
     cursor.execute(query, params)
-    conn.commit()
     if fetchall:
         result = cursor.fetchall()
     else:
         result = cursor.fetchone()
+    # Consume any remaining unread results
+    while cursor.nextset():
+        pass
+    conn.commit()
     conn.close()
     return result
 
 # Create models table if it doesn't exist yet
 execute_query('''CREATE TABLE IF NOT EXISTS models (
-                   id VARCHAR(66) NOT NULL PRIMARY KEY,
-                   name VARCHAR(255) NOT NULL,
-                   description VARCHAR(255),
-                   magnet_link VARCHAR(10000) NOT NULL,
-                   image_link VARCHAR(255),
-                   uploaded_by VARCHAR(255) NOT NULL,
-                   upload_date DATETIME NOT NULL,
-                   category INT,
-                   nsfw BOOLEAN DEFAULT FALSE
-               )''')
+ id VARCHAR(66) NOT NULL PRIMARY KEY,
+ name VARCHAR(255) NOT NULL,
+ description VARCHAR(255),
+ magnet_link VARCHAR(10000) NOT NULL,
+ image_link VARCHAR(255),
+ uploaded_by VARCHAR(255) NOT NULL,
+ upload_date DATETIME NOT NULL,
+ category INT,
+ nsfw BOOLEAN DEFAULT FALSE
+ )''')
 
 
 @app.route('/upload', methods=['GET', 'POST'])
@@ -43,6 +46,16 @@ def upload():
     if not session.get('logged_in'):
         # If user is not logged in, redirect to login page
         return redirect(url_for('login'))
+
+    # Check if user is verified
+    query = "SELECT verified FROM users WHERE username = %s"
+    params = (session.get('username'),)
+    result = execute_query(query, params)
+    if result:
+        verified = result[0]
+        if not verified:
+            # If user is not verified, redirect to verify email page
+            return redirect(url_for('verify_route'))
 
     if request.method == 'POST':
         model_name = request.form['model_name']

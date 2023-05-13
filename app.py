@@ -108,13 +108,60 @@ def register_user():
         password = request.form['password']
         register_result, register_message = register(email, username, password)
         if register_result:
-            return redirect(url_for('index'))
+            return redirect(url_for('verify_route'))
         else:
             return render_template('register.html', error=register_message)
     else:
         return render_template('register.html')
 
+from verify import verify
+import yagmail
+@app.route('/verify', methods=['GET', 'POST'])
+def verify_route():
+    # Get the verification code from the URL or form data
+    verification_code = request.args.get('code') or request.form.get('verification_code')
 
+    if request.method == 'POST' and request.form.get('resend_code'):
+        # Resend verification code
+        # Load the Gmail password from a text file
+        with open('password.txt', 'r') as f:
+            gmail_password = f.read().strip()
+
+        # Connect to the database
+        conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+
+        # Create a cursor to execute queries
+        cursor = conn.cursor()
+
+        # Get the user's email and verification code from the database
+        query = "SELECT email, verification_code FROM users WHERE username=%s"
+        cursor.execute(query, (session['username'],))
+        result = cursor.fetchone()
+        if result:
+            email, verification_code = result
+
+            # Send verification email using yagmail
+            yag = yagmail.SMTP('stablebay.org@gmail.com', gmail_password)
+            subject = 'Email Verification'
+            body = f'Please verify your email by clicking on this link: https://stablebay.org/verify?code={verification_code} or entering this code: {verification_code}'
+            yag.send(email, subject, body)
+
+            # Close the database connection
+            conn.close()
+
+            return render_template('verify.html', success="Verification code resent")
+    elif verification_code:
+        # Verify the email using the verify function from verify.py
+        verify_result, verify_message = verify(verification_code)
+        if verify_result:
+            # Render the verify page with a success message
+            return render_template('verify.html', success=verify_message)
+        else:
+            # Render the verify page with an error message
+            return render_template('verify.html', error=verify_message)
+    else:
+        # Render the verify page
+        return render_template('verify.html')
 
 # Route for the login page
 # Database configuration
@@ -139,7 +186,9 @@ def login():
         # Check if the user exists and the password is correct
         query = "SELECT * FROM users WHERE username=%s AND password=%s"
         cursor.execute(query, (username, hashlib.sha256(password.encode()).hexdigest()))
-        if cursor.fetchone():
+        result = cursor.fetchone()
+        print(f'Query result: {result}')
+        if result:
             # Set the user as logged in
             session['logged_in'] = True
             session['username'] = username
@@ -153,6 +202,7 @@ def login():
     else:
         # Render the login page
         return render_template('login.html')
+
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_route():

@@ -14,15 +14,16 @@ cursor = conn.cursor()
 
 # Create the users table if it doesn't exist yet
 cursor.execute('''
-    CREATE TABLE IF NOT EXISTS users (
-        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        email VARCHAR(255) NOT NULL UNIQUE,
-        username VARCHAR(255) NOT NULL UNIQUE,
-        password VARCHAR(255) NOT NULL,
-        verified BOOLEAN NOT NULL DEFAULT FALSE,
-        verification_code VARCHAR(255),
-        reset_token VARCHAR(255)
-    )
+ CREATE TABLE IF NOT EXISTS users (
+ id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+ email VARCHAR(255) NOT NULL UNIQUE,
+ username VARCHAR(255) NOT NULL UNIQUE,
+ password VARCHAR(255) NOT NULL,
+ verified BOOLEAN NOT NULL DEFAULT FALSE,
+ verification_code VARCHAR(255),
+ reset_token VARCHAR(255),
+ bio TEXT
+ )
 ''')
 
 # Create the categories table if it doesn't exist yet
