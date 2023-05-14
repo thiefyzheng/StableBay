@@ -115,6 +115,8 @@ def register_user():
         return render_template('register.html')
 
 from verify import verify
+
+from authent import resend_verification_code
 import yagmail
 @app.route('/verify', methods=['GET', 'POST'])
 def verify_route():
@@ -123,33 +125,26 @@ def verify_route():
 
     if request.method == 'POST' and request.form.get('resend_code'):
         # Resend verification code
-        # Load the Gmail password from a text file
-        with open('password.txt', 'r') as f:
-            gmail_password = f.read().strip()
-
         # Connect to the database
         conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
 
         # Create a cursor to execute queries
         cursor = conn.cursor()
 
-        # Get the user's email and verification code from the database
-        query = "SELECT email, verification_code FROM users WHERE username=%s"
+        # Get the user's email from the database
+        query = "SELECT email FROM users WHERE username=%s"
         cursor.execute(query, (session['username'],))
         result = cursor.fetchone()
         if result:
-            email, verification_code = result
+            email = result[0]
 
-            # Send verification email using yagmail
-            yag = yagmail.SMTP('stablebay.org@gmail.com', gmail_password)
-            subject = 'Email Verification'
-            body = f'Please verify your email by clicking on this link: https://stablebay.org/verify?code={verification_code} or entering this code: {verification_code}'
-            yag.send(email, subject, body)
+            # Call the resend_verification_code function
+            resend_verification_code(email)
 
-            # Close the database connection
-            conn.close()
+        # Close the database connection
+        conn.close()
 
-            return render_template('verify.html', success="Verification code resent")
+        return render_template('verify.html', resend_success="Verification code resent")
     elif verification_code:
         # Verify the email using the verify function from verify.py
         verify_result, verify_message = verify(verification_code)
@@ -162,6 +157,7 @@ def verify_route():
     else:
         # Render the verify page
         return render_template('verify.html')
+
 
 # Route for the login page
 # Database configuration

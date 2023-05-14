@@ -55,3 +55,29 @@ def register(email, username, password):
     yag.send(email, subject, body)
 
     return True, 'Registration successful'
+
+def resend_verification_code(email):
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+
+    # Create a cursor to execute queries
+    cursor = conn.cursor()
+
+    # Generate a new random verification code
+    verification_code = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
+
+    # Update the verification code in the users table
+    query = "UPDATE users SET verification_code=%s WHERE email=%s"
+    cursor.execute(query, (verification_code, email))
+
+    # Commit the changes and close the database connection
+    conn.commit()
+    conn.close()
+
+    # Send verification email using yagmail
+    with open('password.txt', 'r') as f:
+        gmail_password = f.read().strip()
+    yag = yagmail.SMTP('stablebay.org@gmail.com', gmail_password)
+    subject = 'Email Verification'
+    body = f'Please verify your email by clicking on this link: https://stablebay.org/verify?code={verification_code} or entering this code: {verification_code}'
+    yag.send(email, subject, body)
