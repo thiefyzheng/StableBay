@@ -32,5 +32,22 @@ def get_torrent_details(torrent_id):
     for attribute in attributes:
         torrent['attributes'][attribute['name']] = attribute['value']
 
+    # Add uploaded_by to attributes
+    torrent['attributes']['Uploaded By'] = torrent['uploaded_by']
+
     return torrent
 
+def update_torrent(torrent_id, name, description, magnet_link, image_link):
+    # Open database connection
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+
+    # Update torrent details in the database
+    query = "UPDATE models SET name=%s, description=%s, magnet_link=%s, image_link=%s WHERE id=%s"
+    params = (name, description, magnet_link, image_link, torrent_id)
+    cursor.execute(query, params)
+
+    # Close database connection
+    conn.commit()
+    cursor.close()
+    conn.close()

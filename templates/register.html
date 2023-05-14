@@ -2,9 +2,48 @@
 <html>
 <head>
     <title>Register - StableBay</title>
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0 0 20px;
+            color: #0f4c81;
+            text-align: center;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+        input[type="email"], input[type="text"], input[type="password"] {
+            display: block;
+            margin: 0 auto 20px;
+            padding: 12px 20px;
+            box-sizing: border-box;
+            border: none;
+            border-bottom: 2px solid #0f4c81;
+        }
+        input[type="submit"] {
+            background-color: #0f4c81;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
 </head>
 <body>
-    <div>
+    <div class="container">
         <h1>Register</h1>
         <form method="POST" action="{{ url_for('register_user') }}">
             <label>Email:</label>
@@ -22,11 +61,7 @@
             <input type="submit" value="Register">
         </form>
     </div>
-    <div>
-        <a href="{{ url_for('index') }}">
-            <button>StableBay</button>
-        </a>
-    </div>
+  
 </body>
 </html>
 

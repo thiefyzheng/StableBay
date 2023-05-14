@@ -46,20 +46,40 @@
         li {
             margin-bottom: 5px;
         }
+        .edit-button {
+          display: block;
+          width: 100px;
+          margin: 20px auto 0;
+          padding: 10px 15px;
+          text-align:center;
+          background-color:#0f4c81;
+          color:white;
+          text-decoration:none;
+          border-radius:5px
+        }
     </style>
 </head>
 <body>
     <div class="torrent-container">
         <h1>{{ torrent.name }}</h1>
+        
         <img src="{{ torrent.image_link }}" alt="{{ torrent.name }}">
         <h2> {{ torrent.category }}</h2>
         <p>{{ torrent.description }}</p>
 
         <ul>
             {% for name, value in torrent.attributes.items() %}
-            <li>{{ name }}: {{ value }}</li>
+                {% if name == 'Uploaded By' %}
+                    <li>{{ name }}: <a href="/account/{{ value }}">{{ value }}</a></li>
+                {% else %}
+                    <li>{{ name }}: {{ value }}</li>
+                {% endif %}
             {% endfor %}
         </ul>
+        
+         {% if session['username'] == torrent.uploaded_by %}
+          <a class="edit-button" href="/torrents/{{ torrent.id }}/edit">Edit</a>
+         {% endif %}
     </div>
 </body>
 </html>

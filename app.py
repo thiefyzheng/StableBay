@@ -308,38 +308,48 @@ def torrents():
 from flask import render_template, session
 import datetime
 
-@app.route('/torrents/<string:torrent_name>/edit', methods=['GET', 'POST'])
-def edit_torrent(torrent_name):
-    # Construct the path to the info.json file for the given torrent
-    info_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'info.json')
+import mysql.connector
 
-    # Check if the info.json file exists for the given torrent
-    if not os.path.exists(info_path):
-        return 'Torrent not found', 404
+import edit
+@app.route('/torrents/<string:torrent_id>/edit', methods=['GET', 'POST'])
+def edit_torrent(torrent_id):
+    if request.method == 'POST':
+        model_name = request.form.get('model_name')
+        short_description = request.form.get('short_description')
+        magnet_link = request.form.get('magnet_link')
+        image_link = request.form.get('image_link')
+        category = request.form.get('category')
+        attributes = request.form.get('attributes')
 
-    # Read the data from the info.json file
-    with open(info_path, 'r') as f:
-        torrent_data = json.load(f)
+        edit.edit_model(torrent_id, model_name=model_name, short_description=short_description, magnet_link=magnet_link,
+                        image_link=image_link, category=category, attributes=attributes)
 
-    # Check if the current user is the uploader of the torrent
-    if 'username' in session and session['username'] == torrent_data['uploaded_by']:
-        if request.method == 'POST':
-            # Save the edited data to the info.json file
-            torrent_data['name'] = request.form['name']
-            torrent_data['category'] = request.form['category']
-            torrent_data['description'] = request.form['description']
+        return 'Torrent updated successfully!'
 
-            with open(info_path, 'w') as f:
-                json.dump(torrent_data, f, indent=4)
-
-            return redirect(url_for('torrent_details', torrent_name=torrent_name))
-        else:
-            # Render the edit torrent template with the torrent data
-            return render_template('edit_torrent.html', torrent=torrent_data)
     else:
-        # Redirect to an "Access Denied" or "Rick Roll" page
-        return redirect('/rickroll')
+        # Get torrent from database
+        query = "SELECT * FROM models WHERE id=%s"
+        params = (torrent_id,)
+        torrent = edit.execute_query(query, params)
 
+        if torrent is None:
+            return "Torrent not found"
+
+        # Convert torrent to dictionary
+        torrent = {
+            'id': torrent[0],
+            'name': torrent[1],
+            'description': torrent[2],
+            'magnet_link': torrent[3],
+            'image_link': torrent[4],
+            'uploaded_by': torrent[5],
+            'upload_date': torrent[6],
+            'category': torrent[7],
+            'nsfw': torrent[8]
+        }
+
+        # Render edit form
+        return render_template('edit_torrent.html', torrent=torrent)
 
 @app.route('/rickroll')
 def rickroll():
@@ -348,9 +358,11 @@ def rickroll():
 
 @app.route('/account/<username>')
 def account(username):
-    user_torrents = get_user_torrents(username)
-    return render_template('account.html', torrents=user_torrents)
+    # Get the user's torrents from the database
+    torrents = get_user_torrents(username)
 
+    # Render the template and pass the torrents and username
+    return render_template('account.html', torrents=torrents, username=username)
 
 from torrent_details import get_torrent_details
 

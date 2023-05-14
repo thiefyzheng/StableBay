@@ -2,34 +2,67 @@
 <html>
 <head>
     <title>User Torrents</title>
-    
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        .container h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin: 0 0 20px;
+            color: #0f4c81;
+            text-align: center;
+            line-height: 1.2;
+            text-transform: uppercase;
+        }
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+    </style>
 </head>
 <body>
-    <div style="text-align: right;">
-        <a href="/">StableBay</a>
-    </div>
-    <h1>UwU! Here are your torrents!!</h1>
-    <table style="border-collapse: collapse; border: 1px solid black;">
-        <thead>
-            <tr>
-                <th style="border: 1px solid black; padding: 5px;">Name</th>
-                <th style="border: 1px solid black; padding: 5px;">User</th>
-                <th style="border: 1px solid black; padding: 5px;">Upload Date</th>
-                <th style="border: 1px solid black; padding: 5px;">Download</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for torrent in torrents %}
+    <div class="container">
+        <div style="text-align: right;">
+            <a href="/">StableBay</a>
+        </div>
+        <h1>{{ username }}'s STUFF</h1>
+        <table>
+            <thead>
                 <tr>
-                    <td style="border: 1px solid black; padding: 5px;"><a href="/torrents/{{ torrent.id }}">{{ torrent.name }}</a></td>
-                    <td style="border: 1px solid black; padding: 5px;">{{ torrent.uploaded_by }}</td>
-                    <td style="border: 1px solid black; padding: 5px;">{{ torrent.upload_date }}</td>
-                    <td style="border: 1px solid black; padding: 5px;"><a href="{{ torrent.download_url }}">Download</a></td>
+                    <th>Name</th>
+                    <th>User</th>
+                    <th>Upload Date</th>
+                    <th>Download</th>
                 </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for torrent in torrents %}
+                    <tr>
+                        <td><a href="/torrents/{{ torrent.id }}">{{ torrent.name }}</a></td>
+                        <td>{{ torrent.uploaded_by }}</td>
+                        <td>{{ torrent.upload_date }}</td>
+                        <td><a href="{{ torrent.download_url }}">Download</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
 
