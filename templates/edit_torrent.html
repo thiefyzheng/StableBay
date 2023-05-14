@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Edit Torrent - {{ torrent.name }}</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -21,7 +22,8 @@
             margin-bottom: 10px;
         }
 
-        select, input[type="text"] {
+        select,
+        input[type="text"] {
             display: block;
             width: 100%;
             padding: 10px;
@@ -81,70 +83,66 @@
          }
     </style>
     <script>
-       $(document).ready(function(){
-            
-       function fetchAttributes(category_id) {
-    $.ajax({
-        url:'/get_attributes/' + category_id,
-        type:'GET',
-        dataType:'json',
-        success:function(response) {
-                var attributesHtml = '';
-                response.forEach(function(attribute) {
-                    attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
-                    attributesHtml += '<div class="input-group">';
-                    attributesHtml += '<input type="' + attribute['type'] + '" name="' + attribute['name'] + '">';
-                    attributesHtml += '</div><br>';
-                });
-                $('#attributes_container').html(attributesHtml);
+    $(document).ready(function() {
 
-                // Add event listener to create new input field when Tab is pressed
-                $(document).on('keydown', '.input-group input', function(e) {
-                    if (e.which == 9) {
-                        e.preventDefault();
-                        var new_input = $('<input type="' + $(this).attr('type') + '" name="' + $(this).attr('name') + '">');
-                        var delete_button = $('<button class="delete-button">Delete</button>');
-                        var new_input_group = $('<div class="input-group"></div>');
-                        new_input_group.append(new_input);
-                        new_input_group.append(delete_button);
-                        $(this).parent().after(new_input_group);
-                        new_input.focus();
-                    }
-                });
+        function fetchAttributes(category_id) {
+            $.ajax({
+                url: '/get_attributes/' + category_id,
+                type: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    var attributesHtml = '';
+                    response.forEach(function(attribute) {
+                        attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
+                        attributesHtml += '<div class="input-group">';
+                        attributesHtml += '<input type="' + attribute['type'] + '" name="attribute_' + attribute['name'] + '">';
+                        attributesHtml += '</div><br>';
+                    });
+                    $('#attributes_container').html(attributesHtml);
 
-                // Add event listener to delete input field when delete button is clicked
-                $(document).on('click', '.delete-button', function() {
-                    $(this).parent().remove();
-                });
+                    // Add event listener to create new input field when Tab is pressed
+                    $(document).on('keydown', '.input-group input', function(e) {
+                        if (e.which == 9) {
+                            e.preventDefault();
+                            var new_input = $('<input type="' + $(this).attr('type') + '" name="attribute_' + $(this).attr('name') + '">');
+                            var delete_button = $('<button class="delete-button">Delete</button>');
+                            var new_input_group = $('<div class="input-group"></div>');
+                            new_input_group.append(new_input);
+                            new_input_group.append(delete_button);
+                            $(this).parent().after(new_input_group);
+                            new_input.focus();
+                        }
+                    });
 
-                // Add category_id to JSON
-                var category_id_input = '<input type="hidden" name="category_id" value="' + category_id + '">';
-                $('#attributes_container').append(category_id_input);
-            
-        },
-        
+                    // Add event listener to delete input field when delete button is clicked
+                    $(document).on('click', '.delete-button', function() {
+                        $(this).parent().remove();
+                    });
+
+                    // Add category_id to JSON
+                    var category_id_input = '<input type="hidden" name="category_id" value="' + category_id + '">';
+                    $('#attributes_container').append(category_id_input);
+
+                },
+
+            });
+        }
+
+        // When a category is selected, send an AJAX request to get the category attributes
+        $('#category').change(function() {
+            var category_id = $(this).val();
+            fetchAttributes(category_id);
+        });
+
+        // Fetch attributes for category on page load
+        var category_id = $('#category').val();
+        fetchAttributes(category_id);
+
     });
-}
-
-// When a category is selected, send an AJAX request to get the category attributes
-$('#category').change(function(){
-    var category_id = $(this).val();
-    fetchAttributes(category_id);
-});
-
-// Fetch attributes for category on page load
-var category_id = $('#category').val();
-fetchAttributes(category_id);
-
-// Update attributes when category is changed
-$('#category').on('change', function() {
-    var category_id = $(this).val();
-    fetchAttributes(category_id);
-});
-
-});
 </script>
+
 </head>
+
 <body>
     <div style="text-align:right;">
       <a href="/">StableBay</a> | <a href="/logout">Logout</a>
@@ -153,8 +151,8 @@ $('#category').on('change', function() {
     <h1>Edit Torrent - {{ torrent.name }}</h1>
 
     <form method="POST">
-      <label for="name">Torrent Name:</label><br>
-      <input type="text" id="name" name="name" value="{{ torrent.name }}"><br><br>
+      <label for="model__name">Torrent Name:</label><br>
+      <input type="text" id="model_name" name="model_name" value="{{ torrent.name }}"><br><br>
 
       <label for="category">Category:</label><br>
       <select id="category" name="category">
@@ -174,5 +172,6 @@ $('#category').on('change', function() {
     </form>
 
 </body>
+
 </html>
 

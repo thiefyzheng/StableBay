@@ -319,7 +319,15 @@ def edit_torrent(torrent_id):
         magnet_link = request.form.get('magnet_link')
         image_link = request.form.get('image_link')
         category = request.form.get('category')
-        attributes = request.form.get('attributes')
+
+        # Parse attributes from form data
+        attributes = {}
+        for key, value in request.form.items():
+            if key.startswith('attribute_'):
+                attribute_name = key[len('attribute_'):]
+                attributes[attribute_name] = value
+
+        print(f"Updating torrent {torrent_id} with values: model_name={model_name}, short_description={short_description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={attributes}")
 
         edit.edit_model(torrent_id, model_name=model_name, short_description=short_description, magnet_link=magnet_link,
                         image_link=image_link, category=category, attributes=attributes)
@@ -348,8 +356,17 @@ def edit_torrent(torrent_id):
             'nsfw': torrent[8]
         }
 
+        # Get categories from database
+        categories = edit.get_categories()
+
+        # Get attributes for selected category
+        attributes = []
+        if torrent['category'] is not None:
+            attributes = edit.get_attributes(torrent['category'])
+
         # Render edit form
-        return render_template('edit_torrent.html', torrent=torrent)
+        return render_template('edit_torrent.html', torrent=torrent, categories=categories, attributes=attributes)
+
 
 @app.route('/rickroll')
 def rickroll():

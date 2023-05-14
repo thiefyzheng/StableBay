@@ -12,6 +12,7 @@ db_user = 'stablebay'
 db_password = '6969'
 db_name = 'StableDB'
 
+
 # Function to execute queries on MySQL
 def execute_query(query, params=None, fetchall=False):
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
@@ -27,6 +28,7 @@ def execute_query(query, params=None, fetchall=False):
     conn.commit()
     conn.close()
     return result
+
 
 def get_categories():
     # Connect to the database
@@ -47,6 +49,7 @@ def get_categories():
     finally:
         # Close the database connection
         conn.close()
+
 
 def get_attributes(category_id):
     # Connect to the database
@@ -77,6 +80,7 @@ def get_attributes(category_id):
     finally:
         # Close the database connection
         conn.close()
+
 
 def add_model_attributes(model_id, attribute_values_json):
     # Convert JSON to dictionary
@@ -109,36 +113,51 @@ def add_model_attributes(model_id, attribute_values_json):
             '''
             cursor.execute(query, (model_id, attribute_id, value))
 
-        # Commit changes to the database
-        conn.commit()
+            # Commit changes to the database
+            conn.commit()
 
     finally:
         # Close the database connection
         conn.close()
 
-def edit_model(model_id,model_name=None , short_description=None , magnet_link=None , image_link=None , category=None , attributes=None):
-         if model_name is not None:
-             query="UPDATE models SET name=%s WHERE id=%s"
-             params=(model_name,model_id)
-             execute_query(query,params)
-         if short_description is not None:
-             query="UPDATE models SET description=%s WHERE id=%s"
-             params=(short_description,model_id)
-             execute_query(query,params)
-         if magnet_link is not None:
-             query="UPDATE models SET magnet_link=%s WHERE id=%s"
-             params=(magnet_link,model_id)
-             execute_query(query,params)
-         if image_link is not None:
-             query="UPDATE models SET image_link=%s WHERE id=%s"
-             params=(image_link,model_id)
-             execute_query(query,params)
-         if category is not None:
-             query="UPDATE models SET category=%s WHERE id=%s"
-             params=(category,model_id)
-             execute_query(query,params)
-         if attributes is not None:
-             query="UPDATE models SET attributes=%s WHERE id=%s"
-             params=(attributes,model_id)
-             execute_query(query,params)
+
+def edit_model(model_id, model_name=None, short_description=None, magnet_link=None, image_link=None, category=None,
+               attributes=None):
+    if model_name is not None:
+        query = "UPDATE models SET name=%s WHERE id=%s"
+        params = (model_name, model_id)
+        execute_query(query, params)
+    if short_description is not None:
+        query = "UPDATE models SET description=%s WHERE id=%s"
+        params = (short_description, model_id)
+        execute_query(query, params)
+    if magnet_link is not None:
+        query = "UPDATE models SET magnet_link=%s WHERE id=%s"
+        params = (magnet_link, model_id)
+        execute_query(query, params)
+    if image_link is not None:
+        query = "UPDATE models SET image_link=%s WHERE id=%s"
+        params = (image_link, model_id)
+        execute_query(query, params)
+    if category is not None:
+        query = "UPDATE models SET category=%s WHERE id=%s"
+        params = (category, model_id)
+        execute_query(query, params)
+
+    if attributes is not None:
+        query = "DELETE FROM model_attributes WHERE model_id=%s"
+        params = (model_id,)
+        execute_query(query, params)
+
+        for key, value in attributes.items():
+            query = "SELECT id FROM attributes WHERE name=%s"
+            params = (key,)
+            row = execute_query(query, params)
+            if row is None:
+                raise ValueError(f"Attribute {key} not found in attributes table")
+            attribute_id = row[0]
+
+            query = "INSERT INTO model_attributes (model_id ,attribute_id ,value) VALUES (%s,%s,%s)"
+            params = (model_id, attribute_id, value)
+            execute_query(query, params)
 

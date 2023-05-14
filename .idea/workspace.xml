@@ -7,15 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Verification has been improved 1">
-      <change afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Started on editzzzz">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/edit_torrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_torrent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/register.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/torrent_details.py" beforeDir="false" afterPath="$PROJECT_DIR$/torrent_details.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -324,7 +320,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684023390638</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="Started on editzzzz">
+      <created>1684034167667</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1684034167667</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -359,7 +362,8 @@
     <MESSAGE value="Made changes to login" />
     <MESSAGE value="Verification added..........!" />
     <MESSAGE value="Verification has been improved 1" />
-    <option name="LAST_COMMIT_MESSAGE" value="Verification has been improved 1" />
+    <MESSAGE value="Started on editzzzz" />
+    <option name="LAST_COMMIT_MESSAGE" value="Started on editzzzz" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -371,7 +375,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/app.py</url>
-          <line>419</line>
+          <line>436</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
       </breakpoints>
