@@ -223,10 +223,10 @@ def upload2(model_id):
         # If user is not logged in, redirect to login page
         return redirect(url_for('login'))
 
-    categories = get_categories()  # get the list of categories
+    categories = get_categories() # get the list of categories
     print("Categories:", categories)
 
-    category_attributes = []  # initialize category_attributes to an empty list
+    category_attributes = [] # initialize category_attributes to an empty list
 
     if request.method == 'POST' and request.form.get('request_type') == 'POST':
         category_id = request.form['category_id']
@@ -237,8 +237,17 @@ def upload2(model_id):
         category_attributes = get_attributes(category_id)
         print("Category attributes:", category_attributes)
 
+        # Format the form data
+        attribute_values = {}
+        for key in request.form.keys():
+            if key not in ['category_id', 'request_type']:
+                attribute_values[key] = request.form.getlist(key)
+
+        # Convert attribute values to JSON
+        attribute_values_json = json.dumps(attribute_values)
+        print(f"attribute_values_json: {attribute_values_json}")
+
         # Save the model attributes to the database
-        attribute_values_json = json.dumps({key: value for key, value in request.form.items() if key not in ['category_id', 'request_type']})
         add_model_attributes(model_id, attribute_values_json)
 
         # Update the category for the model in the database
@@ -257,7 +266,6 @@ def upload2(model_id):
         return redirect(url_for('uploaded_route', model_id=model_id))
 
     return render_template('upload2.html', model_id=model_id, categories=categories, category_attributes=category_attributes)
-
 
 @app.route('/add_model_attributes/<int:model_id>', methods=['POST'])
 def add_model_attributes_endpoint(model_id):
@@ -311,9 +319,22 @@ import datetime
 import mysql.connector
 
 import edit
+from flask import redirect, session
+
+from flask import redirect, session
+
+from admin import is_admin
 @app.route('/torrents/<string:torrent_id>/edit', methods=['GET', 'POST'])
 def edit_torrent(torrent_id):
     if request.method == 'POST':
+        # Check if editor is uploader
+        editor = session.get('username')
+        query = "SELECT uploaded_by FROM models WHERE id=%s"
+        params = (torrent_id,)
+        uploader = edit.execute_query(query, params)[0]
+        if editor != uploader:
+            return redirect('/rickroll')
+
         model_name = request.form.get('model_name')
         short_description = request.form.get('short_description')
         magnet_link = request.form.get('magnet_link')
@@ -327,7 +348,8 @@ def edit_torrent(torrent_id):
                 attribute_name = key[len('attribute_'):]
                 attributes[attribute_name] = value
 
-        print(f"Updating torrent {torrent_id} with values: model_name={model_name}, short_description={short_description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={attributes}")
+        print(
+            f"Updating torrent {torrent_id} with values: model_name={model_name}, short_description={short_description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={attributes}")
 
         edit.edit_model(torrent_id, model_name=model_name, short_description=short_description, magnet_link=magnet_link,
                         image_link=image_link, category=category, attributes=attributes)
@@ -335,6 +357,14 @@ def edit_torrent(torrent_id):
         return 'Torrent updated successfully!'
 
     else:
+        # Check if current user is uploader or admin
+        current_user = session.get('username')
+        query = "SELECT uploaded_by FROM models WHERE id=%s"
+        params = (torrent_id,)
+        uploader = edit.execute_query(query, params)[0]
+        if current_user != uploader and not is_admin(current_user):
+            return redirect('/rickroll')
+
         # Get torrent from database
         query = "SELECT * FROM models WHERE id=%s"
         params = (torrent_id,)

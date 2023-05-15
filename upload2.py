@@ -132,6 +132,7 @@ def get_attributes(category_id):
 def add_model_attributes(model_id, attribute_values_json):
     # Convert JSON to dictionary
     attribute_values = json.loads(attribute_values_json)
+    print(f"attribute_values: {attribute_values}")
 
     # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
@@ -142,6 +143,7 @@ def add_model_attributes(model_id, attribute_values_json):
 
         # Loop through the attributes and insert them into the model_attributes table
         for key, value in attribute_values.items():
+            print(f"key: {key}, value: {value}")
             # Get the attribute ID
             query = '''
             SELECT id FROM attributes
@@ -152,13 +154,26 @@ def add_model_attributes(model_id, attribute_values_json):
             if row is None:
                 raise ValueError(f"Attribute {key} not found in attributes table")
             attribute_id = row[0]
+            print(f"attribute_id: {attribute_id}")
 
-            # Insert the attribute value into the model_attributes table
-            query = '''
-            INSERT INTO model_attributes (model_id, attribute_id, value)
-            VALUES (%s, %s, %s)
-            '''
-            cursor.execute(query, (model_id, attribute_id, value))
+            # Check if value is a list
+            if isinstance(value, list):
+                # Insert multiple values for the same attribute
+                for val in value:
+                    query = '''
+                    INSERT INTO model_attributes (model_id, attribute_id, value)
+                    VALUES (%s, %s, %s)
+                    '''
+                    cursor.execute(query, (model_id, attribute_id, val))
+                    print(f"Inserted row with model_id: {model_id}, attribute_id: {attribute_id}, value: {val}")
+            else:
+                # Insert a single value for the attribute
+                query = '''
+                INSERT INTO model_attributes (model_id, attribute_id, value)
+                VALUES (%s, %s, %s)
+                '''
+                cursor.execute(query, (model_id, attribute_id, value))
+                print(f"Inserted row with model_id: {model_id}, attribute_id: {attribute_id}, value: {value}")
 
         # Commit changes to the database
         conn.commit()

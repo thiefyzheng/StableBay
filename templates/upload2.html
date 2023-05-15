@@ -79,6 +79,27 @@
            color:#555 ;  
            margin-bottom :20px ;  
          }
+         
+         .add-button {
+             display:inline-block; 
+             padding :8px 16px; 
+             background-color:#0f4c81; 
+             color:#fff; 
+             font-size :14px; 
+             font-weight :700; 
+             text-transform :uppercase; 
+             text-decoration:none; 
+             border-radius :4px; 
+             transition :all .3s ease; 
+             margin-top :30px; 
+             cursor:pointer;  
+         }
+         
+         .add-button:hover {
+             background-color:#fff; 
+             color:#0f4c81; 
+             border :2px solid #0f4c81;  
+         }
     </style>
     <script>
        $(document).ready(function(){
@@ -94,22 +115,22 @@
                     attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
                     attributesHtml += '<div class="input-group">';
                     attributesHtml += '<input type="' + attribute['type'] + '" name="' + attribute['name'] + '">';
+                    attributesHtml += '<button class="add-button" type="button">+</button>';
                     attributesHtml += '</div><br>';
                 });
                 $('#attributes_container').html(attributesHtml);
 
-                // Add event listener to create new input field when Tab is pressed
-                $(document).on('keydown', '.input-group input', function(e) {
-                    if (e.which == 9) {
-                        e.preventDefault();
-                        var new_input = $('<input type="' + $(this).attr('type') + '" name="' + $(this).attr('name') + '">');
-                        var delete_button = $('<button class="delete-button">Delete</button>');
-                        var new_input_group = $('<div class="input-group"></div>');
-                        new_input_group.append(new_input);
-                        new_input_group.append(delete_button);
-                        $(this).parent().after(new_input_group);
-                        new_input.focus();
-                    }
+                // Add event listener to create new input field when plus button is clicked
+                $(document).on('click', '.add-button', function() {
+                    var new_input = $('<input type="' + $(this).prev().attr('type') + '" name="' + $(this).prev().attr('name') + '">');
+                    var delete_button = $('<button class="delete-button">Delete</button>');
+                    var add_button = $('<button class="add-button" type="button">+</button>');
+                    var new_input_group = $('<div class="input-group"></div>');
+                    new_input_group.append(new_input);
+                    new_input_group.append(add_button);
+                    new_input_group.append(delete_button);
+                    $(this).parent().after(new_input_group);
+                    new_input.focus();
                 });
 
                 // Add event listener to delete input field when delete button is clicked
@@ -159,7 +180,7 @@ $('#category').on('change', function() {
 
       <div id="attributes_container"></div>
 
-      <p class="guide">Tip: Press the `Tab` key after entering a value in any of the input fields to create a new input field for that attribute.</p>
+      <p class="guide">Tip: Click the `+` button after entering a value in any of the input fields to create a new input field for that attribute.</p>
 
       <input type="hidden" name="request_type" value="POST">
       <input type="submit" value="Upload">

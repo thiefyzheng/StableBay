@@ -14,24 +14,25 @@ cursor = conn.cursor()
 
 # Create the users table if it doesn't exist yet
 cursor.execute('''
- CREATE TABLE IF NOT EXISTS users (
- id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
- email VARCHAR(255) NOT NULL UNIQUE,
- username VARCHAR(255) NOT NULL UNIQUE,
- password VARCHAR(255) NOT NULL,
- verified BOOLEAN NOT NULL DEFAULT FALSE,
- verification_code VARCHAR(255),
- reset_token VARCHAR(255),
- bio TEXT
- )
+    CREATE TABLE IF NOT EXISTS users (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        email VARCHAR(255) NOT NULL UNIQUE,
+        username VARCHAR(255) NOT NULL UNIQUE,
+        password VARCHAR(255) NOT NULL,
+        verified BOOLEAN NOT NULL DEFAULT FALSE,
+        verification_code VARCHAR(255),
+        reset_token VARCHAR(255),
+        bio TEXT,
+        is_admin BOOLEAN NOT NULL DEFAULT FALSE
+    )
 ''')
 
 # Create the categories table if it doesn't exist yet
 cursor.execute('''CREATE TABLE IF NOT EXISTS categories (
-                   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                   name VARCHAR(255) NOT NULL UNIQUE,
-                   description VARCHAR(255)
-               )''')
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    description VARCHAR(255)
+)''')
 
 # Insert some sample categories
 categories = [('Checkpoint', 'All types of checkpoint'),
@@ -47,11 +48,11 @@ for category in categories:
 
 # Create the attributes table if it doesn't exist yet
 cursor.execute('''CREATE TABLE IF NOT EXISTS attributes (
-                   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                   name VARCHAR(255) NOT NULL UNIQUE,
-                   description VARCHAR(255),
-                   value_type TEXT
-               )''')
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    description VARCHAR(255),
+    value_type TEXT
+)''')
 
 
 # Insert some sample attributes
@@ -66,25 +67,25 @@ for attribute in attributes:
 
 # Create the category_attributes table if it doesn't exist yet
 cursor.execute('''CREATE TABLE IF NOT EXISTS category_attributes (
-                   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                   category_id INT NOT NULL,
-                   attribute_id INT NOT NULL,
-                   is_required BOOLEAN NOT NULL DEFAULT 0,
-                   FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
-                   FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
-               )''')
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    category_id INT NOT NULL,
+    attribute_id INT NOT NULL,
+    is_required BOOLEAN NOT NULL DEFAULT 0,
+    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
+    FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
+)''')
 
 
 
 # Create the model_attributes table if it doesn't exist yet
 cursor.execute('''CREATE TABLE IF NOT EXISTS model_attributes (
-                   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-                   model_id VARCHAR(66) NOT NULL,
-                   attribute_id INT NOT NULL,
-                   value TEXT,
-                   FOREIGN KEY (model_id) REFERENCES models(id) ON DELETE CASCADE,
-                   FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
-               )''')
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    model_id VARCHAR(66) NOT NULL,
+    attribute_id INT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (model_id) REFERENCES models(id) ON DELETE CASCADE,
+    FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
+)''')
 
 # Define the category-attribute relationships
 category_attributes = [('Checkpoint', 'Training Data', True),
