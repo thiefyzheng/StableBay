@@ -7,11 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Can show attributes in the edit page.">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Patched the blank attribute issuessssss">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/upload2.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -348,7 +346,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684126100098</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="Patched the blank attribute issuessssss">
+      <created>1684127131825</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1684127131825</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -387,6 +392,7 @@
     <MESSAGE value="Fixed the issue where you could only upload one value" />
     <MESSAGE value="added verify1" />
     <MESSAGE value="Can show attributes in the edit page." />
-    <option name="LAST_COMMIT_MESSAGE" value="Can show attributes in the edit page." />
+    <MESSAGE value="Patched the blank attribute issuessssss" />
+    <option name="LAST_COMMIT_MESSAGE" value="Patched the blank attribute issuessssss" />
   </component>
 </project>

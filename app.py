@@ -336,7 +336,7 @@ def edit_torrent(torrent_id):
             return redirect('/rickroll')
 
         model_name = request.form.get('model_name')
-        short_description = request.form.get('short_description')
+        description = request.form.get('description')
         magnet_link = request.form.get('magnet_link')
         image_link = request.form.get('image_link')
         category = request.form.get('category')
@@ -349,9 +349,9 @@ def edit_torrent(torrent_id):
                 attributes[attribute_name] = value
 
         print(
-            f"Updating torrent {torrent_id} with values: model_name={model_name}, short_description={short_description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={attributes}")
+            f"Updating torrent {torrent_id} with values: model_name={model_name}, description={description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={attributes}")
 
-        edit.edit_model(torrent_id, model_name=model_name, short_description=short_description, magnet_link=magnet_link,
+        edit.edit_model(torrent_id, model_name=model_name, short_description=description, magnet_link=magnet_link,
                         image_link=image_link, category=category, attributes=attributes)
 
         return 'Torrent updated successfully!'

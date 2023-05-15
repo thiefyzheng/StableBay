@@ -122,7 +122,7 @@ def add_model_attributes(model_id, attribute_values_json):
 
 
 def edit_model(model_id, model_name=None, short_description=None, magnet_link=None, image_link=None, category=None,
-               attributes=None):
+ attributes=None):
     if model_name is not None:
         query = "UPDATE models SET name=%s WHERE id=%s"
         params = (model_name, model_id)
@@ -131,6 +131,7 @@ def edit_model(model_id, model_name=None, short_description=None, magnet_link=No
         query = "UPDATE models SET description=%s WHERE id=%s"
         params = (short_description, model_id)
         execute_query(query, params)
+        print("Description updated")
     if magnet_link is not None:
         query = "UPDATE models SET magnet_link=%s WHERE id=%s"
         params = (magnet_link, model_id)
