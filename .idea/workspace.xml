@@ -7,9 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Patched the blank attribute issuessssss">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="fixed edit descs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/edit_torrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_torrent.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -353,7 +355,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684127131825</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="fixed edit descs">
+      <created>1684128063683</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1684128063683</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -368,7 +377,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="testt" />
     <MESSAGE value="Changed the directory uploads to be external" />
     <MESSAGE value="Changes" />
     <MESSAGE value="Fixed individual torrent page, was just one line of code." />
@@ -393,6 +401,7 @@
     <MESSAGE value="added verify1" />
     <MESSAGE value="Can show attributes in the edit page." />
     <MESSAGE value="Patched the blank attribute issuessssss" />
-    <option name="LAST_COMMIT_MESSAGE" value="Patched the blank attribute issuessssss" />
+    <MESSAGE value="fixed edit descs" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed edit descs" />
   </component>
 </project>

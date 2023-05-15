@@ -345,14 +345,17 @@ def edit_torrent(torrent_id):
         attributes = {}
         for key, value in request.form.items():
             if key.startswith('attribute_'):
-                attribute_name = key[len('attribute_'):]
+                attribute_name = key.replace('attribute_', '')
                 attributes[attribute_name] = value
 
         print(
             f"Updating torrent {torrent_id} with values: model_name={model_name}, description={description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={attributes}")
 
+        # Convert attributes dictionary to JSON string
+        attributes_json = json.dumps(attributes)
+
         edit.edit_model(torrent_id, model_name=model_name, short_description=description, magnet_link=magnet_link,
-                        image_link=image_link, category=category, attributes=attributes)
+                        image_link=image_link, category=category, attributes_json=attributes_json)
 
         return 'Torrent updated successfully!'
 
