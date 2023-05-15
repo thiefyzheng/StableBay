@@ -68,13 +68,13 @@
         <p>{{ torrent.description }}</p>
 
         <ul>
-            {% for name, value in torrent.attributes.items() %}
-                {% if name == 'Uploaded By' %}
-                    <li>{{ name }}: <a href="/account/{{ value }}">{{ value }}</a></li>
-                {% else %}
-                    <li>{{ name }}: {{ value }}</li>
-                {% endif %}
-            {% endfor %}
+          {% for attribute in torrent.attributes %}
+              {% if attribute.name == 'Uploaded By' %}
+                  <li>{{ attribute.name }}: <a href="/account/{{ attribute.value }}">{{ attribute.value }}</a></li>
+              {% else %}
+                  <li>{{ attribute.name }}: {{ attribute.value }}</li>
+              {% endif %}
+          {% endfor %}
         </ul>
         
          {% if session['username'] == torrent.uploaded_by %}

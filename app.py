@@ -365,37 +365,17 @@ def edit_torrent(torrent_id):
         if current_user != uploader and not is_admin(current_user):
             return redirect('/rickroll')
 
-        # Get torrent from database
-        query = "SELECT * FROM models WHERE id=%s"
-        params = (torrent_id,)
-        torrent = edit.execute_query(query, params)
+        # Get torrent details from database
+        torrent = get_torrent_details(torrent_id)
 
         if torrent is None:
             return "Torrent not found"
 
-        # Convert torrent to dictionary
-        torrent = {
-            'id': torrent[0],
-            'name': torrent[1],
-            'description': torrent[2],
-            'magnet_link': torrent[3],
-            'image_link': torrent[4],
-            'uploaded_by': torrent[5],
-            'upload_date': torrent[6],
-            'category': torrent[7],
-            'nsfw': torrent[8]
-        }
-
         # Get categories from database
         categories = edit.get_categories()
 
-        # Get attributes for selected category
-        attributes = []
-        if torrent['category'] is not None:
-            attributes = edit.get_attributes(torrent['category'])
-
         # Render edit form
-        return render_template('edit_torrent.html', torrent=torrent, categories=categories, attributes=attributes)
+        return render_template('edit_torrent.html', torrent=torrent, categories=categories)
 
 
 @app.route('/rickroll')
@@ -464,7 +444,6 @@ def delete_comment(torrent_name, comment_id):
     # Write the updated comments data to the comments JSON file
     with open(comments_path, 'w') as f:
         json.dump(comments_data, f)
-
     return '', 204
 
 import os

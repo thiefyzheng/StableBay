@@ -7,13 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Started on editzzzz">
-      <change afterPath="$PROJECT_DIR$/admin.py" afterDir="false" />
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added verify1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/upload2.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/upload2.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/upload2.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/edit_torrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_torrent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/torrent_details.py" beforeDir="false" afterPath="$PROJECT_DIR$/torrent_details.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -329,7 +328,21 @@
       <option name="project" value="LOCAL" />
       <updated>1684034167667</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="Fixed the issue where you could only upload one value">
+      <created>1684115985286</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1684115985286</updated>
+    </task>
+    <task id="LOCAL-00032" summary="added verify1">
+      <created>1684117176471</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1684117176471</updated>
+    </task>
+    <option name="localTasksCounter" value="33" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -365,22 +378,8 @@
     <MESSAGE value="Verification added..........!" />
     <MESSAGE value="Verification has been improved 1" />
     <MESSAGE value="Started on editzzzz" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started on editzzzz" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/torrents.py</url>
-          <line>12</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app.py</url>
-          <line>470</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="Fixed the issue where you could only upload one value" />
+    <MESSAGE value="added verify1" />
+    <option name="LAST_COMMIT_MESSAGE" value="added verify1" />
   </component>
 </project>

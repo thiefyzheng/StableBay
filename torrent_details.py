@@ -27,15 +27,16 @@ def get_torrent_details(torrent_id):
     cursor.close()
     conn.close()
 
-    # Add attributes to torrent dictionary
-    torrent['attributes'] = {}
+    # Add attributes to torrent list
+    torrent['attributes'] = []
     for attribute in attributes:
-        torrent['attributes'][attribute['name']] = attribute['value']
+        torrent['attributes'].append({'name': attribute['name'], 'value': attribute['value']})
 
     # Add uploaded_by to attributes
-    torrent['attributes']['Uploaded By'] = torrent['uploaded_by']
+    torrent['attributes'].append({'name': 'Uploaded By', 'value': torrent['uploaded_by']})
 
     return torrent
+
 
 def update_torrent(torrent_id, name, description, magnet_link, image_link):
     # Open database connection

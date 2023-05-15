@@ -161,6 +161,16 @@
       {% endfor %}
       </select><br><br>
 
+      <!-- New section for displaying current attribute values -->
+      <h3>Current Attributes:</h3>
+      <ul>
+      {% for attribute in torrent.attributes %}
+          <li>{{ attribute.name }}: {{ attribute.value }}</li>
+      {% endfor %}
+      </ul>
+
+      <!-- New section for adding new attribute values -->
+      <h3>Add Attributes:</h3>
       <div id="attributes_container"></div>
 
       <p class="guide">Tip: Press the `Tab` key after entering a value in any of the input fields to create a new input field for that attribute.</p>
