@@ -7,12 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added verify1">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Can show attributes in the edit page.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/edit_torrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_torrent.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/torrent_details.py" beforeDir="false" afterPath="$PROJECT_DIR$/torrent_details.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/upload2.py" beforeDir="false" afterPath="$PROJECT_DIR$/upload2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -342,7 +341,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684117176471</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="Can show attributes in the edit page.">
+      <created>1684126100098</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1684126100098</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -380,6 +386,7 @@
     <MESSAGE value="Started on editzzzz" />
     <MESSAGE value="Fixed the issue where you could only upload one value" />
     <MESSAGE value="added verify1" />
-    <option name="LAST_COMMIT_MESSAGE" value="added verify1" />
+    <MESSAGE value="Can show attributes in the edit page." />
+    <option name="LAST_COMMIT_MESSAGE" value="Can show attributes in the edit page." />
   </component>
 </project>

@@ -160,6 +160,10 @@ def add_model_attributes(model_id, attribute_values_json):
             if isinstance(value, list):
                 # Insert multiple values for the same attribute
                 for val in value:
+                    # Check if value is blank
+                    if val.strip() == '':
+                        continue
+
                     query = '''
                     INSERT INTO model_attributes (model_id, attribute_id, value)
                     VALUES (%s, %s, %s)
@@ -167,6 +171,10 @@ def add_model_attributes(model_id, attribute_values_json):
                     cursor.execute(query, (model_id, attribute_id, val))
                     print(f"Inserted row with model_id: {model_id}, attribute_id: {attribute_id}, value: {val}")
             else:
+                # Check if value is blank
+                if value.strip() == '':
+                    continue
+
                 # Insert a single value for the attribute
                 query = '''
                 INSERT INTO model_attributes (model_id, attribute_id, value)
@@ -184,4 +192,5 @@ def add_model_attributes(model_id, attribute_values_json):
     finally:
         # Close the database connection
         conn.close()
+
 

@@ -145,11 +145,11 @@ def edit_model(model_id, model_name=None, short_description=None, magnet_link=No
         execute_query(query, params)
 
     if attributes is not None:
-        query = "DELETE FROM model_attributes WHERE model_id=%s"
-        params = (model_id,)
-        execute_query(query, params)
-
         for key, value in attributes.items():
+            # Check if attribute value is blank
+            if value.strip() == '':
+                continue
+
             query = "SELECT id FROM attributes WHERE name=%s"
             params = (key,)
             row = execute_query(query, params)
@@ -160,4 +160,3 @@ def edit_model(model_id, model_name=None, short_description=None, magnet_link=No
             query = "INSERT INTO model_attributes (model_id ,attribute_id ,value) VALUES (%s,%s,%s)"
             params = (model_id, attribute_id, value)
             execute_query(query, params)
-
