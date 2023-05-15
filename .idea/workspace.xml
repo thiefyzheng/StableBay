@@ -7,7 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="fixed edit descs">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="removed the ability to add more than one attributes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
@@ -362,7 +362,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684128063683</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="removed the ability to add more than one attributes">
+      <created>1684134014446</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1684134014446</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -377,7 +384,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Changed the directory uploads to be external" />
     <MESSAGE value="Changes" />
     <MESSAGE value="Fixed individual torrent page, was just one line of code." />
     <MESSAGE value="Added comments ..." />
@@ -402,6 +408,7 @@
     <MESSAGE value="Can show attributes in the edit page." />
     <MESSAGE value="Patched the blank attribute issuessssss" />
     <MESSAGE value="fixed edit descs" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed edit descs" />
+    <MESSAGE value="removed the ability to add more than one attributes" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed the ability to add more than one attributes" />
   </component>
 </project>

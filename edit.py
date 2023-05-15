@@ -122,7 +122,7 @@ def add_model_attributes(model_id, attribute_values_json):
 
 
 def edit_model(model_id, model_name=None, short_description=None, magnet_link=None, image_link=None, category=None,
- attributes_json=None):
+ attributes=None):
     if model_name is not None:
         query = "UPDATE models SET name=%s WHERE id=%s"
         params = (model_name, model_id)
@@ -145,10 +145,7 @@ def edit_model(model_id, model_name=None, short_description=None, magnet_link=No
         params = (category, model_id)
         execute_query(query, params)
 
-    if attributes_json is not None:
-        # Convert JSON to dictionary
-        attributes = json.loads(attributes_json)
-
+    if attributes is not None:
         for key, value in attributes.items():
             # Check if attribute value is blank
             if value.strip() == '':

@@ -345,17 +345,14 @@ def edit_torrent(torrent_id):
         attributes = {}
         for key, value in request.form.items():
             if key.startswith('attribute_'):
-                attribute_name = key.replace('attribute_', '')
+                attribute_name = key[len('attribute_'):]
                 attributes[attribute_name] = value
 
         print(
             f"Updating torrent {torrent_id} with values: model_name={model_name}, description={description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={attributes}")
 
-        # Convert attributes dictionary to JSON string
-        attributes_json = json.dumps(attributes)
-
         edit.edit_model(torrent_id, model_name=model_name, short_description=description, magnet_link=magnet_link,
-                        image_link=image_link, category=category, attributes_json=attributes_json)
+                        image_link=image_link, category=category, attributes=attributes)
 
         return 'Torrent updated successfully!'
 
@@ -379,6 +376,7 @@ def edit_torrent(torrent_id):
 
         # Render edit form
         return render_template('edit_torrent.html', torrent=torrent, categories=categories)
+
 
 
 @app.route('/torrents/<string:torrent_id>/edit/delete_attribute', methods=['DELETE'])

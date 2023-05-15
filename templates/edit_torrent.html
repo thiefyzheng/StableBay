@@ -136,8 +136,9 @@ function fetchAttributes(category_id) {
       <label for="model__name">Torrent Name:</label><br>
       <input type="text" id="model_name" name="model_name" value="{{ torrent.name }}"><br><br>
 
+      <!-- Disable the category selection dropdown -->
       <label for="category">Category:</label><br>
-      <select id="category" name="category">
+      <select id="category" name="category" disabled>
       {% for category in categories %}
       <option value="{{ category[0] }}" {% if category[0] == torrent.category %}selected{% endif %}>{{ category[1] }}</option>
       {% endfor %}
