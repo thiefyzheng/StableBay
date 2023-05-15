@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Verify Email</title>
+        <style>
+            body {
+                font-family: 'Montserrat', sans-serif;
+            }
+            .container {
+                max-width: 600px;
+                margin: 0 auto;
+                text-align: center;
+            }
+            input[type="text"] {
+                display: block;
+                margin: 0 auto;
+                padding: 12px 20px;
+                box-sizing: border-box;
+                border: none;
+                border-bottom: 2px solid #0f4c81;
+            }
+            input[type="submit"], input[type="button"] {
+                background-color: #0f4c81;
+                color: white;
+                padding: 12px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+            input[type="submit"]:hover, input[type="button"]:hover {
+                background-color: #f1f1f1;
+            }
+            .home-button {
+                display: block;
+                margin-top: 20px;
+                text-decoration: none;
+                color: #0f4c81;
+            }
+        </style>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Verify Email</h1>
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+            {% if success %}
+                <p style="color: green;">{{ success }}</p>
+                <a href="/" class="home-button">Start Using StableBay</a>
+            {% else %}
+                <form method="post">
+                    <label for="verification_code">Verification Code:</label>
+                    <input type="text" id="verification_code" name="verification_code">
+                    <input type="submit" value="Verify">
+                    <input type="button" id="resend_code" value="Resend Code">
+                    <p id="resend_success" style="color:green;display:none;">Code resent successfully!</p>
+                </form>
+            {% endif %}
+        </div>
+
+        <script>
+          function setCookie(cname, cvalue, exdays) {
+              var d = new Date();
+              d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+              var expires = "expires="+d.toUTCString();
+              document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+          }
+
+          function getCookie(cname) {
+              var name = cname + "=";
+              var decodedCookie = decodeURIComponent(document.cookie);
+              var ca = decodedCookie.split(';');
+              for(var i = 0; i < ca.length; i++) {
+                  var c = ca[i];
+                  while (c.charAt(0) == ' ') {
+                      c = c.substring(1);
+                  }
+                  if (c.indexOf(name) == 0) {
+                      return c.substring(name.length, c.length);
+                  }
+              }
+              return "";
+          }
+
+          function checkCookie() {
+              var timeLeft = getCookie("timeLeft");
+              if (timeLeft != "") {
+                  startTimer(timeLeft);
+              } else {
+                  $("#resend_code").click(function() {
+                      startTimer(60);
+                  });
+              }
+          }
+
+          function startTimer(timeLeft) {
+              // Disable the "Resend Code" button for timeLeft seconds
+              $("#resend_code").prop("disabled", true);
+
+              // Display a countdown timer on the "Resend Code" button
+              var timerId = setInterval(function() {
+                  timeLeft--;
+                  setCookie("timeLeft", timeLeft, 1/86400);
+                  $("#resend_code").val("Resend Code (" + timeLeft + ")");
+                  if (timeLeft == 0) {
+                      clearInterval(timerId);
+                      $("#resend_code").val("Resend Code");
+                      $("#resend_code").prop("disabled", false);
+                      setCookie("timeLeft", "", -1);
+                  }
+              }, 1000);
+
+              // Make an AJAX request to resend the verification code
+              $.post("/verify", {resend_code: true}, function(data) {
+                  $("#resend_success").show();
+              });
+          }
+          // Make an AJAX request to resend the verification code
+$.post("/verify", {resend_code: true}, function(data) {
+    $("#resend_success").show();
+    setTimeout(function() {
+        $("#resend_success").hide();
+    }, 5000);
+});
+
+
+          checkCookie();
+        </script>
+    </body>
+</html>
+
