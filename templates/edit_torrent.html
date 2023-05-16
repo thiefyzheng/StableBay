@@ -97,30 +97,30 @@ function fetchAttributes(category_id) {
         type: 'GET',
         dataType: 'json',
         success: function(response) {
-            var attributesHtml = '';
-            response.forEach(function(attribute) {
+             var attributesHtml = '';
+             
+             response.forEach(function(attribute) {
                 attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
                 attributesHtml += '<div class="input-group">';
                 attributesHtml += '<input type="' + attribute['type'] + '" name="attribute_' + attribute['name'] + '">';
                 attributesHtml += '</div><br>';
                 
-            });
-            
-             // Add delete button
-             attributesHtml += '<button class="delete-button">Delete All</button><br>';
+             });
              
              $('#attributes_container').html(attributesHtml);
 
-             // Add event listener to delete button
+             // Add event listener to clear attributes button
              $('.delete-button').click(function(event) {
                  event.preventDefault();
-                 $.ajax({
-                     url:'/torrents/' + torrent_id + '/edit/delete_all_attributes',
-                     type:'DELETE',
-                     success:function(response) {
-                         alert(response);
-                     }
-                 });
+                 if (confirm('Are you sure you want to clear all attributes?')) {
+                     $.ajax({
+                         url:'/torrents/' + torrent_id + '/edit/delete_all_attributes',
+                         type:'DELETE',
+                         success:function(response) {
+                             alert(response);
+                         }
+                     });
+                 }
              });
 
              // Add category_id to JSON
@@ -172,11 +172,10 @@ function fetchAttributes(category_id) {
       <h3>Current Attributes:</h3>
       <ul>
       {% for attribute in torrent.attributes %}
-          <li>{{ attribute.name }}: {{ attribute.value }}</li>
-          
+          <li>{{ attribute.name }}: {{ attribute.value }}</li>          
       {% endfor %}
-       <!-- Add delete button -->
-       <button class="delete-button">Delete All</button><br>
+       <!-- Add clear attributes button -->
+       <button class="delete-button">Clear Attributes</button><br>
       </ul>
 
       <!-- New section for adding new attribute values -->
