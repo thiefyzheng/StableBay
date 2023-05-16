@@ -379,25 +379,15 @@ def edit_torrent(torrent_id):
 
 
 
-@app.route('/torrents/<string:torrent_id>/edit/delete_attribute', methods=['DELETE'])
-def delete_attribute(torrent_id):
-    # Get attribute name from DELETE data
-    attribute_name = request.form.get('attribute_name')
-
-    # Get attribute ID from database
-    query = "SELECT id FROM attributes WHERE name=%s"
-    params = (attribute_name,)
-    row = edit.execute_query(query, params)
-    if row is None:
-        return 'Attribute not found', 404
-    attribute_id = row[0]
-
-    # Delete attribute from model_attributes table
-    query = "DELETE FROM model_attributes WHERE model_id=%s AND attribute_id=%s"
-    params = (torrent_id, attribute_id)
+@app.route('/torrents/<string:torrent_id>/edit/delete_all_attributes', methods=['DELETE'])
+def delete_all_attributes(torrent_id):
+    # Delete all attributes from model_attributes table
+    query = "DELETE FROM model_attributes WHERE model_id=%s"
+    params = (torrent_id,)
     edit.execute_query(query, params)
 
-    return 'Attribute deleted successfully'
+    return 'All attributes deleted successfully'
+
 
 @app.route('/rickroll')
 def rickroll():

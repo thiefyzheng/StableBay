@@ -161,3 +161,35 @@ def edit_model(model_id, model_name=None, short_description=None, magnet_link=No
             query = "INSERT INTO model_attributes (model_id ,attribute_id ,value) VALUES (%s,%s,%s)"
             params = (model_id, attribute_id, value)
             execute_query(query, params)
+def delete_model_attribute(model_id, attribute_name):
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+
+    try:
+        # Create a cursor to execute queries
+        cursor = conn.cursor()
+
+        # Get the attribute ID
+        query = '''
+        SELECT id FROM attributes
+        WHERE name = %s
+        '''
+        cursor.execute(query, (attribute_name,))
+        row = cursor.fetchone()
+        if row is None:
+            raise ValueError(f"Attribute {attribute_name} not found in attributes table")
+        attribute_id = row[0]
+
+        # Delete the attribute value from the model_attributes table
+        query = '''
+        DELETE FROM model_attributes
+        WHERE model_id = %s AND attribute_id = %s
+        '''
+        cursor.execute(query, (model_id, attribute_id))
+
+        # Commit changes to the database
+        conn.commit()
+
+    finally:
+        # Close the database connection
+        conn.close()

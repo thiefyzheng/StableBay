@@ -82,8 +82,14 @@
            margin-bottom :20px ;  
          }
     </style>
-    <script>
+    
+<head>
+    <title>Edit Torrent - {{ torrent.name }}</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script>
     $(document).ready(function() {
+
+var torrent_id = '{{ torrent.id }}';
 
 function fetchAttributes(category_id) {
     $.ajax({
@@ -97,31 +103,49 @@ function fetchAttributes(category_id) {
                 attributesHtml += '<div class="input-group">';
                 attributesHtml += '<input type="' + attribute['type'] + '" name="attribute_' + attribute['name'] + '">';
                 attributesHtml += '</div><br>';
+                
             });
-            $('#attributes_container').html(attributesHtml);
+            
+             // Add delete button
+             attributesHtml += '<button class="delete-button">Delete All</button><br>';
+             
+             $('#attributes_container').html(attributesHtml);
 
-            // Add category_id to JSON
-            var category_id_input = '<input type="hidden" name="category_id" value="' + category_id + '">';
-            $('#attributes_container').append(category_id_input);
+             // Add event listener to delete button
+             $('.delete-button').click(function(event) {
+                 event.preventDefault();
+                 $.ajax({
+                     url:'/torrents/' + torrent_id + '/edit/delete_all_attributes',
+                     type:'DELETE',
+                     success:function(response) {
+                         alert(response);
+                     }
+                 });
+             });
 
-        },
+             // Add category_id to JSON
+             var category_id_input = '<input type="hidden" name="category_id" value="' + category_id + '">';
+             $('#attributes_container').append(category_id_input);
 
-    });
-}
+         },
+
+     });
+ }
 
 
-        // When a category is selected, send an AJAX request to get the category attributes
-        $('#category').change(function() {
-            var category_id = $(this).val();
-            fetchAttributes(category_id);
-        });
+         // When a category is selected, send an AJAX request to get the category attributes
+         $('#category').change(function() {
+             var category_id = $(this).val();
+             fetchAttributes(category_id);
+         });
 
-        // Fetch attributes for category on page load
-        var category_id = $('#category').val();
-        fetchAttributes(category_id);
+         // Fetch attributes for category on page load
+         var category_id = $('#category').val();
+         fetchAttributes(category_id);
 
-    });
+     });
 </script>
+
 
 </head>
 
@@ -149,7 +173,10 @@ function fetchAttributes(category_id) {
       <ul>
       {% for attribute in torrent.attributes %}
           <li>{{ attribute.name }}: {{ attribute.value }}</li>
+          
       {% endfor %}
+       <!-- Add delete button -->
+       <button class="delete-button">Delete All</button><br>
       </ul>
 
       <!-- New section for adding new attribute values -->
