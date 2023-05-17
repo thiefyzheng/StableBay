@@ -148,7 +148,7 @@
       </div>
 
     </div>
-    <script>
+<script>
   // Add event listener to upvote and downvote buttons
   const upvoteButtons = document.querySelectorAll('form[action$="/upvote"]');
   const downvoteButtons = document.querySelectorAll('form[action$="/downvote"]');
@@ -181,6 +181,15 @@
       localStorage.removeItem('restoreScrollPosition');
     }
   });
+  
+  
+  // Add event listener to window
+window.addEventListener('beforeunload', () => {
+  if (localStorage.getItem('restoreScrollPosition') !== 'true') {
+    window.scrollTo(0, 0);
+  }
+});
+
 </script>
 
 </body>
