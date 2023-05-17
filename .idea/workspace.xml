@@ -7,10 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Fixed the details page not going to the top after a reload...............">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Added Deletions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/comments.py" beforeDir="false" afterPath="$PROJECT_DIR$/comments.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -439,7 +438,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684302532238</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="Added Deletionss">
+      <created>1684303719857</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1684303719857</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -454,8 +460,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Finally fixed the attribute savingssss" />
-    <MESSAGE value="search addeddddddddd" />
     <MESSAGE value="Improved the search and login page, and added the details." />
     <MESSAGE value="Added the page for torrent details. Refixed attribute uploading........  . ." />
     <MESSAGE value="Some more fixes" />
@@ -479,6 +483,8 @@
     <MESSAGE value="fixed upvotes and downvotes causing the server error also now you can remove your votessss" />
     <MESSAGE value="Upvoting now doesn't cause the page to reset1" />
     <MESSAGE value="Fixed the details page not going to the top after a reload..............." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed the details page not going to the top after a reload..............." />
+    <MESSAGE value="Added Deletionss" />
+    <MESSAGE value="Added Deletions" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added Deletions" />
   </component>
 </project>
