@@ -148,6 +148,41 @@
       </div>
 
     </div>
+    <script>
+  // Add event listener to upvote and downvote buttons
+  const upvoteButtons = document.querySelectorAll('form[action$="/upvote"]');
+  const downvoteButtons = document.querySelectorAll('form[action$="/downvote"]');
+
+  upvoteButtons.forEach(button => {
+    button.addEventListener('submit', () => {
+      localStorage.setItem('restoreScrollPosition', 'true');
+    });
+  });
+
+  downvoteButtons.forEach(button => {
+    button.addEventListener('submit', () => {
+      localStorage.setItem('restoreScrollPosition', 'true');
+    });
+  });
+
+  // Store scroll position in localStorage before page is reloaded
+  window.addEventListener('beforeunload', () => {
+    localStorage.setItem('scrollPosition', window.scrollY);
+  });
+
+  // Restore scroll position when page loads
+  window.addEventListener('load', () => {
+    const restoreScrollPosition = localStorage.getItem('restoreScrollPosition');
+    if (restoreScrollPosition === 'true') {
+      const scrollPosition = localStorage.getItem('scrollPosition');
+      if (scrollPosition) {
+        window.scrollTo(0, scrollPosition);
+      }
+      localStorage.removeItem('restoreScrollPosition');
+    }
+  });
+</script>
+
 </body>
 </html>
 
