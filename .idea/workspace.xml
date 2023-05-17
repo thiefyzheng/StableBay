@@ -7,9 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="basic upvote and downvotezzz">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Upvotes and Downvotes!!!!!!!1!!">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/comments.py" beforeDir="false" afterPath="$PROJECT_DIR$/comments.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -411,7 +410,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684287046071</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="Upvotes and Downvotes!!!!!!!1!!">
+      <created>1684291993253</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1684291993253</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -426,7 +432,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Fixed accounts pag" />
     <MESSAGE value="Added some style" />
     <MESSAGE value="Started major overhaul..." />
     <MESSAGE value="Got that category and attribute selection at slightly fuctional :D" />
@@ -451,6 +456,7 @@
     <MESSAGE value="Database password is in db.txt and distributed by config.py" />
     <MESSAGE value="basic commenting" />
     <MESSAGE value="basic upvote and downvotezzz" />
-    <option name="LAST_COMMIT_MESSAGE" value="basic upvote and downvotezzz" />
+    <MESSAGE value="Upvotes and Downvotes!!!!!!!1!!" />
+    <option name="LAST_COMMIT_MESSAGE" value="Upvotes and Downvotes!!!!!!!1!!" />
   </component>
 </project>
