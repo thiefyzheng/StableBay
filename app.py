@@ -455,40 +455,59 @@ import os
 import json
 from flask import jsonify, request
 @app.route('/comments/<int:comment_id>/upvote', methods=['POST'])
-def upvote_comment(comment_id):
+def upvote(comment_id):
     # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
 
-    # Update the upvotes field for the specified comment
-    cursor.execute("UPDATE comments SET upvotes = upvotes + 1 WHERE id=%s", (comment_id,))
-    conn.commit()
+    # Get the current user's username from the session
+    username = session.get('username')
 
-    # Close database connection
+    # Get the current user's ID from the database using their username
+    query = "SELECT id FROM users WHERE username=%s"
+    cursor.execute(query, (username,))
+    result = cursor.fetchone()
+    if result:
+        user_id = result[0]
+        # Call the upvote_comment function
+        upvote_comment(user_id, comment_id)
+    else:
+        print("User not found")
+
+    # Close the database connection
     cursor.close()
     conn.close()
 
     # Redirect back to the torrent details page
     return redirect(request.referrer)
+
 
 @app.route('/comments/<int:comment_id>/downvote', methods=['POST'])
-def downvote_comment(comment_id):
+def downvote(comment_id):
     # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
-    cursor = conn.cursor(dictionary=True)
+    cursor = conn.cursor()
 
-    # Update the downvotes field for the specified comment
-    cursor.execute("UPDATE comments SET downvotes = downvotes + 1 WHERE id=%s", (comment_id,))
-    conn.commit()
+    # Get the current user's username from the session
+    username = session.get('username')
 
-    # Close database connection
+    # Get the current user's ID from the database using their username
+    query = "SELECT id FROM users WHERE username=%s"
+    cursor.execute(query, (username,))
+    result = cursor.fetchone()
+    if result:
+        user_id = result[0]
+        # Call the downvote_comment function
+        downvote_comment(user_id, comment_id)
+    else:
+        print("User not found")
+
+    # Close the database connection
     cursor.close()
     conn.close()
 
     # Redirect back to the torrent details page
     return redirect(request.referrer)
-
-
 
 
 if __name__ == '__main__':

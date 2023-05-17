@@ -35,23 +35,54 @@ def edit_comment(comment_id, new_comment):
     cursor.close()
     conn.close()
 
-def upvote_comment(comment_id):
+
+def upvote_comment(user_id, comment_id):
+    # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
     cursor = conn.cursor()
-    query = "UPDATE comments SET upvotes=upvotes+1 WHERE id=%s"
-    params = (comment_id,)
-    cursor.execute(query,params)
+
+    # Check if the user has already upvoted this comment
+    query = "SELECT * FROM comment_votes WHERE user_id=%s AND comment_id=%s"
+    cursor.execute(query, (user_id, comment_id))
+    if cursor.fetchone():
+        # The user has already upvoted this comment
+        print("You have already upvoted this comment")
+    else:
+        # The user has not upvoted this comment yet
+        # Increment the upvotes count for the comment
+        query = "UPDATE comments SET upvotes=upvotes+1 WHERE id=%s"
+        cursor.execute(query, (comment_id,))
+        # Insert a record in the comment_votes table to track that the user has upvoted this comment
+        query = "INSERT INTO comment_votes (user_id, comment_id, vote) VALUES (%s, %s, 1)"
+        cursor.execute(query, (user_id, comment_id))
+        print("Upvoted successfully")
+
+    # Commit the changes and close the database connection
     conn.commit()
-    cursor.close()
     conn.close()
 
-def downvote_comment(comment_id):
-    conn = mysql.connector.connect(host=db_host,user=db_user,password=db_password,database=db_name)
-    cursor=conn.cursor()
-    query="UPDATE comments SET downvotes=downvotes+1 WHERE id=%s"
-    params=(comment_id,)
-    cursor.execute(query,params)
-    conn.commit()
-    cursor.close()
-    conn.close()
 
+def downvote_comment(user_id, comment_id):
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+
+    # Check if the user has already downvoted this comment
+    query = "SELECT * FROM comment_votes WHERE user_id=%s AND comment_id=%s AND vote=-1"
+    cursor.execute(query, (user_id, comment_id))
+    if cursor.fetchone():
+        # The user has already downvoted this comment
+        print("You have already downvoted this comment")
+    else:
+        # The user has not downvoted this comment yet
+        # Increment the downvotes count for the comment
+        query = "UPDATE comments SET downvotes=downvotes+1 WHERE id=%s"
+        cursor.execute(query, (comment_id,))
+        # Insert a record in the comment_votes table to track that the user has downvoted this comment
+        query = "INSERT INTO comment_votes (user_id, comment_id, vote) VALUES (%s, %s, -1)"
+        cursor.execute(query, (user_id, comment_id))
+        print("Downvoted successfully")
+
+    # Commit the changes and close the database connection
+    conn.commit()
+    conn.close()
