@@ -6,89 +6,100 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <style>
         /* Set Montserrat font */
-        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
-        body {
-            font-family: 'Montserrat', sans-serif;
-        }
-        img {
-            width: 400px;
-            height: auto;
-        }
-        .torrent-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-        }
-        h1 {
-            font-size: 36px;
-            margin-bottom: 10px;
-            /* Set blue color for the name */
-            color: #0f4c81;
-        }
-        h2 {
-            font-size: 24px;
-            margin-top: 20px;
-            margin-bottom: 10px;
-            /* Set blue color for the category */
-            color: #0f4c81;
-        }
-        p {
-            line-height: 1.5;
-            margin-bottom: 20px;
-        }
-        ul {
-            list-style: none;
-            margin: 0;
-            padding: 0;
-        }
-        li {
-            margin-bottom: 5px;
-        }
-        .edit-button {
-          display: block;
-          width: 100px;
-          margin: 20px auto 0;
-          padding: 10px 15px;
-          text-align:center;
-          background-color:#0f4c81;
-          color:white;
-          text-decoration:none;
-          border-radius:5px
-        }
-        
-        /* Add styles for comments */
-        .comments-container {
-          margin-top:40px
-        }
-        
-        .comment-form textarea {
-          width:100%;
-          height:80px
-        }
-        
-        .comment-form button {
-          display:block;
-          margin-top:10px
-        }
-        
-        .comment {
-          border-top:1px solid #ccc;
-          padding-top:10px
-        }
-        
-        .comment:first-of-type {
-          border-top:none
-        }
-        
-        .comment-author {
-          font-weight:bold
-        }
-        
-        .comment-actions a{
-          margin-right:10px
-        }
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+body {
+    font-family: 'Montserrat', sans-serif;
+}
+img {
+    width: 400px;
+    height: auto;
+}
+.torrent-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+h1 {
+    font-size: 36px;
+    margin-bottom: 10px;
+    /* Set blue color for the name */
+    color: #0f4c81;
+}
+h2 {
+    font-size: 24px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    /* Set blue color for the category */
+    color: #0f4c81;
+}
+p {
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+li {
+    margin-bottom: 5px;
+}
+.edit-button {
+  display: block;
+  width: 100px;
+  margin: 20px auto 0;
+  padding: 10px 15px;
+  text-align:center;
+  background-color:#0f4c81;
+  color:white;
+  text-decoration:none;
+  border-radius:5px
+}
+
+/* Add styles for comments */
+.comments-container {
+  margin-top:40px
+}
+
+.comment-form textarea {
+  width:100%;
+  height:80px
+}
+
+.comment-form button {
+  display:block;
+  margin-top:10px
+}
+
+.comment {
+  border-top:1px solid #ccc;
+  padding-top:10px
+}
+
+.comment:first-of-type {
+  border-top:none
+}
+
+.comment-author {
+  font-weight:bold
+}
+
+.comment-actions a{
+  margin-right:10px
+}
+
+/* Add styles for delete button */
+.delete-button {
+    background-color:#0f4c81; 
+    color:white; 
+    border:none; 
+    padding:5px; 
+    border-radius:5px; 
+    cursor:pointer
+}
+
     </style>
 </head>
 <body>
@@ -130,9 +141,10 @@
              <p>{{ comment.comment }}</p>
              <p class="comment-actions">
                <!-- Add edit and delete links if user is the author of the comment -->
-               {% if session['user_id'] == comment.user_id %}
+               {% if session['username'] == comment.username %}
                  <a href="/comments/{{ comment.id }}/edit">Edit</a>
-                 <a href="/comments/{{ comment.id }}/delete">Delete</a>
+                 <!-- Add a delete button with a data attribute for the comment ID -->
+                 <button class="delete-button" data-comment-id="{{ comment.id }}">Delete</button>
                {% endif %}
                
                <!-- Add upvote and downvote links -->
@@ -148,51 +160,30 @@
       </div>
 
     </div>
-<script>
-  // Add event listener to upvote and downvote buttons
-  const upvoteButtons = document.querySelectorAll('form[action$="/upvote"]');
-  const downvoteButtons = document.querySelectorAll('form[action$="/downvote"]');
 
-  upvoteButtons.forEach(button => {
-    button.addEventListener('submit', () => {
-      localStorage.setItem('restoreScrollPosition', 'true');
-    });
-  });
-
-  downvoteButtons.forEach(button => {
-    button.addEventListener('submit', () => {
-      localStorage.setItem('restoreScrollPosition', 'true');
-    });
-  });
-
-  // Store scroll position in localStorage before page is reloaded
-  window.addEventListener('beforeunload', () => {
-    localStorage.setItem('scrollPosition', window.scrollY);
-  });
-
-  // Restore scroll position when page loads
-  window.addEventListener('load', () => {
-    const restoreScrollPosition = localStorage.getItem('restoreScrollPosition');
-    if (restoreScrollPosition === 'true') {
-      const scrollPosition = localStorage.getItem('scrollPosition');
-      if (scrollPosition) {
-        window.scrollTo(0, scrollPosition);
-      }
-      localStorage.removeItem('restoreScrollPosition');
+    <!-- Add JavaScript code to send DELETE request when delete button is clicked -->
+    <script>
+// Add event listener to delete buttons
+const deleteButtons = document.querySelectorAll('.delete-button');
+deleteButtons.forEach(button => {
+  button.addEventListener('click', event => {
+    // Display a confirmation dialog
+    if (confirm("You can't unmountain dew what's already been mountain done.")) {
+      // Get the comment ID from the data attribute
+      const commentId = event.target.getAttribute('data-comment-id');
+      // Send a DELETE request to the server
+      fetch(`/comments/${commentId}`, {
+        method: 'DELETE'
+      }).then(response => {
+        // Reload the page after the comment is deleted
+        window.location.reload();
+      });
     }
   });
-  
-  
-  // Add event listener to window
-window.addEventListener('beforeunload', () => {
-  if (localStorage.getItem('restoreScrollPosition') !== 'true') {
-    window.scrollTo(0, 0);
-  }
 });
 
-</script>
+    </script>
 
 </body>
 </html>
-
 
