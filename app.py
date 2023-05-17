@@ -423,116 +423,39 @@ def torrent_details(torrent_id):
     # Render the template with the torrent data
     return render_template('torrent_details.html', torrent=torrent)
 
+from comments import add_comment, delete_comment, edit_comment, upvote_comment, downvote_comment
 
-@app.route('/torrents/<string:torrent_name>/comments/<int:comment_id>', methods=['DELETE','POST'])
-def delete_comment(torrent_name, comment_id):
-    # Construct path to comments JSON file for the given torrent
-    comments_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')
+@app.route('/torrents/<torrent_id>/comments', methods=['POST'])
+def add_torrent_comment(torrent_id):
+    # Get the username from the session
+    username = session['username']
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+    # Query the database to get the user's id
+    query = "SELECT id FROM users WHERE username=%s"
+    cursor.execute(query, (username,))
+    result = cursor.fetchone()
+    # Check if a user was found
+    if result:
+        # Get the user's id
+        user_id = result[0]
+        # Get the comment from the form data
+        comment = request.form['comment']
+        # Add the comment to the database
+        add_comment(torrent_id, user_id, comment)
+        # Redirect to the torrent details page
+        return redirect(url_for('torrent_details', torrent_id=torrent_id))
+    else:
+        # Render an error page or message
+        pass
 
-    # Check if the comments JSON file exists for the given torrent
-    if not os.path.exists(comments_path):
-        return 'Comments not found', 404
-
-    # Load comments from comments JSON file
-    with open(comments_path, 'r') as f:
-        comments_data = json.load(f)
-
-    # Find the comment with the given ID
-    comment_index = None
-    for i, comment in enumerate(comments_data['comments']):
-        if comment['id'] == comment_id:
-            comment_index = i
-            break
-
-    # If the comment doesn't exist, return a 404 error
-    if comment_index is None:
-        return 'Comment not found', 404
-
-    # Check if the user is authorized to delete the comment
-    if 'username' not in session or comments_data['comments'][comment_index]['username'] != session['username']:
-        return 'You are not authorized to delete this comment', 401
-
-    # Remove the comment from the comments data
-    del comments_data['comments'][comment_index]
-
-    # Write the updated comments data to the comments JSON file
-    with open(comments_path, 'w') as f:
-        json.dump(comments_data, f)
-    return '', 204
 
 import os
 import json
 from flask import jsonify, request
 
-@app.route('/torrents/<string:torrent_name>/comments/<int:comment_id>/upvote', methods=['POST'])
-def upvote_comment(torrent_name, comment_id):
-    # Construct path to comments JSON file for the given torrent
-    comments_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')
 
-    # Check if the comments JSON file exists for the given torrent
-    if not os.path.exists(comments_path):
-        return jsonify({'error': 'Comments not found'}), 404
-
-    # Load comments from comments JSON file
-    with open(comments_path, 'r') as f:
-        comments_data = json.load(f)
-
-    # Find the comment with the given ID
-    comment_index = None
-    for i, comment in enumerate(comments_data['comments']):
-        if comment['id'] == comment_id:
-            comment_index = i
-            break
-
-    # If the comment doesn't exist, return a 404 error
-    if comment_index is None:
-        return jsonify({'error': 'Comment not found'}), 404
-
-    # Update the upvote value of the comment
-    comments_data['comments'][comment_index]['upvotes'] += 1
-
-    # Write the updated comments data to the comments JSON file
-    with open(comments_path, 'w') as f:
-        json.dump(comments_data, f)
-
-    # Return the updated comment data as a JSON response
-    return jsonify(comments_data['comments'][comment_index]), 200
-
-
-
-
-@app.route('/torrents/<string:torrent_name>/comments/<int:comment_id>/downvote', methods=['POST'])
-def downvote_comment(torrent_name, comment_id):
-    # Construct path to comments JSON file for the given torrent
-    comments_path = os.path.join(app.config['UPLOAD_FOLDER'], torrent_name, 'comments.json')
-
-    # Check if the comments JSON file exists for the given torrent
-    if not os.path.exists(comments_path):
-        return 'Comments not found', 404
-
-    # Load comments from comments JSON file
-    with open(comments_path, 'r') as f:
-        comments_data = json.load(f)
-
-    # Find the comment with the given ID
-    comment_index = None
-    for i, comment in enumerate(comments_data['comments']):
-        if comment['id'] == comment_id:
-            comment_index = i
-            break
-
-    # If the comment doesn't exist, return a 404 error
-    if comment_index is None:
-        return 'Comment not found', 404
-
-    # Update the downvote value of the comment
-    comments_data['comments'][comment_index]['downvotes'] += 1
-
-    # Write the updated comments data to the comments JSON file
-    with open(comments_path, 'w') as f:
-        json.dump(comments_data, f)
-
-    return jsonify({'upvotes': comments_data['comments'][comment_index]['upvotes'], 'downvotes': comments_data['comments'][comment_index]['downvotes']})
 
 
 if __name__ == '__main__':

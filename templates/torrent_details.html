@@ -57,30 +57,94 @@
           text-decoration:none;
           border-radius:5px
         }
+        
+        /* Add styles for comments */
+        .comments-container {
+          margin-top:40px
+        }
+        
+        .comment-form textarea {
+          width:100%;
+          height:80px
+        }
+        
+        .comment-form button {
+          display:block;
+          margin-top:10px
+        }
+        
+        .comment {
+          border-top:1px solid #ccc;
+          padding-top:10px
+        }
+        
+        .comment:first-of-type {
+          border-top:none
+        }
+        
+        .comment-author {
+          font-weight:bold
+        }
+        
+        .comment-actions a{
+          margin-right:10px
+        }
     </style>
 </head>
 <body>
     <div class="torrent-container">
-        <h1>{{ torrent.name }}</h1>
-        
-        <img src="{{ torrent.image_link }}" alt="{{ torrent.name }}">
-        <h2> {{ torrent.category }}</h2>
-        <p>{{ torrent.description }}</p>
+      <h1>{{ torrent.name }}</h1>
 
-        <ul>
+      <img src="{{ torrent.image_link }}" alt="{{ torrent.name }}">
+      <h2> {{ torrent.category }}</h2>
+      <p>{{ torrent.description }}</p>
+
+      <ul>
           {% for attribute in torrent.attributes %}
               {% if attribute.name == 'Uploaded By' %}
-                  <li>{{ attribute.name }}: <a href="/account/{{ attribute.value }}">{{ attribute.value }}</a></li>
+                  <li>{{ attribute.name }}:<a href="/account/{{ attribute.value }}">{{ attribute.value }}</a></li>
               {% else %}
                   <li>{{ attribute.name }}: {{ attribute.value }}</li>
               {% endif %}
           {% endfor %}
-        </ul>
-        
-         {% if session['username'] == torrent.uploaded_by %}
-          <a class="edit-button" href="/torrents/{{ torrent.id }}/edit">Edit</a>
-         {% endif %}
+      </ul>
+
+      {% if session['username'] == torrent.uploaded_by %}
+      <a class="edit-button" href="/torrents/{{ torrent.id }}/edit">Edit</a>
+      {% endif %}
+      
+      <!-- Add comments section -->
+      <div class="comments-container">
+         <h2>Comments</h2>
+         
+         <!-- Add comment form -->
+         <form class="comment-form" action="/torrents/{{ torrent.id }}/comments" method="POST">
+           <textarea name="comment" placeholder="Add a comment..."></textarea>
+           <button type="submit">Submit</button>
+         </form>
+         
+         <!-- Display comments -->
+         {% for comment in torrent.comments %}
+           <div class="comment">
+             <p><span class="comment-author">{{ comment.user_id }}</span> said:</p>
+             <p>{{ comment.comment }}</p>
+             <p class="comment-actions">
+               <!-- Add edit and delete links if user is the author of the comment -->
+               {% if session['user_id'] == comment.user_id %}
+                 <a href="/comments/{{ comment.id }}/edit">Edit</a>
+                 <a href="/comments/{{ comment.id }}/delete">Delete</a>
+               {% endif %}
+               
+               <!-- Add upvote and downvote links -->
+               <a href="/comments/{{ comment.id }}/upvote">Upvote ({{ comment.upvotes }})</a>
+               <a href="/comments/{{ comment.id }}/downvote">Downvote ({{ comment.downvotes }})</a>
+             </p>
+           </div>
+         {% endfor %}
+      </div>
+
     </div>
 </body>
 </html>
+
 

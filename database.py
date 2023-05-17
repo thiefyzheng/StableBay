@@ -87,6 +87,28 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS model_attributes (
     FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
 )''')
 
+# Create comments table
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS comments (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        torrent_id CHAR(36) NOT NULL,
+        user_id INT NOT NULL,
+        comment TEXT NOT NULL,
+        upvotes INT DEFAULT 0,
+        downvotes INT DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+''')
+
+
+# Create comment_votes table
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS comment_votes (
+        user_id INT NOT NULL,
+        comment_id INT NOT NULL,
+        vote TINYINT NOT NULL
+    )
+''')
 # Define the category-attribute relationships
 category_attributes = [('Checkpoint', 'Training Data', True),
                        ('Checkpoint', 'Merge', True),
