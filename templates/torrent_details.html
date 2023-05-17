@@ -126,7 +126,7 @@
          <!-- Display comments -->
          {% for comment in torrent.comments %}
            <div class="comment">
-             <p><span class="comment-author">{{ comment.user_id }}</span> said:</p>
+             <p><span class="comment-author">{{ comment.username }}</span> said:</p>
              <p>{{ comment.comment }}</p>
              <p class="comment-actions">
                <!-- Add edit and delete links if user is the author of the comment -->
@@ -136,8 +136,12 @@
                {% endif %}
                
                <!-- Add upvote and downvote links -->
-               <a href="/comments/{{ comment.id }}/upvote">Upvote ({{ comment.upvotes }})</a>
-               <a href="/comments/{{ comment.id }}/downvote">Downvote ({{ comment.downvotes }})</a>
+               <form action="/comments/{{ comment.id }}/upvote" method="POST">
+                 <button type="submit">Upvote ({{ comment.upvotes }})</button>
+               </form>
+               <form action="/comments/{{ comment.id }}/downvote" method="POST">
+                 <button type="submit">Downvote ({{ comment.downvotes }})</button>
+               </form>
              </p>
            </div>
          {% endfor %}

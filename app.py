@@ -454,6 +454,39 @@ def add_torrent_comment(torrent_id):
 import os
 import json
 from flask import jsonify, request
+@app.route('/comments/<int:comment_id>/upvote', methods=['POST'])
+def upvote_comment(comment_id):
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor(dictionary=True)
+
+    # Update the upvotes field for the specified comment
+    cursor.execute("UPDATE comments SET upvotes = upvotes + 1 WHERE id=%s", (comment_id,))
+    conn.commit()
+
+    # Close database connection
+    cursor.close()
+    conn.close()
+
+    # Redirect back to the torrent details page
+    return redirect(request.referrer)
+
+@app.route('/comments/<int:comment_id>/downvote', methods=['POST'])
+def downvote_comment(comment_id):
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor(dictionary=True)
+
+    # Update the downvotes field for the specified comment
+    cursor.execute("UPDATE comments SET downvotes = downvotes + 1 WHERE id=%s", (comment_id,))
+    conn.commit()
+
+    # Close database connection
+    cursor.close()
+    conn.close()
+
+    # Redirect back to the torrent details page
+    return redirect(request.referrer)
 
 
 

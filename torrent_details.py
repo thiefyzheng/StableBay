@@ -27,10 +27,6 @@ def get_torrent_details(torrent_id):
     cursor.execute("SELECT * FROM comments WHERE torrent_id=%s", (torrent_id,))
     comments = cursor.fetchall()
 
-    # Close database connection
-    cursor.close()
-    conn.close()
-
     # Add attributes to torrent list
     torrent['attributes'] = []
     for attribute in attributes:
@@ -42,15 +38,27 @@ def get_torrent_details(torrent_id):
     # Add comments to torrent list
     torrent['comments'] = []
     for comment in comments:
+        # Retrieve the username for the comment's user_id
+        cursor.execute("SELECT username FROM users WHERE id=%s", (comment['user_id'],))
+        username_result = cursor.fetchone()
+        if username_result:
+            username = username_result['username']
+        else:
+            username = 'Unknown'
         comment_dict = {
             'id': comment['id'],
             'user_id': comment['user_id'],
+            'username': username,
             'comment': comment['comment'],
             'upvotes': comment['upvotes'],
             'downvotes': comment['downvotes'],
             'created_at': comment['created_at']
         }
         torrent['comments'].append(comment_dict)
+
+    # Close database connection
+    cursor.close()
+    conn.close()
 
     return torrent
 
