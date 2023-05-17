@@ -8,10 +8,11 @@ from authent import register
 from torrents import get_torrents
 from upload import upload
 import mysql.connector
+from config import db_password
+
 # Database configuration
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '6969'
 db_name = 'StableDB'
 # Rest of the code for app.py
 
@@ -163,7 +164,6 @@ def verify_route():
 # Database configuration
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '6969'
 db_name = 'StableDB'
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -214,7 +214,6 @@ from upload2 import get_categories, get_attributes, add_model_attributes
 import mysql.connector
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '6969'
 db_name = 'StableDB'
 
 @app.route('/upload2/<string:model_id>', methods=['GET', 'POST'])
@@ -298,7 +297,6 @@ from torrents import get_torrents
 # Database configuration
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '6969'
 db_name = 'StableDB'
 
 @app.route('/torrents')

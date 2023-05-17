@@ -2,13 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for, session
 import datetime
 import uuid
 import mysql.connector
-
+from config import db_password
 app = Flask(__name__)
 
 # Database configuration
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '6969'
+
 db_name = 'StableDB'
 
 # Function to execute queries on MySQL

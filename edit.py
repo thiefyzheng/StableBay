@@ -3,13 +3,12 @@ from flask import Flask, request, session
 import datetime
 import uuid
 import json
-
+from config import db_password
 app = Flask(__name__)
 
 # Database configuration
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '6969'
 db_name = 'StableDB'
 
 

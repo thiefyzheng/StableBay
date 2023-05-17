@@ -4,11 +4,11 @@ import random
 import string
 import mysql.connector
 import hashlib
-
+from config import db_password
 # Database configuration
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '6969'
+
 db_name = 'StableDB'
 
 def register(email, username, password):

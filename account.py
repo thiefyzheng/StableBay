@@ -1,9 +1,9 @@
 import mysql.connector
-
+from config import db_password
 # Database configuration
 db_host = 'localhost'
 db_user = 'stablebay'
-db_password = '6969'
+
 db_name = 'StableDB'
 
 def get_user_torrents(username):
