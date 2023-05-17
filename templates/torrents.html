@@ -55,54 +55,84 @@ av
             font-size: 24px;
             padding: 10px;
             border-radius: 5px;
-            background-color: #555;
-            color: #fff;
-            border: none;
-            margin-left: 10px;
-            cursor: pointer;
-        }
-    </style>
+            background-color:#555; 
+          color:#fff; 
+          border:none; 
+          margin-left :10px; 
+          cursor:pointer; 
+          }
+      </style>
     
     
 
 <head>
     <title>StableBay - Search Torrents</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script src="<https://unpkg.com/browse/webtorrent@2.0.18/>"></script>
+
 </head>
 <body>
-    <div style="text-align: right;">
-        <a href="/">StableBay</a>
+    <div style="text-align:right;">
+      <a href="/">StableBay</a> | <a href="/logout">Logout</a>
     </div>
     <div class="search-container">
         <form method="GET" action="/search">
-            <div style="display: inline-block;">
-                <select name="category">
-                    <option value="">All Categories</option>
-                    {% for category in categories %}
-                    <option value="{{ category[0] }}">{{ category[1].replace("'", "").replace("(", "").replace(")", "") }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-            <div style="display: inline-block;">
-                <input type="text" name="query" placeholder="Search Torrents">
-                <button type="submit">Search</button>
-            </div>
+          <div style="display:inline-block;">
+              <select name="category">
+                  <option value="">All Categories</option>
+                  {% for category in categories %}
+                  <option value="{{ category[0] }}">{{ category[1].replace("'", "").replace("(", "").replace(")", "") }}</option>
+                  {% endfor %}
+              </select>
+          </div>
+          <div style="display:inline-block;">
+              <input type="text" name="query" placeholder="Search Torrents">
+              <button type="submit">Search</button>
+          </div>
         </form>
     </div>
 
     <div class="torrents-container">
-        {% for torrent in torrents %}
-            <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
-                <div class="torrent-box torrent-box-{{ torrent.id }}">
-                    <div class="category-box">{{ torrent.category }}</div>
-                    <div class="torrent-details">
-                        <h3>{{ torrent.name }}</h3>
-                        <p>Uploaded by: {{ torrent.uploaded_by }}</p>
-                    </div>
-                </div>
-            </a>
-        {% endfor %}
+      {% for torrent in torrents %}
+          <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
+              <div class="torrent-box torrent-box-{{ torrent.id }}">
+                  <div class="category-box">{{ torrent.category }}</div>
+                  <div class="torrent-details">
+                      <h3>{{ torrent.name }}</h3>
+                      <p>Uploaded by: {{ torrent.uploaded_by }}</p>
+                      <!-- added -->
+                      <p>Seeder Count:<br><span id="seeder-count-{{ torrent.id }}"></span></p> 
+                  </div>
+              </div>
+          </a>
+      {% endfor %}
     </div>
+
+    <!-- added -->
+    <!-- Load WebTorrent library -->
+    <script src="<URL>"></script>
+
+    <!-- Use WebTorrent to get seeder count for each torrent -->
+    <script>
+      window.addEventListener('load', function() {
+          const client = new WebTorrent();
+
+          // Get seeder count for each torrent
+          const torrents = {{ torrents|tojson }};
+          torrents.forEach(function(torrent) {
+              client.add(torrent.magnet_link, function (torrent) {
+                  // Get the seeder count
+                  const seederCount = torrent.numPeers;
+
+                  // Update seeder count in the template
+                  document.querySelector('#seeder-count-' + torrent.id).textContent = seederCount;
+              });
+          });
+      });
+    </script>
+
 </body>
+
 </html>
+
 

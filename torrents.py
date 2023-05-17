@@ -17,11 +17,11 @@ def get_torrents(limit=64):
 
     # Define query to get torrent information, uploader name, category name, and nsfw attribute
     query = """
-        SELECT m.id, m.name, m.uploaded_by, m.image_link, m.upload_date, c.name, m.nsfw
-        FROM models m
-        JOIN categories c ON m.category = c.id
-        ORDER BY m.upload_date DESC
-        LIMIT %s;
+    SELECT m.id, m.name, m.uploaded_by, m.image_link, m.upload_date, c.name, m.nsfw, m.magnet_link
+    FROM models m
+    JOIN categories c ON m.category = c.id
+    ORDER BY m.upload_date DESC
+    LIMIT %s;
     """
 
     # Execute query and retrieve results
@@ -42,7 +42,8 @@ def get_torrents(limit=64):
             'image_url': result[3],
             'upload_date': str(result[4]),
             'category': result[5],
-            'nsfw': bool(result[6])
+            'nsfw': bool(result[6]),
+            'magnet_link': result[7]
         }
         print(torrent)
         torrents.append(torrent)

@@ -294,11 +294,15 @@ def uploaded_route():
     return render_template('uploaded.html')
 
 
-import requests
+from torrents import get_torrents
+# Database configuration
+db_host = 'localhost'
+db_user = 'stablebay'
+db_password = '6969'
+db_name = 'StableDB'
 
 @app.route('/torrents')
 def torrents():
-
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
     cursor = conn.cursor()
 
@@ -313,6 +317,7 @@ def torrents():
     torrents_json = get_torrents()
     torrents = json.loads(torrents_json)
     return render_template('torrents.html', torrents=torrents, categories=categories)
+
 from flask import render_template, session
 import datetime
 
