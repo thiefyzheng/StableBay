@@ -7,8 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added admin , editing userrrrrr">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Enabled revoking admin.">
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -115,13 +114,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00001" summary="testt">
-      <created>1682774678933</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1682774678933</updated>
     </task>
     <task id="LOCAL-00002" summary="testt">
       <created>1682774805694</created>
@@ -459,7 +451,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684408409552</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Enabled revoking admin.">
+      <created>1684413869496</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1684413869496</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -474,7 +473,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Some more fixes" />
     <MESSAGE value="Made changes to login" />
     <MESSAGE value="Verification added..........!" />
     <MESSAGE value="Verification has been improved 1" />
@@ -499,6 +497,7 @@
     <MESSAGE value="Added Deletions" />
     <MESSAGE value="Fixed votespam/" />
     <MESSAGE value="added admin , editing userrrrrr" />
-    <option name="LAST_COMMIT_MESSAGE" value="added admin , editing userrrrrr" />
+    <MESSAGE value="Enabled revoking admin." />
+    <option name="LAST_COMMIT_MESSAGE" value="Enabled revoking admin." />
   </component>
 </project>

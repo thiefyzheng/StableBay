@@ -550,6 +550,10 @@ from flask import render_template
 
 @app.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])
 def edit_user_page(user_id):
+    # Check if user is an admin
+    if not is_admin(session.get('username')):
+        return jsonify({'error': 'Unauthorized'}), 401
+
     if request.method == 'GET':
         # Handle GET requests here
         user = get_user(user_id)
@@ -573,6 +577,7 @@ def edit_user_page(user_id):
                   new_bio=data.get('bio'),
                   new_is_admin=new_is_admin)
         return redirect(url_for('admin'))
+
 
 
 if __name__ == '__main__':
