@@ -7,10 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Fixed votespam/">
-      <change afterPath="$PROJECT_DIR$/templates/admin.html" afterDir="false" />
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added admin , editing userrrrrr">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -454,7 +452,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684304419627</updated>
     </task>
-    <option name="localTasksCounter" value="49" />
+    <task id="LOCAL-00049" summary="added admin , editing userrrrrr">
+      <created>1684408409552</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1684408409552</updated>
+    </task>
+    <option name="localTasksCounter" value="50" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -469,7 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added the page for torrent details. Refixed attribute uploading........  . ." />
     <MESSAGE value="Some more fixes" />
     <MESSAGE value="Made changes to login" />
     <MESSAGE value="Verification added..........!" />
@@ -494,6 +498,7 @@
     <MESSAGE value="Added Deletionss" />
     <MESSAGE value="Added Deletions" />
     <MESSAGE value="Fixed votespam/" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed votespam/" />
+    <MESSAGE value="added admin , editing userrrrrr" />
+    <option name="LAST_COMMIT_MESSAGE" value="added admin , editing userrrrrr" />
   </component>
 </project>

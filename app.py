@@ -561,11 +561,12 @@ def edit_user_page(user_id):
         data = request.form
         if not data:
             return jsonify({'error': 'Missing data'}), 400
+        new_verified = data.get('verified') == 'on'
         edit_user(user_id,
                   new_email=data.get('email'),
                   new_username=data.get('username'),
                   new_password=data.get('password'),
-                  new_verified=data.get('verified'),
+                  new_verified=new_verified,
                   new_verification_code=data.get('verification_code'),
                   new_reset_token=data.get('reset_token'),
                   new_bio=data.get('bio'),
