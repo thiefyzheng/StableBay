@@ -562,6 +562,7 @@ def edit_user_page(user_id):
         if not data:
             return jsonify({'error': 'Missing data'}), 400
         new_verified = data.get('verified') == 'on'
+        new_is_admin = int(data.get('is_admin') == 'on')
         edit_user(user_id,
                   new_email=data.get('email'),
                   new_username=data.get('username'),
@@ -570,7 +571,7 @@ def edit_user_page(user_id):
                   new_verification_code=data.get('verification_code'),
                   new_reset_token=data.get('reset_token'),
                   new_bio=data.get('bio'),
-                  new_is_admin=data.get('is_admin'))
+                  new_is_admin=new_is_admin)
         return redirect(url_for('admin'))
 
 
