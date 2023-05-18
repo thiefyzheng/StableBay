@@ -529,6 +529,8 @@ from admin import is_admin
 from flask import render_template
 from admin import is_admin, get_users, edit_user, get_user
 
+import admin
+
 @app.route('/admin')
 def admin():
     # Check if the current user is an admin
@@ -545,6 +547,7 @@ def admin():
 
     # Render the admin page and pass the list of users to the template
     return render_template('admin.html', users=users)
+
 
 from flask import render_template
 
@@ -577,6 +580,11 @@ def edit_user_page(user_id):
                   new_bio=data.get('bio'),
                   new_is_admin=new_is_admin)
         return redirect(url_for('admin'))
+
+@app.route('/admin')
+def admin_index():
+    # Handle requests to /admin here
+    pass
 
 
 
