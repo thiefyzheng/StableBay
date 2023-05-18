@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin</title>
+    </head>
+    <body>
+        <h1>Admin</h1>
+        <h2>Manage Users</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Email</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Verified</th>
+                <th>Verification Code</th>
+                <th>Reset Token</th>
+                <th>Bio</th>
+                <th>Is Admin</th>
+                <th>Edit</th> <!-- Add an Edit column -->
+            </tr>
+            {% for user in users %}
+            <tr>
+                {% for field in user %}
+                <td>{{ field }}</td>
+                {% endfor %}
+                <!-- Add an edit button that links to the edit user page -->
+                <td><a href="{{ url_for('edit_user_page', user_id=user[0]) }}">Edit</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <h2>Manage Models</h2>
+        <!-- Add a table here to display a list of models -->
+    </body>
+</html>
+

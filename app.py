@@ -517,6 +517,62 @@ def delete_comment_route(comment_id):
     return '', 204
 
 
+
+
+
+
+
+
+from flask import render_template
+from admin import is_admin
+
+from flask import render_template
+from admin import is_admin, get_users, edit_user, get_user
+
+@app.route('/admin')
+def admin():
+    # Check if the current user is an admin
+    if not is_admin(session.get('username')):
+        # If the user is not an admin, redirect to the homepage or show an error message
+        return redirect(url_for('index'))
+
+    # Retrieve a list of users using the get_users function from admin.py
+    users = get_users()
+
+    # Print the list of users
+    for user in users:
+        print(f"ID: {user[0]}, Email: {user[1]}, Username: {user[2]}")
+
+    # Render the admin page and pass the list of users to the template
+    return render_template('admin.html', users=users)
+
+from flask import render_template
+
+@app.route('/edit_user/<int:user_id>', methods=['GET', 'POST'])
+def edit_user_page(user_id):
+    if request.method == 'GET':
+        # Handle GET requests here
+        user = get_user(user_id)
+        if not user:
+            return jsonify({'error': 'User not found'}), 404
+        return render_template('edit_user.html', user=user)
+    elif request.method == 'POST':
+        # Handle POST requests here
+        data = request.form
+        if not data:
+            return jsonify({'error': 'Missing data'}), 400
+        edit_user(user_id,
+                  new_email=data.get('email'),
+                  new_username=data.get('username'),
+                  new_password=data.get('password'),
+                  new_verified=data.get('verified'),
+                  new_verification_code=data.get('verification_code'),
+                  new_reset_token=data.get('reset_token'),
+                  new_bio=data.get('bio'),
+                  new_is_admin=data.get('is_admin'))
+        return redirect(url_for('admin'))
+
+
 if __name__ == '__main__':
     print('Running app.py')
     app.run()
