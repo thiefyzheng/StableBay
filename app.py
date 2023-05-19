@@ -9,6 +9,7 @@ from torrents import get_torrents
 from upload import upload
 import mysql.connector
 from config import db_password
+from admin import is_admin, get_users, edit_user, get_user, remove_model
 
 # Database configuration
 db_host = 'localhost'
@@ -408,6 +409,7 @@ def account(username):
 from torrent_details import get_torrent_details
 
 
+
 @app.route('/torrents/<string:torrent_id>', methods=['GET'])
 def torrent_details(torrent_id):
     # Get the torrent details using the provided ID
@@ -417,11 +419,23 @@ def torrent_details(torrent_id):
     if not torrent:
         return "Torrent not found", 404
 
-    # Print the torrent data
-    print(torrent)
+    # Render the template with the torrent data and the is_admin function
+    return render_template('torrent_details.html', torrent=torrent, is_admin=is_admin)
 
-    # Render the template with the torrent data
-    return render_template('torrent_details.html', torrent=torrent)
+
+
+@app.route('/torrents/<string:torrent_id>/delete', methods=['POST'])
+def delete_torrent(torrent_id):
+    # Check if the current user is an admin
+    if is_admin(session['username']):
+        # Call the remove_model function to delete the torrent
+        remove_model(torrent_id)
+        # Redirect to the home page
+        return redirect(url_for('torrents'))
+    else:
+        # Return an error response if the user is not an admin
+        return 'Unauthorized', 401
+
 
 from comments import add_comment, delete_comment, edit_comment, upvote_comment, downvote_comment
 
@@ -527,7 +541,6 @@ from flask import render_template
 from admin import is_admin
 
 from flask import render_template
-from admin import is_admin, get_users, edit_user, get_user
 
 import admin
 

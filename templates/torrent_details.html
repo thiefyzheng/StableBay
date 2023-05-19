@@ -101,6 +101,9 @@ li {
 }
 
     </style>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ torrent.name }}</title>
 </head>
 <body>
     <div class="torrent-container">
@@ -123,17 +126,24 @@ li {
       {% if session['username'] == torrent.uploaded_by %}
       <a class="edit-button" href="/torrents/{{ torrent.id }}/edit">Edit</a>
       {% endif %}
-      
+
+      <!-- Add a form to send a DELETE request when the delete button is clicked -->
+      {% if is_admin(session['username']) %}
+      <form action="{{ url_for('delete_torrent', torrent_id=torrent.id) }}" method="POST">
+        <input type="submit" value="Delete Torrent">
+      </form>
+      {% endif %}
+
       <!-- Add comments section -->
       <div class="comments-container">
          <h2>Comments</h2>
-         
+
          <!-- Add comment form -->
          <form class="comment-form" action="/torrents/{{ torrent.id }}/comments" method="POST">
            <textarea name="comment" placeholder="Add a comment..."></textarea>
            <button type="submit">Submit</button>
          </form>
-         
+
          <!-- Display comments -->
          {% for comment in torrent.comments %}
            <div class="comment">
@@ -146,7 +156,7 @@ li {
                  <!-- Add a delete button with a data attribute for the comment ID -->
                  <button class="delete-button" data-comment-id="{{ comment.id }}">Delete</button>
                {% endif %}
-               
+
                <!-- Add upvote and downvote links -->
                <form action="/comments/{{ comment.id }}/upvote" method="POST">
                  <button type="submit">Upvote ({{ comment.upvotes }})</button>
@@ -163,27 +173,26 @@ li {
 
     <!-- Add JavaScript code to send DELETE request when delete button is clicked -->
     <script>
-// Add event listener to delete buttons
-const deleteButtons = document.querySelectorAll('.delete-button');
-deleteButtons.forEach(button => {
-  button.addEventListener('click', event => {
-    // Display a confirmation dialog
-    if (confirm("You can't unmountain dew what's already been mountain done.")) {
-      // Get the comment ID from the data attribute
-      const commentId = event.target.getAttribute('data-comment-id');
-      // Send a DELETE request to the server
-      fetch(`/comments/${commentId}`, {
-        method: 'DELETE'
-      }).then(response => {
-        // Reload the page after the comment is deleted
-        window.location.reload();
+    // Add event listener to delete buttons
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => {
+      button.addEventListener('click', event => {
+        // Display a confirmation dialog
+        if (confirm("You can't unmountain dew what's already been mountain done.")) {
+          // Get the comment ID from the data attribute
+          const commentId = event.target.getAttribute('data-comment-id');
+          // Send a DELETE request to the server
+          fetch(`/comments/${commentId}`, {
+            method: 'DELETE'
+          }).then(response => {
+            // Reload the page after the comment is deleted
+            window.location.reload();
+          });
+        }
       });
-    }
-  });
-});
+    });
 
     </script>
 
 </body>
 </html>
-

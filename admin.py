@@ -44,10 +44,17 @@ def remove_user(user_id):
 def edit_post(post_id, new_content):
     # Add code here to update the post with the specified ID
     pass
-
-def remove_post(post_id):
-    # Add code here to delete the post with the specified ID
-    pass
+def remove_model(model_id):
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+    # Delete the model with the specified ID from the database
+    query = "DELETE FROM models WHERE id=%s"
+    cursor.execute(query, (model_id,))
+    # Commit the changes and close the database connection
+    conn.commit()
+    cursor.close()
+    conn.close()
 
 def edit_comment(comment_id, new_content):
     # Add code here to update the comment with the specified ID
