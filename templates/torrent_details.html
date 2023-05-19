@@ -176,7 +176,7 @@ li {
       {% endif %}
 
       <!-- Add a form to send a DELETE request when the delete button is clicked -->
-      {% if is_admin(session['username']) %}
+      {% if is_admin %}
       <form action="{{ url_for('delete_torrent', torrent_id=torrent.id) }}" method="POST" onsubmit="return confirmDelete('{{ session['username'] }}')">
         <input type="submit" value="Delete Torrent">
       </form>

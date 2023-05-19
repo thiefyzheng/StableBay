@@ -66,7 +66,9 @@ def remove_comment(comment_id):
 
 import edit
 
-def is_admin(username):
+def is_admin(username=None):
+    if username is None:
+        return False
     # Check if user is in admin database table
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
     cursor = conn.cursor()

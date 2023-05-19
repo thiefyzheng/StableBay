@@ -419,8 +419,12 @@ def torrent_details(torrent_id):
     if not torrent:
         return "Torrent not found", 404
 
-    # Render the template with the torrent data and the is_admin function
-    return render_template('torrent_details.html', torrent=torrent, is_admin=is_admin)
+    # Call the is_admin function with the session['username'] value (if it's set)
+    username = session.get('username')
+    admin_status = is_admin(username)
+
+    # Render the template with the torrent data and the admin_status value
+    return render_template('torrent_details.html', torrent=torrent, is_admin=admin_status)
 
 
 
