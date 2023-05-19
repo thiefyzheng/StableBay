@@ -475,7 +475,7 @@ def edit_comment_route(comment_id):
         # Update the comment in the database
         edit_comment(comment_id, new_comment)
         # Return a simple message
-        return "Comment updated!"
+        return redirect(url_for('updated'))
     else:
         print("Received GET request")
         # Get the current comment text from the database
