@@ -129,7 +129,7 @@ li {
 
       <!-- Add a form to send a DELETE request when the delete button is clicked -->
       {% if is_admin(session['username']) %}
-      <form action="{{ url_for('delete_torrent', torrent_id=torrent.id) }}" method="POST">
+      <form action="{{ url_for('delete_torrent', torrent_id=torrent.id) }}" method="POST" onsubmit="return confirmDelete('{{ session['username'] }}')">
         <input type="submit" value="Delete Torrent">
       </form>
       {% endif %}
@@ -192,6 +192,20 @@ li {
       });
     });
 
+    // Function to display a confirmation dialog and check the entered username
+    function confirmDelete(username) {
+      // Prompt the admin to enter their username
+      const enteredUsername = prompt('Please enter your username to confirm deletion:');
+      // Check if the entered username matches the admin's username
+      if (enteredUsername === username) {
+        // If the usernames match, display a confirmation dialog
+        return confirm('Are you sure you want to delete this torrent?');
+      } else {
+        // If the usernames do not match, display an error message and prevent form submission
+        alert('Incorrect username. Deletion cancelled.');
+        return false;
+      }
+    }
     </script>
 
 </body>
