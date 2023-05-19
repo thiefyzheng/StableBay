@@ -7,9 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added admin delete">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added confirmation dialog for adminz">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/edit_torrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_torrent.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,13 +115,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00004" summary="testt">
-      <created>1682774996431</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1682774996431</updated>
     </task>
     <task id="LOCAL-00005" summary="testt">
       <created>1682816085719</created>
@@ -459,7 +452,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684457072781</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="added confirmation dialog for adminz">
+      <created>1684459935002</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1684459935002</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -474,7 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Verification has been improved 1" />
     <MESSAGE value="Started on editzzzz" />
     <MESSAGE value="Fixed the issue where you could only upload one value" />
     <MESSAGE value="added verify1" />
@@ -499,6 +498,7 @@
     <MESSAGE value="Enabled revoking admin." />
     <MESSAGE value="improved security - checks whether the user is an admin before allowing them to edit accoun" />
     <MESSAGE value="added admin delete" />
-    <option name="LAST_COMMIT_MESSAGE" value="added admin delete" />
+    <MESSAGE value="added confirmation dialog for adminz" />
+    <option name="LAST_COMMIT_MESSAGE" value="added confirmation dialog for adminz" />
   </component>
 </project>

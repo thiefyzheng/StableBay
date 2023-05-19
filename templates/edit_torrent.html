@@ -186,6 +186,10 @@ function fetchAttributes(category_id) {
 
       <label for="description">Description:</label><br>
       <textarea id="description" name="description">{{ torrent.description }}</textarea><br><br>
+      <!-- Add an input field for the image link -->
+<label for="image_link">Image Link:</label><br>
+<input type="text" id="image_link" name="image_link" value="{{ torrent.image_link }}"><br><br>
+
 
       <input type="submit" value="Save">
     </form>
