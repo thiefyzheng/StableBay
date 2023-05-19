@@ -100,6 +100,51 @@ li {
     cursor:pointer
 }
 
+
+/* Add styles for download button */
+.download-button {
+  display: inline-block;
+  padding: 10px 15px;
+  margin: 20px 0;
+  background-color: #0f4c81;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+/* Add styles for comments */
+.comments-container {
+  margin-top: 40px;
+}
+
+.comment-form textarea {
+  width: 100%;
+  height: 80px;
+}
+
+.comment-form button {
+  display: block;
+  margin-top: 10px;
+}
+
+.comment {
+  border-top: 1px solid #ccc;
+  padding-top: 10px;
+}
+
+.comment:first-of-type {
+  border-top: none;
+}
+
+.comment-author {
+  font-weight: bold;
+}
+
+.comment-actions a {
+  margin-right: 10px;
+}
+
+
     </style>
 <head>
     <meta charset="UTF-8">
@@ -112,6 +157,9 @@ li {
       <img src="{{ torrent.image_link }}" alt="{{ torrent.name }}">
       <h2> {{ torrent.category }}</h2>
       <p>{{ torrent.description }}</p>
+
+      <!-- Add a download button -->
+      <a href="{{ torrent.magnet_link }}" class="download-button">Download Torrent</a>
 
       <ul>
           {% for attribute in torrent.attributes %}
@@ -206,7 +254,27 @@ li {
         return false;
       }
     }
+    
+    
+    
+    
+    
+    // Save the scroll position in localStorage before the page is unloaded
+window.addEventListener('beforeunload', () => {
+  localStorage.setItem('scrollPosition', window.scrollY);
+});
+
+// Restore the scroll position when the page is loaded
+window.addEventListener('load', () => {
+  const scrollPosition = localStorage.getItem('scrollPosition');
+  if (scrollPosition) {
+    window.scrollTo(0, parseInt(scrollPosition));
+  }
+});
+
+    
     </script>
 
 </body>
 </html>
+

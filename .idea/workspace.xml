@@ -7,9 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added confirmation dialog for adminz">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added image link editt">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/edit_torrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_torrent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,13 +115,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00005" summary="testt">
-      <created>1682816085719</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1682816085719</updated>
     </task>
     <task id="LOCAL-00006" summary="Changed the directory uploads to be external">
       <created>1682816405284</created>
@@ -459,7 +452,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684459935002</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="added image link editt">
+      <created>1684462004675</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1684462004675</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -474,7 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Started on editzzzz" />
     <MESSAGE value="Fixed the issue where you could only upload one value" />
     <MESSAGE value="added verify1" />
     <MESSAGE value="Can show attributes in the edit page." />
@@ -499,6 +498,7 @@
     <MESSAGE value="improved security - checks whether the user is an admin before allowing them to edit accoun" />
     <MESSAGE value="added admin delete" />
     <MESSAGE value="added confirmation dialog for adminz" />
-    <option name="LAST_COMMIT_MESSAGE" value="added confirmation dialog for adminz" />
+    <MESSAGE value="added image link editt" />
+    <option name="LAST_COMMIT_MESSAGE" value="added image link editt" />
   </component>
 </project>
