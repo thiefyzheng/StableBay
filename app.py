@@ -437,7 +437,7 @@ def delete_torrent(torrent_id):
         return 'Unauthorized', 401
 
 
-from comments import add_comment, delete_comment, edit_comment, upvote_comment, downvote_comment
+from comments import add_comment, delete_comment, edit_comment, upvote_comment, downvote_comment, get_comment
 
 @app.route('/torrents/<torrent_id>/comments', methods=['POST'])
 def add_torrent_comment(torrent_id):
@@ -463,6 +463,31 @@ def add_torrent_comment(torrent_id):
     else:
         # Render an error page or message
         pass
+
+
+@app.route('/comments/<int:comment_id>/edit', methods=['GET', 'POST'])
+def edit_comment_route(comment_id):
+    if request.method == 'POST':
+        print("Received POST request")
+        # Get the new comment text from the form data
+        new_comment = request.form.get('comment')
+        print(f"Received comment from back end: {new_comment}")
+        # Update the comment in the database
+        edit_comment(comment_id, new_comment)
+        # Return a simple message
+        return "Comment updated!"
+    else:
+        print("Received GET request")
+        # Get the current comment text from the database
+        comment = get_comment(comment_id)
+        print(f"Current comment text: {comment['comment']}")
+        # Render the edit comment form
+        return render_template('edit_comment.html', comment=comment)
+
+
+@app.route('/updated')
+def updated():
+    return render_template('updated.html')
 
 
 import os

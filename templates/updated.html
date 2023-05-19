@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+        body {
+            background-color: #0f4c81;
+            margin: 0;
+            padding: 0;
+        }
+        .animation {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: white;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-name: spin;
+            animation-duration: 4s;
+            animation-iteration-count: infinite;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .animation span {
+            font-size: 1.5em;
+            font-family: 'Montserrat', sans-serif;
+        }
+        @keyframes spin {
+            from {transform: rotate(0deg);}
+            to {transform: rotate(360deg);}
+        }
+    </style>
+</head>
+<body>
+    <div class="animation"><span></span></div>
+    <script>
+        // You can add your JavaScript code here to update the animation
+let text = "updated";
+
+let orbs = [];
+orbs.push({
+    element: document.querySelector(".animation"),
+    x: document.querySelector(".animation").offsetLeft,
+    y: document.querySelector(".animation").offsetTop,
+    dx: 2,
+    dy: 2,
+    charIndex: Math.floor(Math.random() * text.length)
+});
+
+let isMerged = false;
+
+setInterval(() => {
+    if (isMerged) {
+        let orb = orbs[0];
+        orb.x += orb.dx;
+        orb.y += orb.dy;
+
+        if (orb.x + orb.element.offsetWidth > window.innerWidth || orb.x < 0) {
+            orb.dx = -orb.dx;
+        }
+        if (orb.y + orb.element.offsetHeight > window.innerHeight || orb.y < 0) {
+            orb.dy = -orb.dy;
+        }
+
+        orb.element.style.left = orb.x + "px";
+        orb.element.style.top = orb.y + "px";
+        return;
+    }
+
+    if (orbs.length === 69) {
+        for (let i = 1; i < orbs.length; i++) {
+            orbs[i].element.remove();
+        }
+        orbs = [orbs[0]];
+        orbs[0].element.style.width = "500px";
+        orbs[0].element.style.height = "500px";
+        orbs[0].element.querySelector("span").style.fontSize = "5em";
+        orbs[0].element.querySelector("span").innerHTML = "updated";
+        isMerged = true;
+        return;
+    }
+
+    for (let i = 0; i < orbs.length; i++) {
+        let orb = orbs[i];
+        orb.x += orb.dx;
+        orb.y += orb.dy;
+
+        if (orb.x + orb.element.offsetWidth > window.innerWidth || orb.x < 0) {
+            orb.dx = -orb.dx;
+            if (!isMerged) {
+                addOrb();
+            }
+        }
+        if (orb.y + orb.element.offsetHeight > window.innerHeight || orb.y < 0) {
+            orb.dy = -orb.dy;
+            if (!isMerged) {
+                addOrb();
+            }
+        }
+
+        orb.element.style.left = orb.x + "px";
+        orb.element.style.top = orb.y + "px";
+        orb.element.querySelector("span").innerHTML = text[orb.charIndex];
+    }
+}, 20);
+
+function addOrb() {
+    let newOrb = document.createElement("div");
+    newOrb.classList.add("animation");
+    newOrb.innerHTML = "<span></span>";
+    document.body.appendChild(newOrb);
+
+    orbs.push({
+        element: newOrb,
+        x: newOrb.offsetLeft,
+        y: newOrb.offsetTop,
+        dx: Math.random() * 20 - 10,
+        dy: Math.random() * 20 - 10,
+        charIndex: Math.floor(Math.random() * text.length)
+    });
+}
+
+
+    </script>
+</body>
+</html>
+

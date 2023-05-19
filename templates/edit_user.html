@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit User {{ user['id'] }}</title>
+    </head>
+    <body>
+        <h1>Edit User {{ user['id'] }}</h1>
+        <form action="{{ url_for('edit_user_page', user_id=user['id']) }}" method="post">
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" value="{{ user['email'] }}"><br><br>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" value="{{ user['username'] }}"><br><br>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password"><br><br>
+            <label for="verified">Verified:</label><br>
+            <input type="checkbox" id="verified" name="verified" {% if user['verified'] %}checked{% endif %}><br><br>
+            <label for="verification_code">Verification Code:</label><br>
+            <input type="text" id="verification_code" name="verification_code" value="{{ user['verification_code'] }}"><br><br>
+            <label for="reset_token">Reset Token:</label><br>
+            <input type="text" id="reset_token" name="reset_token" value="{{ user['reset_token'] }}"><br><br>
+            <label for="bio">Bio:</label><br>
+            <textarea id="bio" name="bio">{{ user['bio'] }}</textarea><br><br>
+            <label for="is_admin">Is Admin:</label><br>
+            <input type="checkbox" id="is_admin" name="is_admin" {% if user['is_admin'] %}checked{% endif %}><br><br>
+            <input type="submit" value="Submit">
+        </form> 
+    </body>
+</html>
+
+

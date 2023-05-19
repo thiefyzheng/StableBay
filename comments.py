@@ -36,6 +36,27 @@ def edit_comment(comment_id, new_comment):
     conn.close()
 
 
+def get_comment(comment_id):
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+    query = "SELECT id, comment, user_id, torrent_id FROM comments WHERE id=%s"
+    params = (comment_id,)
+    cursor.execute(query, params)
+    result = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    if result:
+        comment = {
+            'id': result[0],
+            'comment': result[1],
+            'user_id': result[2],
+            'torrent_id': result[3]
+        }
+        return comment
+    else:
+        return None
+
+
 def upvote_comment(user_id, comment_id):
     # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
