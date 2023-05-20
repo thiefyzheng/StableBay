@@ -435,8 +435,8 @@ def reset_password():
             # Hash the new password using sha256
             hashed_password = hashlib.sha256(new_password.encode()).hexdigest()
 
-            # Update the user's password in the database
-            query = "UPDATE users SET password=%s WHERE reset_token=%s"
+            # Update the user's password and delete the reset code from the database
+            query = "UPDATE users SET password=%s, reset_token=NULL WHERE reset_token=%s"
             cursor.execute(query, (hashed_password, reset_code))
 
             # Commit the changes and close the database connection
@@ -457,6 +457,7 @@ def reset_password():
 
     # Render the reset password form
     return render_template('reset_password.html')
+
 
 
 
