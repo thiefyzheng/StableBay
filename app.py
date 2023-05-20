@@ -411,8 +411,18 @@ def account(username):
 
 
 from authent import edit_user, get_user_by_username
+from flask import session
+
+from flask import session
+
 @app.route('/account/<username>/edit', methods=['GET', 'POST'])
 def edit_user_bio(username):
+    # Check if the current user is the same as the user being edited
+    current_username = session.get('username')
+    if current_username != username:
+        # Redirect to the /rickroll route
+        return redirect(url_for('rickroll'))
+
     user = get_user_by_username(username)
     if not user:
         return jsonify({'error': 'User not found'}), 404
@@ -428,7 +438,6 @@ def edit_user_bio(username):
         new_bio = data.get('bio')
         edit_user(user_id, new_bio=new_bio)
         return redirect(url_for('account', username=username))
-
 
 
 
