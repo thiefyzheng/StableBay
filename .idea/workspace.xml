@@ -8,8 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added a goofy ahh animation">
-      <change afterPath="$PROJECT_DIR$/templates/reset_password.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/account.py" beforeDir="false" afterPath="$PROJECT_DIR$/account.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/edit_bio.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/authent.py" beforeDir="false" afterPath="$PROJECT_DIR$/authent.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account.html" afterDir="false" />

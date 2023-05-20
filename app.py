@@ -409,6 +409,29 @@ def account(username):
     # Render the template and pass the torrents, username, bio and current user's username
     return render_template('account.html', torrents=torrents, username=username, bio=bio, current_username=current_username)
 
+
+from authent import edit_user, get_user_by_username
+@app.route('/account/<username>/edit', methods=['GET', 'POST'])
+def edit_user_bio(username):
+    user = get_user_by_username(username)
+    if not user:
+        return jsonify({'error': 'User not found'}), 404
+    user_id = user['id']
+    if request.method == 'GET':
+        # Handle GET requests here
+        return render_template('edit_bio.html', user=user)
+    elif request.method == 'POST':
+        # Handle POST requests here
+        data = request.form
+        if not data:
+            return jsonify({'error': 'Missing data'}), 400
+        new_bio = data.get('bio')
+        edit_user(user_id, new_bio=new_bio)
+        return redirect(url_for('account', username=username))
+
+
+
+
 from torrent_details import get_torrent_details
 
 from authent import send_reset_code

@@ -84,6 +84,20 @@ def resend_verification_code(email):
 
 
 
+def get_user_by_username(username):
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+    query = "SELECT * FROM users WHERE username=%s"
+    cursor.execute(query, (username,))
+    row = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    if row:
+        columns = [column[0] for column in cursor.description]
+        user = dict(zip(columns, row))
+        return user
+    else:
+        return None
 
 
 
@@ -131,3 +145,18 @@ def send_reset_code(email):
     yag.send(email, subject, body)
 
     return True, 'Reset code sent successfully'
+
+
+def edit_user(user_id, new_email=None, new_username=None, new_password=None, new_verified=None, new_verification_code=None, new_reset_token=None, new_bio=None, new_is_admin=None):
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+    if new_bio:
+        query = "UPDATE users SET bio=%s WHERE id=%s"
+        cursor.execute(query, (new_bio, user_id))
+    conn.commit()
+    cursor.close()
+    conn.close()
+
+
+
+

@@ -34,6 +34,20 @@
         tr:hover {
             background-color: #f5f5f5;
         }
+
+        /* Add some CSS to style the Edit Bio button */
+        button {
+            background-color: #0f4c81;
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0a2c4a;
+        }
     </style>
 </head>
 <body>
@@ -74,7 +88,8 @@
 
               <!-- Show an edit button if the current user is the same as the user being viewed -->
               {% if current_username == username %}
-                  <button>Edit Bio</button>
+                  <!-- Update the button to link to the /account/<username>/edit route -->
+                  <a href="/account/{{ username }}/edit"><button>Edit Bio</button></a>
               {% endif %}
           </div>
 
@@ -85,5 +100,4 @@
 </body>
 
 </html>
-
 
