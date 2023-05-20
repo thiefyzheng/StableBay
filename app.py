@@ -300,8 +300,15 @@ db_host = 'localhost'
 db_user = 'stablebay'
 db_name = 'StableDB'
 
+
 @app.route('/torrents')
 def torrents():
+    page = request.args.get('page', 1, type=int)
+    limit = 16
+    offset = (page - 1) * limit
+    torrents_json = get_torrents(limit=limit, offset=offset)
+    torrents = json.loads(torrents_json)
+
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
     cursor = conn.cursor()
 
@@ -309,13 +316,22 @@ def torrents():
     cursor.execute("SELECT id, name FROM categories")
     categories = cursor.fetchall()
 
+    # Calculate the total number of torrents
+    cursor.execute("SELECT COUNT(*) FROM models")
+    total = cursor.fetchone()[0]
+
     # Close database connection
     cursor.close()
     conn.close()
 
-    torrents_json = get_torrents()
-    torrents = json.loads(torrents_json)
-    return render_template('torrents.html', torrents=torrents, categories=categories)
+    # Print the values of page, limit, and total for debugging
+    print(f'page: {page}')
+    print(f'limit: {limit}')
+    print(f'total: {total}')
+
+    return render_template('torrents.html', torrents=torrents, categories=categories, page=page, limit=limit,
+                           total=total)
+
 
 from flask import render_template, session
 import datetime

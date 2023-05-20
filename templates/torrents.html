@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Torrents</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
@@ -62,14 +63,10 @@ av
           cursor:pointer; 
           }
       </style>
-    
-    
-
 <head>
     <title>StableBay - Search Torrents</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script src="<https://unpkg.com/browse/webtorrent@2.0.18/>"></script>
-
 </head>
 <body>
     <div style="text-align:right;">
@@ -109,6 +106,14 @@ av
     </div>
 
     <!-- added -->
+    <!-- Pagination links -->
+    {% if page > 1 %}
+        <a href="{{ url_for('torrents', page=page-1) }}">Previous</a>
+    {% endif %}
+    {% if page * limit < total %}
+        <a href="{{ url_for('torrents', page=page+1) }}">Next</a>
+    {% endif %}
+
     <!-- Load WebTorrent library -->
     <script src="<URL>"></script>
 
@@ -130,9 +135,10 @@ av
           });
       });
     </script>
-
+    <p>page: {{ page }}</p>
+    <p>limit: {{ limit }}</p>
+    <p>total: {{ total }}</p>
 </body>
 
 </html>
-
 
