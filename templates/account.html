@@ -42,27 +42,48 @@
             <a href="/">StableBay</a>
         </div>
         <h1>{{ username }}'s STUFF</h1>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>User</th>
-                    <th>Upload Date</th>
-                    <th>Download</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for torrent in torrents %}
-                    <tr>
-                        <td><a href="/torrents/{{ torrent.id }}">{{ torrent.name }}</a></td>
-                        <td>{{ torrent.uploaded_by }}</td>
-                        <td>{{ torrent.upload_date }}</td>
-                        <td><a href="{{ torrent.download_url }}">Download</a></td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div style="display:flex;">
+          <div style="flex-grow:1;">
+              <table>
+                  <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>User</th>
+                          <th>Upload Date</th>
+                          <th>Download</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      {% for torrent in torrents %}
+                          <tr>
+                              <td><a href="/torrents/{{ torrent.id }}">{{ torrent.name }}</a></td>
+                              <td>{{ torrent.uploaded_by }}</td>
+                              <td>{{ torrent.upload_date }}</td>
+                              <td><a href="{{ torrent.download_url }}">Download</a></td>
+                          </tr>
+                      {% endfor %}
+                  </tbody>
+              </table>
+          </div>
+
+          <!-- Add a new div to display the user's bio -->
+          <div style="flex-grow:1; text-align:left;">
+              <h2>Bio:</h2>
+
+              {{ bio }}
+
+              <!-- Show an edit button if the current user is the same as the user being viewed -->
+              {% if current_username == username %}
+                  <button>Edit Bio</button>
+              {% endif %}
+          </div>
+
+        </div>
+
     </div>
+
 </body>
+
 </html>
+
 

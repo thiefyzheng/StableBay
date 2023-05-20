@@ -81,3 +81,53 @@ def resend_verification_code(email):
     subject = 'Email Verification'
     body = f'Please verify your email by clicking on this link: https://stablebay.org/verify?code={verification_code} or entering this code: {verification_code}'
     yag.send(email, subject, body)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+def send_reset_code(email):
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+
+    # Create a cursor to execute queries
+    cursor = conn.cursor()
+
+    # Check if the email is valid
+    query = "SELECT * FROM users WHERE email=%s"
+    cursor.execute(query, (email,))
+    user = cursor.fetchone()
+    if not user:
+        return False, 'Invalid email'
+
+    # Generate a reset code
+    reset_code = ''.join(random.choices(string.ascii_letters + string.digits, k=20))
+
+    # Update the reset_token column with the reset code
+    query = "UPDATE users SET reset_token=%s WHERE email=%s"
+    cursor.execute(query, (reset_code, email))
+
+    # Commit the changes and close the database connection
+    conn.commit()
+    conn.close()
+
+    # Send the reset code to the user's email using yagmail
+    with open('password.txt', 'r') as f:
+        gmail_password = f.read().strip()
+    yag = yagmail.SMTP('stablebay.org@gmail.com', gmail_password)
+    subject = 'Password Reset'
+    body = f'Here is your password reset code: {reset_code}\n\nPlease use this code to reset your password.'
+    yag.send(email, subject, body)
+
+    return True, 'Reset code sent successfully'

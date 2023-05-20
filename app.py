@@ -325,7 +325,7 @@ import mysql.connector
 import edit
 from flask import redirect, session
 
-from flask import redirect, session
+from flask import redirect, session, flash
 
 from admin import is_admin
 @app.route('/torrents/<string:torrent_id>/edit', methods=['GET', 'POST'])
@@ -400,13 +400,63 @@ def rickroll():
 
 @app.route('/account/<username>')
 def account(username):
-    # Get the user's torrents from the database
-    torrents = get_user_torrents(username)
+    # Get the user's torrents and bio from the database
+    torrents, bio = get_user_torrents(username)
 
-    # Render the template and pass the torrents and username
-    return render_template('account.html', torrents=torrents, username=username)
+    # Get the current user's username from the session
+    current_username = session.get('username')
+
+    # Render the template and pass the torrents, username, bio and current user's username
+    return render_template('account.html', torrents=torrents, username=username, bio=bio, current_username=current_username)
 
 from torrent_details import get_torrent_details
+
+from authent import send_reset_code
+@app.route('/reset_password', methods=['GET', 'POST'])
+def reset_password():
+    # Handle form submission
+    if request.method == 'POST':
+        # Check if the reset_code field is present in the form data
+        if 'reset_code' in request.form:
+            # Get the reset code and new password from the form data
+            reset_code = request.form['reset_code']
+            new_password = request.form['new_password']
+
+            # Check if the reset code is valid
+            conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+            cursor = conn.cursor()
+            query = "SELECT * FROM users WHERE reset_token=%s"
+            cursor.execute(query, (reset_code,))
+            user = cursor.fetchone()
+            if not user:
+                flash('Invalid reset code')
+                return redirect(url_for('reset_password'))
+
+            # Hash the new password using sha256
+            hashed_password = hashlib.sha256(new_password.encode()).hexdigest()
+
+            # Update the user's password in the database
+            query = "UPDATE users SET password=%s WHERE reset_token=%s"
+            cursor.execute(query, (hashed_password, reset_code))
+
+            # Commit the changes and close the database connection
+            conn.commit()
+            conn.close()
+
+            flash('Password reset successfully')
+            return redirect(url_for('login'))
+        else:
+            # Get the email from the form data
+            email = request.form['email']
+
+            # Send the reset code to the user's email
+            success, message = send_reset_code(email)
+            if not success:
+                flash(message)
+                return redirect(url_for('reset_password'))
+
+    # Render the reset password form
+    return render_template('reset_password.html')
 
 
 
