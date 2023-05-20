@@ -62,11 +62,13 @@ def torrent(id):
 
 from search import search_torrents
 
-
 @app.route('/search')
 def search():
     query = request.args.get('query')
     category = request.args.get('category')
+    page = request.args.get('page', 1, type=int)
+    limit = 16
+    offset = (page - 1) * limit
 
     print('Search query:', query)
     print('Category:', category)
@@ -79,16 +81,18 @@ def search():
     cursor.execute("SELECT id, name FROM categories")
     categories = cursor.fetchall()
 
+    # Calculate the total number of search results
+    cursor.execute("SELECT COUNT(*) FROM models WHERE name LIKE %s OR description LIKE %s", ('%' + query + '%', '%' + query + '%'))
+    total = cursor.fetchone()[0]
+
     # Close database connection
     cursor.close()
     conn.close()
 
-    results = search_torrents(query, category)
+    results = search_torrents(query, category, limit=limit, offset=offset)
     results_json = json.loads(results)
 
-    return render_template('search.html', torrents=results_json, categories=categories)
-
-
+    return render_template('search.html', torrents=results_json, categories=categories, page=page, limit=limit, total=total)
 
 
 
