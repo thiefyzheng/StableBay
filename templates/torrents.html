@@ -89,21 +89,26 @@ av
         </form>
     </div>
 
-    <div class="torrents-container">
-      {% for torrent in torrents %}
-          <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
-              <div class="torrent-box torrent-box-{{ torrent.id }}">
-                  <div class="category-box">{{ torrent.category }}</div>
-                  <div class="torrent-details">
-                      <h3>{{ torrent.name }}</h3>
-                      <p>Uploaded by: {{ torrent.uploaded_by }}</p>
-                      <!-- added -->
-                      <p>Seeder Count:<br><span id="seeder-count-{{ torrent.id }}"></span></p> 
-                  </div>
+<div class="torrents-container">
+  {% for torrent in torrents %}
+      <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
+          <div class="torrent-box torrent-box-{{ torrent.id }}">
+              <div class="category-box">{{ torrent.category }}</div>
+              <div class="torrent-details">
+                  <h3>{{ torrent.name }}</h3>
+                  <p>Uploaded by: {{ torrent.uploaded_by }}</p>
+                  <!-- added -->
+                  <p>Seeder Count:<br><span id="seeder-count-{{ torrent.id }}"></span></p> 
               </div>
-          </a>
-      {% endfor %}
-    </div>
+              <!-- added -->
+              <div class="download-button">
+                  <a href="{{ torrent.magnet_link }}">↓</a>
+              </div>
+          </div>
+      </a>
+  {% endfor %}
+</div>
+
 
     <!-- added -->
     <!-- Pagination links -->

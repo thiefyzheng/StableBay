@@ -82,19 +82,26 @@
             <button type="submit">Search</button>
         </form>
     </div>
-    <div class="torrents-container">
-        {% for torrent in torrents %}
-        <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
-            <div class="torrent-box torrent-box-{{ torrent.id }}">
-                <div class="category-box">{{ torrent.category }}</div>
-                <div class="torrent-details">
-                    <h3>{{ torrent.name }}</h3>
-                    <p>Uploaded by: {{ torrent.uploaded_by }}</p>
-                </div>
-            </div>
-        </a>
-        {% endfor %}
-    </div>
+<div class="torrents-container">
+  {% for torrent in torrents %}
+      <a href="/torrents/{{ torrent.id }}" class="torrent-box-link">
+          <div class="torrent-box torrent-box-{{ torrent.id }}">
+              <div class="category-box">{{ torrent.category }}</div>
+              <div class="torrent-details">
+                  <h3>{{ torrent.name }}</h3>
+                  <p>Uploaded by: {{ torrent.uploaded_by }}</p>
+                  <!-- added -->
+                  <p>Seeder Count:<br><span id="seeder-count-{{ torrent.id }}"></span></p> 
+              </div>
+              <!-- added -->
+              <div class="download-button">
+                  <a href="{{ torrent.magnet_link }}">↓</a>
+              </div>
+          </div>
+      </a>
+  {% endfor %}
+</div>
+
 
     <!-- Pagination links -->
     {% if page > 1 %}

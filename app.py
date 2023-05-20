@@ -99,9 +99,6 @@ def search():
 
 
 
-
-
-
 from flask import request
 from flask import render_template
 
