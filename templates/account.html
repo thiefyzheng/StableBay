@@ -48,52 +48,69 @@
         button:hover {
             background-color: #0a2c4a;
         }
+
+        /* Add some CSS to style the user bio section */
+        .user-bio {
+          display:flex; 
+          flex-direction:column; 
+          align-items:center; 
+          margin-top:20px
+        }
+
+        .user-bio h2 {
+          font-size:24px; 
+          font-weight:bold; 
+          margin-bottom:10px
+        }
+
+        .user-bio p {
+          font-size:16px; 
+          line-height:1.5; 
+          text-align:center; 
+          max-width:500px
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div style="text-align: right;">
-            <a href="/">StableBay</a>
+        <div style="text-align:right;">
+          <a href="/">StableBay</a>
         </div>
+        
         <h1>{{ username }}'s STUFF</h1>
-        <div style="display:flex;">
-          <div style="flex-grow:1;">
-              <table>
-                  <thead>
-                      <tr>
-                          <th>Name</th>
-                          <th>User</th>
-                          <th>Upload Date</th>
-                          <th>Download</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      {% for torrent in torrents %}
-                          <tr>
-                              <td><a href="/torrents/{{ torrent.id }}">{{ torrent.name }}</a></td>
-                              <td>{{ torrent.uploaded_by }}</td>
-                              <td>{{ torrent.upload_date }}</td>
-                              <td><a href="{{ torrent.download_url }}">Download</a></td>
-                          </tr>
-                      {% endfor %}
-                  </tbody>
-              </table>
-          </div>
 
-          <!-- Add a new div to display the user's bio -->
-          <div style="flex-grow:1; text-align:left;">
-              <h2>Bio:</h2>
+        <!-- Add a new div to display the user's bio -->
+        <div class="user-bio">
+          <h2>Bio:</h2>
+          <p>{{ bio }}</p>
 
-              {{ bio }}
-
-              <!-- Show an edit button if the current user is the same as the user being viewed -->
-              {% if current_username == username %}
-                  <!-- Update the button to link to the /account/<username>/edit route -->
-                  <a href="/account/{{ username }}/edit"><button>Edit Bio</button></a>
-              {% endif %}
-          </div>
-
+          <!-- Show an edit button if the current user is the same as the user being viewed -->
+          {% if current_username == username %}
+              <!-- Update the button to link to the /account/<username>/edit route -->
+              <a href="/account/{{ username }}/edit"><button>Edit Bio</button></a>
+          {% endif %}
         </div>
+
+      <table>
+          <thead>
+              <tr>
+                  <th>Name</th>
+                  <th>User</th>
+                  <th>Upload Date</th>
+                  <th>Download</th>
+              </tr>
+          </thead>
+          <tbody>
+              {% for torrent in torrents %}
+                  <tr>
+                      <td><a href="/torrents/{{ torrent.id }}">{{ torrent.name }}</a></td>
+                      <td>{{ torrent.uploaded_by }}</td>
+                      <td>{{ torrent.upload_date }}</td>
+                      <td><a href="{{ torrent.download_url }}">Download</a></td>
+                  </tr>
+              {% endfor %}
+          </tbody>
+      </table>
 
     </div>
 

@@ -52,6 +52,19 @@
             color: #0f4c81;
             border: 2px solid #0f4c81;
         }
+
+        .custom-file-input {
+          display:inline-block; 
+          padding:10px; 
+          cursor:pointer; 
+          font-size:16px; 
+          font-family:'Montserrat', sans-serif; 
+          border-radius:4px; 
+          box-sizing:border-box; 
+          margin-bottom:20px; 
+          color:#555; 
+          border:1px solid #ccc
+        }
     </style>
     <script>
         function extractMagnet() {
@@ -73,15 +86,17 @@
     {% endif %}
     <form method="post" action="/upload" enctype="multipart/form-data">
       <label for="model_name">Model name:</label>
-      <input type="text" name="model_name" id="model_name"><br>
+      <input type="text" name="model_name" id="model_name" required><br>
       <label for="short_description">Short description:</label>
       <textarea name="short_description" id="short_description"></textarea><br>
-      <label for="torrent_file">Torrent file:</label>
-      <input type="file" name="torrent_file" id="torrent_file" onchange="extractMagnet()"><br>
+      <label for="torrent_file">Torrent file:</label><br>
+      <label for="torrent_file" class="custom-file-input">Choose File</label><br>
+      <input type="file" name="torrent_file" id="torrent_file" onchange="extractMagnet()" style="display:none;"><br>
       <label for="image_link">Image link:</label>
       <input type="text" name="image_link" id="image_link"><br>
       <label for="magnet_link">Magnet link:</label>
-      <textarea name="magnet_link" id="magnet_link" readonly rows="5"></textarea><br>
+      <textarea name="magnet_link" id="magnet_link" readonly rows="5" required></textarea><br>
+
       <input type="submit" value="Upload">
     </form>
 
