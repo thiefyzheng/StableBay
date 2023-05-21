@@ -69,9 +69,34 @@
           text-align:center; 
           max-width:500px
         }
+
+        /* Add some CSS to style embedded images in the user bio */
+        .user-bio img {
+          max-width: 100%;
+          height: auto;
+          margin-top: 10px;
+          border-radius: 8px;
+          box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
     </style>
 </head>
 <body>
+
+<script>
+  window.addEventListener('load', function() {
+    // Get the bio element
+    var bioElement = document.querySelector('.user-bio p');
+    // Get the bio text
+    var bioText = bioElement.innerHTML;
+    // Define a regular expression to find image URLs
+    var imageRegex = /(https?:\/\/\S+\.(?:jpg|jpeg|png|gif))/gi;
+    // Replace image URLs with img tags
+    var newBioText = bioText.replace(imageRegex, '<img src="$1" alt="Image">');
+    // Update the bio element with the new text
+    bioElement.innerHTML = newBioText;
+  });
+</script>
+
     <div class="container">
         <div style="text-align:right;">
           <a href="/">StableBay</a>
@@ -82,7 +107,8 @@
         <!-- Add a new div to display the user's bio -->
         <div class="user-bio">
           <h2>Bio:</h2>
-          <p>{{ bio }}</p>
+          <!-- Update the bio paragraph to allow HTML tags -->
+          <p>{{ bio|safe }}</p>
 
           <!-- Show an edit button if the current user is the same as the user being viewed -->
           {% if current_username == username %}
@@ -117,4 +143,5 @@
 </body>
 
 </html>
+
 

@@ -5,7 +5,75 @@ Uploaded Successfully
 {% endblock %}
 
 {% block content %}
-<h1>File uploaded successfully!</h1>
-<a href="/">Back to Home</a>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+
+    body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+    }
+
+    .letter {
+        font-family: 'Montserrat', sans-serif;
+        color: #0f4c81;
+        display: inline-block;
+        font-size: 36px;
+        margin-right: 2px;
+        animation: move 2s;
+    }
+
+    .letter:last-child {
+        margin-right: 0;
+    }
+
+    @keyframes move {
+        0% { transform: translateX(var(--x)) translateY(var(--y)) scale(2); }
+        50% { transform: translateX(0) translateY(0) scale(0.5); }
+        100% { transform: translateX(0) translateY(0) scale(1); }
+    }
+
+    button {
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        font-size: 24px;
+        color: #0f4c81;
+        background-color: transparent;
+        border: 2px solid #0f4c81;
+        padding: 20px 40px;
+        cursor: pointer;
+    }
+
+    .rock {
+        animation: rock 1s infinite alternate;
+    }
+
+    @keyframes rock {
+        from { transform: rotate(-5deg); }
+        to { transform: rotate(5deg); }
+    }
+</style>
+<h1 id="text"></h1>
+<button id="button" onclick="window.location.href='/'">Back to Home</button>
+
+<script>
+    const text = "File uploaded successfully!";
+    const textEl = document.getElementById("text");
+
+    for (const letter of text) {
+        const letterEl = document.createElement("span");
+        letterEl.classList.add("letter");
+        letterEl.textContent = letter;
+        if (letter === ' ') letterEl.style.marginRight = '10px';
+        letterEl.style.setProperty("--x", `${Math.random() * 500 - 250}px`);
+        letterEl.style.setProperty("--y", `${Math.random() * 500 - 250}px`);
+        textEl.appendChild(letterEl);
+    }
+
+    const button = document.getElementById("button");
+    button.classList.add("rock");
+    setTimeout(() => button.classList.remove("rock"), 5000);
+</script>
 {% endblock %}
 
