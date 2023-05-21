@@ -7,11 +7,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="Added download buttons to torrents and search">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/account.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/account.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/uploaded.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/uploaded.html" afterDir="false" />
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added some more attributes and added image support in user pagesssssssssssss">
+      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,13 +113,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00012" summary="Added comments ...">
-      <created>1682987460176</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1682987460176</updated>
     </task>
     <task id="LOCAL-00013" summary="Ignore users.json...">
       <created>1682987964208</created>
@@ -460,7 +450,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684578543229</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="added some more attributes and added image support in user pagesssssssssssss">
+      <created>1684668554551</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1684668554552</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -475,7 +472,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added a button for clearing all attributesss" />
     <MESSAGE value="improved the clear ..." />
     <MESSAGE value="i don't remember." />
     <MESSAGE value="Database password is in db.txt and distributed by config.py" />
@@ -500,6 +496,7 @@
     <MESSAGE value="added pagination to torrents pagee" />
     <MESSAGE value="added pagination to searchhhhhhh pagee" />
     <MESSAGE value="Added download buttons to torrents and search" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added download buttons to torrents and search" />
+    <MESSAGE value="added some more attributes and added image support in user pagesssssssssssss" />
+    <option name="LAST_COMMIT_MESSAGE" value="added some more attributes and added image support in user pagesssssssssssss" />
   </component>
 </project>

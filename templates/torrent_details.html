@@ -274,6 +274,40 @@ window.addEventListener('load', () => {
 
     
     </script>
+    
+<script>
+  window.addEventListener('load', function() {
+    // Get all comment elements
+    var commentElements = document.querySelectorAll('.comment');
+    // Loop through each comment element
+    commentElements.forEach(function(commentElement) {
+      // Get the comment text
+      var commentText = commentElement.innerHTML;
+      // Define a regular expression to find image URLs
+      var imageRegex = /(https?:\/\/\S+\.(?:jpg|jpeg|png|gif))/gi;
+      // Replace image URLs with img tags
+      var newCommentText = commentText.replace(imageRegex, '<img src="$1" alt="Image">');
+      // Update the comment element with the new text
+      commentElement.innerHTML = newCommentText;
+    });
+  });
+</script>
+
+<script>
+  window.addEventListener('load', function() {
+    // Get the description element
+    var descriptionElement = document.querySelector('.torrent-container p');
+    // Get the description text
+    var descriptionText = descriptionElement.innerHTML;
+    // Define a regular expression to find image URLs
+    var imageRegex = /(https?:\/\/\S+\.(?:jpg|jpeg|png|gif))/gi;
+    // Replace image URLs with img tags
+    var newDescriptionText = descriptionText.replace(imageRegex, '<img src="$1" alt="Image">');
+    // Update the description element with the new text
+    descriptionElement.innerHTML = newDescriptionText;
+  });
+</script>
+
 
 </body>
 </html>
