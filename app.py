@@ -407,6 +407,9 @@ def edit_torrent(torrent_id):
         if torrent is None:
             return "Torrent not found"
 
+        # Filter out the Uploaded By attribute
+        torrent['attributes'] = [attribute for attribute in torrent['attributes'] if attribute['name'] != 'Uploaded By']
+
         # Get categories from database
         categories = get_categories()
 

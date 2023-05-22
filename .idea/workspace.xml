@@ -7,11 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="allows users the edit their individual value">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="allowed deleting individual attributes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/edit_torrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_torrent.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -116,13 +114,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00017" summary="Fixed comments again">
-      <created>1683032701527</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1683032701527</updated>
     </task>
     <task id="LOCAL-00018" summary="Fixed accounts pag">
       <created>1683033407084</created>
@@ -460,7 +451,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684744330979</updated>
     </task>
-    <option name="localTasksCounter" value="66" />
+    <task id="LOCAL-00066" summary="allowed deleting individual attributes">
+      <created>1684746281804</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1684746281804</updated>
+    </task>
+    <option name="localTasksCounter" value="67" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -475,7 +473,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="basic upvote and downvotezzz" />
     <MESSAGE value="Upvotes and Downvotes!!!!!!!1!!" />
     <MESSAGE value="fixed upvotes and downvotes causing the server error also now you can remove your votessss" />
     <MESSAGE value="Upvoting now doesn't cause the page to reset1" />
@@ -500,6 +497,7 @@
     <MESSAGE value="added admin messagingggg" />
     <MESSAGE value="improved admin messages, added it to the home" />
     <MESSAGE value="allows users the edit their individual value" />
-    <option name="LAST_COMMIT_MESSAGE" value="allows users the edit their individual value" />
+    <MESSAGE value="allowed deleting individual attributes" />
+    <option name="LAST_COMMIT_MESSAGE" value="allowed deleting individual attributes" />
   </component>
 </project>
