@@ -725,6 +725,35 @@ def admin_index():
     # Handle requests to /admin here
     pass
 
+from admin import set_homepage_message
+@app.route('/admin/message', methods=['GET', 'POST'])
+def admin_message():
+    if request.method == 'POST':
+        message = request.form['message']
+        set_homepage_message(message)
+        flash('Message updated successfully')
+        return redirect(url_for('admin_message'))
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+    query = "SELECT message FROM homepage LIMIT 1"
+    cursor.execute(query)
+    row = cursor.fetchone()
+    cursor.close()
+    conn.close()
+    message = row[0] if row else ''
+    return render_template('admin_message.html', message=message)
+
+@app.route('/admin/message/delete', methods=['POST'])
+def delete_homepage_message():
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+    query = "DELETE FROM homepage"
+    cursor.execute(query)
+    conn.commit()
+    cursor.close()
+    conn.close()
+    flash('Message deleted successfully')
+    return redirect(url_for('admin_message'))
 
 
 if __name__ == '__main__':

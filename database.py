@@ -27,6 +27,27 @@ cursor.execute('''
     )
 ''')
 
+
+
+
+
+
+
+
+
+
+
+
+# Create the homepage table if it doesn't exist yet
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS homepage (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        message TEXT
+    )
+''')
+
+
+
 # Create the categories table if it doesn't exist yet
 cursor.execute('''CREATE TABLE IF NOT EXISTS categories (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,

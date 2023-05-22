@@ -7,12 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added some more attributes and added image support in user pagesssssssssssss">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added support to embed stablebay links">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/torrents.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,7 +58,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StableBay" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -117,13 +116,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00013" summary="Ignore users.json...">
-      <created>1682987964208</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1682987964208</updated>
     </task>
     <task id="LOCAL-00014" summary="Fixed comments again and fixed user page">
       <created>1683031829261</created>
@@ -461,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684668554552</updated>
     </task>
-    <option name="localTasksCounter" value="62" />
+    <task id="LOCAL-00062" summary="added support to embed stablebay links">
+      <created>1684715927286</created>
+      <option name="number" value="00062" />
+      <option name="presentableId" value="LOCAL-00062" />
+      <option name="project" value="LOCAL" />
+      <updated>1684715927287</updated>
+    </task>
+    <option name="localTasksCounter" value="63" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -476,7 +475,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="improved the clear ..." />
     <MESSAGE value="i don't remember." />
     <MESSAGE value="Database password is in db.txt and distributed by config.py" />
     <MESSAGE value="basic commenting" />
@@ -501,6 +499,7 @@
     <MESSAGE value="added pagination to searchhhhhhh pagee" />
     <MESSAGE value="Added download buttons to torrents and search" />
     <MESSAGE value="added some more attributes and added image support in user pagesssssssssssss" />
-    <option name="LAST_COMMIT_MESSAGE" value="added some more attributes and added image support in user pagesssssssssssss" />
+    <MESSAGE value="added support to embed stablebay links" />
+    <option name="LAST_COMMIT_MESSAGE" value="added support to embed stablebay links" />
   </component>
 </project>

@@ -109,3 +109,12 @@ def edit_user(user_id, new_email=None, new_username=None, new_password=None, new
     conn.commit()
     cursor.close()
     conn.close()
+
+def set_homepage_message(message):
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+    cursor = conn.cursor()
+    query = "INSERT INTO homepage (message) VALUES (%s) ON DUPLICATE KEY UPDATE message=%s"
+    cursor.execute(query, (message, message))
+    conn.commit()
+    cursor.close()
+    conn.close()
