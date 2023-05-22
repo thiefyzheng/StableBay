@@ -192,3 +192,36 @@ def delete_model_attribute(model_id, attribute_name):
     finally:
         # Close the database connection
         conn.close()
+def update_model_attribute(model_id, attribute_name, value):
+    # Connect to the database
+    conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+
+    try:
+        # Create a cursor to execute queries
+        cursor = conn.cursor()
+
+        # Get the attribute ID
+        query = '''
+        SELECT id FROM attributes
+        WHERE name = %s
+        '''
+        cursor.execute(query, (attribute_name,))
+        row = cursor.fetchone()
+        if row is None:
+            raise ValueError(f"Attribute {attribute_name} not found in attributes table")
+        attribute_id = row[0]
+
+        # Update the attribute value in the model_attributes table
+        query = '''
+        UPDATE model_attributes
+        SET value = %s
+        WHERE model_id = %s AND attribute_id = %s
+        '''
+        cursor.execute(query, (value, model_id, attribute_id))
+
+        # Commit changes to the database
+        conn.commit()
+
+    finally:
+        # Close the database connection
+        conn.close()

@@ -172,7 +172,7 @@ function fetchAttributes(category_id) {
       <h3>Current Attributes:</h3>
       <ul>
       {% for attribute in torrent.attributes %}
-          <li>{{ attribute.name }}: {{ attribute.value }}</li>          
+          <li>{{ attribute.name }}:<input type="text" name="update_attribute_{{ attribute.name }}" value="{{ attribute.value }}"></li>          
       {% endfor %}
        <!-- Add clear attributes button -->
        <button class="delete-button">Clear Attributes</button><br>

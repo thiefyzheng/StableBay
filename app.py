@@ -342,6 +342,7 @@ import datetime
 import mysql.connector
 
 import edit
+from edit import  execute_query, edit_model, update_model_attribute
 from flask import redirect, session
 
 from flask import redirect, session, flash
@@ -354,7 +355,7 @@ def edit_torrent(torrent_id):
         editor = session.get('username')
         query = "SELECT uploaded_by FROM models WHERE id=%s"
         params = (torrent_id,)
-        uploader = edit.execute_query(query, params)[0]
+        uploader = execute_query(query, params)[0]
         if editor != uploader:
             return redirect('/rickroll')
 
@@ -371,11 +372,23 @@ def edit_torrent(torrent_id):
                 attribute_name = key[len('attribute_'):]
                 attributes[attribute_name] = value
 
+        # Parse updated attribute values from form data
+        updated_attributes = {}
+        for key, value in request.form.items():
+            if key.startswith('update_attribute_'):
+                attribute_name = key[len('update_attribute_'):]
+                if attribute_name != "Uploaded By":
+                    updated_attributes[attribute_name] = value
+
         print(
             f"Updating torrent {torrent_id} with values: model_name={model_name}, description={description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={attributes}")
 
-        edit.edit_model(torrent_id, model_name=model_name, short_description=description, magnet_link=magnet_link,
-                        image_link=image_link, category=category, attributes=attributes)
+        edit_model(torrent_id, model_name=model_name, short_description=description, magnet_link=magnet_link,
+                   image_link=image_link, category=category, attributes=attributes)
+
+        # Update individual attribute values
+        for attribute_name, value in updated_attributes.items():
+            update_model_attribute(torrent_id, attribute_name, value)
 
         return 'Torrent updated successfully!'
 
@@ -384,7 +397,7 @@ def edit_torrent(torrent_id):
         current_user = session.get('username')
         query = "SELECT uploaded_by FROM models WHERE id=%s"
         params = (torrent_id,)
-        uploader = edit.execute_query(query, params)[0]
+        uploader = execute_query(query, params)[0]
         if current_user != uploader and not is_admin(current_user):
             return redirect('/rickroll')
 
@@ -395,7 +408,7 @@ def edit_torrent(torrent_id):
             return "Torrent not found"
 
         # Get categories from database
-        categories = edit.get_categories()
+        categories = get_categories()
 
         # Render edit form
         return render_template('edit_torrent.html', torrent=torrent, categories=categories)
