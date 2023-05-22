@@ -35,12 +35,17 @@ def index():
     cursor.execute("SELECT id, name FROM categories")
     categories = cursor.fetchall()
 
+    # Retrieve the homepage message from the database
+    cursor.execute("SELECT message FROM homepage LIMIT 1")
+    row = cursor.fetchone()
+    message = row[0] if row else ''
+
     # Close database connection
     cursor.close()
     conn.close()
 
-    print(categories)
-    return render_template('index.html', categories=categories, user=session.get('user'))
+    return render_template('index.html', categories=categories, user=session.get('user'), message=message)
+
 
 
 

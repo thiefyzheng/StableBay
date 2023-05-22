@@ -1,0 +1,23 @@
+<a href="/admin">Go back to Admin</a>
+
+
+{% extends 'base.html' %}
+
+
+{% block content %}
+  <h1>Set Homepage Message</h1>
+  {% if message %}
+    <p>Current message: {{ message }}</p>
+  {% endif %}
+  <form method="post">
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea class="form-control" id="message" name="message">{{ message }}</textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+  <form method="post" action="{{ url_for('delete_homepage_message') }}">
+    <button type="submit" class="btn btn-danger">Delete Message</button>
+  </form>
+{% endblock %}
+

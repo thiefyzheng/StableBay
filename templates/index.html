@@ -10,9 +10,12 @@
         {% if session.logged_in %}
             <p style="text-align: right; margin: 0;">Welcome, {{ session.username }}! | <a href="/upload" class="button">Upload Torrent</a> | <a href="/account/{{ session.username }}" class="button">My Account</a> | <a href="/logout" class="button">Logout</a></p>
         {% else %}
-            <p style="text-align: right; margin: 0;"><a href="/login" class="button">Login</a> <a href="/register" class="button">Create Account</a></p>
+            <p style="text-align: right; margin: 0;"><a href="/login" class="button">Login</a><a href="/register" class="button">Create Account</a></p>
         {% endif %}
         <h1 style="text-align: center;">Welcome to Stablebay</h1>
+        {% if message %}
+            <p class="homepage-message">{{ message }}</p>
+        {% endif %}
         <div style="text-align: center; margin-top: 50px;">
             <form method="GET" action="/search" style="display: inline-block;">
                 <select name="category">
@@ -44,8 +47,11 @@
         <div style="text-align: center;">
             <a href="/torrents" class="button" style="font-size: 24px; padding: 10px; border-radius: 5px; margin-top: 50px;">View Torrents</a>
         </div>
-        <p style="text-align: center;">StableBay takes $10 to run per month. Support us on <a href="https://ko-fi.com/stablebay" target="_blank">Ko-fi</a>.</p>
+        <p style="text-align:center;">StableBay takes $10 to run per month. Support us on<a href="<URL>" target="_blank">Ko-fi</a>.</p>
     </div>
+
 </body>
+
 </html>
+
 
