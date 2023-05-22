@@ -121,7 +121,7 @@ def add_model_attributes(model_id, attribute_values_json):
 
 
 def edit_model(model_id, model_name=None, short_description=None, magnet_link=None, image_link=None, category=None,
- attributes=None):
+               attributes=None):
     if model_name is not None:
         query = "UPDATE models SET name=%s WHERE id=%s"
         params = (model_name, model_id)
@@ -156,6 +156,9 @@ def edit_model(model_id, model_name=None, short_description=None, magnet_link=No
             if row is None:
                 raise ValueError(f"Attribute {key} not found in attributes table")
             attribute_id = row[0]
+
+            # Debugging statement
+            print(f"Inserting attribute value: model_id={model_id}, attribute_id={attribute_id}, value={value}")
 
             query = "INSERT INTO model_attributes (model_id ,attribute_id ,value) VALUES (%s,%s,%s)"
             params = (model_id, attribute_id, value)
@@ -203,8 +206,8 @@ def update_model_attribute(model_id, attribute_name, value):
 
         # Get the attribute ID
         query = '''
-        SELECT id FROM attributes
-        WHERE name = %s
+            SELECT id FROM attributes
+            WHERE name = %s
         '''
         cursor.execute(query, (attribute_name,))
         row = cursor.fetchone()
@@ -212,11 +215,14 @@ def update_model_attribute(model_id, attribute_name, value):
             raise ValueError(f"Attribute {attribute_name} not found in attributes table")
         attribute_id = row[0]
 
+        # Debugging statement
+        print(f"Updating attribute value: model_id={model_id}, attribute_id={attribute_id}, value={value}")
+
         # Update the attribute value in the model_attributes table
         query = '''
-        UPDATE model_attributes
-        SET value = %s
-        WHERE model_id = %s AND attribute_id = %s
+            UPDATE model_attributes
+            SET value = %s
+            WHERE model_id = %s AND attribute_id = %s
         '''
         cursor.execute(query, (value, model_id, attribute_id))
 

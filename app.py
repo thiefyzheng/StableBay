@@ -387,8 +387,9 @@ def edit_torrent(torrent_id):
                    image_link=image_link, category=category, attributes=attributes)
 
         # Update individual attribute values
-        for attribute_name, value in updated_attributes.items():
-            update_model_attribute(torrent_id, attribute_name, value)
+        #print(f"updated_attributes: {updated_attributes}")
+       # for attribute_name, value in updated_attributes.items():
+           # update_model_attribute(torrent_id, attribute_name, value)
 
         return 'Torrent updated successfully!'
 
@@ -415,6 +416,7 @@ def edit_torrent(torrent_id):
 
         # Render edit form
         return render_template('edit_torrent.html', torrent=torrent, categories=categories)
+
 
 
 
