@@ -161,15 +161,25 @@ li {
       <!-- Add a download button -->
       <a href="{{ torrent.magnet_link }}" class="download-button">Download Torrent</a>
 
-      <ul>
-          {% for attribute in torrent.attributes %}
-              {% if attribute.name == 'Uploaded By' %}
-                  <li>{{ attribute.name }}:<a href="/account/{{ attribute.value }}">{{ attribute.value }}</a></li>
-              {% else %}
-                  <li>{{ attribute.name }}: {{ attribute.value }}</li>
-              {% endif %}
-          {% endfor %}
-      </ul>
+<ul>
+    {% for attribute in torrent.attributes %}
+        {% if attribute.name == 'Uploaded By' %}
+            <li>{{ attribute.name }}:<a href="/account/{{ attribute.value }}">{{ attribute.value }}</a></li>
+        {% else %}
+            <li>{{ attribute.name }}: 
+                {% if attribute.value.startswith('http://') or attribute.value.startswith('https://') %}
+                    <a href="{{ attribute.value }}">{{ attribute.value }}</a>
+                    {% if '127.0.0.1' in attribute.value or 'stablebay.org' in attribute.value %}
+                        <iframe src="{{ attribute.value }}" width="100%" height="200"></iframe>
+                    {% endif %}
+                {% else %}
+                    {{ attribute.value }}
+                {% endif %}
+            </li>
+        {% endif %}
+    {% endfor %}
+</ul>
+
 
       {% if session['username'] == torrent.uploaded_by %}
       <a class="edit-button" href="/torrents/{{ torrent.id }}/edit">Edit</a>

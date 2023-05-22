@@ -22,9 +22,6 @@ db_name = 'StableDB'
 app = Flask(__name__)
 app.secret_key = 'my_secret_key'
 
-# Load the JSON data
-with open('torrents.json', 'r') as f:
-    data = json.load(f)
 
 # Route for the homepage
 @app.route('/')
