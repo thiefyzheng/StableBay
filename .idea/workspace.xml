@@ -7,7 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="improved admin messages, added it to the home">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="allows users the edit their individual value">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
@@ -116,13 +116,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00016" summary="Fixed comments again">
-      <created>1683032480992</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1683032480992</updated>
     </task>
     <task id="LOCAL-00017" summary="Fixed comments again">
       <created>1683032701527</created>
@@ -460,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684718436112</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="allows users the edit their individual value">
+      <created>1684744330979</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1684744330979</updated>
+    </task>
+    <option name="localTasksCounter" value="66" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -475,7 +475,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="basic commenting" />
     <MESSAGE value="basic upvote and downvotezzz" />
     <MESSAGE value="Upvotes and Downvotes!!!!!!!1!!" />
     <MESSAGE value="fixed upvotes and downvotes causing the server error also now you can remove your votessss" />
@@ -500,6 +499,7 @@
     <MESSAGE value="added support to embed stablebay links" />
     <MESSAGE value="added admin messagingggg" />
     <MESSAGE value="improved admin messages, added it to the home" />
-    <option name="LAST_COMMIT_MESSAGE" value="improved admin messages, added it to the home" />
+    <MESSAGE value="allows users the edit their individual value" />
+    <option name="LAST_COMMIT_MESSAGE" value="allows users the edit their individual value" />
   </component>
 </project>

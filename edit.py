@@ -160,7 +160,7 @@ def edit_model(model_id, model_name=None, short_description=None, magnet_link=No
             query = "INSERT INTO model_attributes (model_id ,attribute_id ,value) VALUES (%s,%s,%s)"
             params = (model_id, attribute_id, value)
             execute_query(query, params)
-def delete_model_attribute(model_id, attribute_name):
+def delete_model_attribute(model_id, attribute_name, value):
     # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
 
@@ -182,9 +182,9 @@ def delete_model_attribute(model_id, attribute_name):
         # Delete the attribute value from the model_attributes table
         query = '''
         DELETE FROM model_attributes
-        WHERE model_id = %s AND attribute_id = %s
+        WHERE model_id = %s AND attribute_id = %s AND value = %s
         '''
-        cursor.execute(query, (model_id, attribute_id))
+        cursor.execute(query, (model_id, attribute_id, value))
 
         # Commit changes to the database
         conn.commit()
@@ -192,6 +192,7 @@ def delete_model_attribute(model_id, attribute_name):
     finally:
         # Close the database connection
         conn.close()
+
 def update_model_attribute(model_id, attribute_name, value):
     # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)

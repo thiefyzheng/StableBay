@@ -342,7 +342,7 @@ import datetime
 import mysql.connector
 
 import edit
-from edit import  execute_query, edit_model, update_model_attribute
+from edit import  execute_query, edit_model, update_model_attribute, delete_model_attribute
 from flask import redirect, session
 
 from flask import redirect, session, flash
@@ -423,6 +423,13 @@ def delete_all_attributes(torrent_id):
     edit.execute_query(query, params)
 
     return 'All attributes deleted successfully'
+
+
+@app.route('/torrents/<string:torrent_id>/edit/delete_attribute/<string:attribute_name>/<string:value>', methods=['DELETE'])
+def delete_torrent_attribute(torrent_id, attribute_name, value):
+    # Delete the attribute value from the database
+    delete_model_attribute(torrent_id, attribute_name, value)
+    return 'Attribute value deleted successfully!'
 
 
 @app.route('/rickroll')
