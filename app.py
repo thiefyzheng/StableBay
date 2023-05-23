@@ -340,116 +340,46 @@ from flask import render_template, session
 import datetime
 
 import mysql.connector
+from mysql.connector import cursor
+from flask import Flask, request, render_template
 
+from flask import render_template, request, redirect, url_for
 import edit
-from edit import  execute_query, edit_model, update_model_attribute, delete_model_attribute
-from flask import redirect, session
+from edit import get_current_values
 
-from flask import redirect, session, flash
 
-from admin import is_admin
+
 @app.route('/torrents/<string:torrent_id>/edit', methods=['GET', 'POST'])
 def edit_torrent(torrent_id):
     if request.method == 'POST':
-        # Check if editor is uploader
-        editor = session.get('username')
-        query = "SELECT uploaded_by FROM models WHERE id=%s"
-        params = (torrent_id,)
-        uploader = execute_query(query, params)[0]
-        if editor != uploader:
-            return redirect('/rickroll')
-
-        model_name = request.form.get('model_name')
-        description = request.form.get('description')
-        magnet_link = request.form.get('magnet_link')
+        name = request.form.get('name')
         image_link = request.form.get('image_link')
-        category = request.form.get('category')
+        description = request.form.get('description')
+        edit.edit_torrent(torrent_id, name=name, image_link=image_link, description=description)
 
-        # Parse attributes from form data
-        attributes = {}
-        for key, value in request.form.items():
-            if key.startswith('attribute_'):
-                attribute_name = key[len('attribute_'):]
-                if attribute_name not in attributes:
-                    attributes[attribute_name] = []
-                attributes[attribute_name].append(value)
+        # Edit attribute values
+        for attribute_name in request.form:
+            if attribute_name.startswith('attribute_'):
+                attribute_value = request.form.get(attribute_name)
+                edit.edit_attribute_value(torrent_id, attribute_name[10:], attribute_value)
 
-        # Clean up attribute names
-        cleaned_attributes = {}
-        for key, value in attributes.items():
-            cleaned_key = key.split('_')[0]
-            if cleaned_key not in cleaned_attributes:
-                cleaned_attributes[cleaned_key] = []
-            cleaned_attributes[cleaned_key].extend(value)
+        # Add new attributes
+        new_attributes = request.form.get('new_attributes')
+        if new_attributes:
+            new_attributes = new_attributes.split(',')
+            for attribute_name in new_attributes:
+                edit.add_attribute(torrent_id, attribute_name.strip())
 
-        # Parse updated attribute values from form data
-        updated_attributes = {}
-        for key, value in request.form.items():
-            if key.startswith('update_attribute_'):
-                attribute_name = key[len('update_attribute_'):]
-                if attribute_name != "Uploaded By":
-                    if attribute_name not in updated_attributes:
-                        updated_attributes[attribute_name] = []
-                    updated_attributes[attribute_name].append(value)
-
-        print(
-            f"Updating torrent {torrent_id} with values: model_name={model_name}, description={description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={cleaned_attributes}")
-
-        edit_model(torrent_id, model_name=model_name, short_description=description, magnet_link=magnet_link,
-                   image_link=image_link, category=category, attributes=cleaned_attributes)
-
-        # Update individual attribute values
-        # print(f"updated_attributes: {updated_attributes}")
-        # for attribute_name, value in updated_attributes.items():
-        #     update_model_attribute(torrent_id, attribute_name, value)
-
-        return 'Torrent updated successfully!'
-
+        return redirect(url_for('view_torrent', torrent_id=torrent_id))
     else:
-        # Check if current user is uploader or admin
-        current_user = session.get('username')
-        query = "SELECT uploaded_by FROM models WHERE id=%s"
-        params = (torrent_id,)
-        uploader = execute_query(query, params)[0]
-        if current_user != uploader and not is_admin(current_user):
-            return redirect('/rickroll')
-
-        # Get torrent details from database
-        torrent = get_torrent_details(torrent_id)
-
-        if torrent is None:
-            return "Torrent not found"
-
-        # Filter out the Uploaded By attribute
-        torrent['attributes'] = [attribute for attribute in torrent['attributes'] if attribute['name'] != 'Uploaded By']
-
-        # Get categories from database
-        categories = get_categories()
-
-        # Render edit form
-        return render_template('edit_torrent.html', torrent=torrent, categories=categories)
+        current_values = get_current_values(torrent_id)
+        return render_template('edit_torrent.html', torrent_id=torrent_id,
+                               current_name=current_values['name'],
+                               current_image_link=current_values['image_link'],
+                               current_description=current_values['description'],
+                               current_attributes=current_values['attributes'])
 
 
-
-
-@app.route('/torrents/<string:torrent_id>/edit/delete_all_attributes', methods=['DELETE'])
-def delete_all_attributes(torrent_id):
-    # Delete all attributes from model_attributes table
-    query = "DELETE FROM model_attributes WHERE model_id=%s"
-    params = (torrent_id,)
-    edit.execute_query(query, params)
-
-    return 'All attributes deleted successfully'
-
-
-@app.route('/torrents/<string:torrent_id>/edit/delete_attribute/<string:attribute_name>/<string:value>', methods=['DELETE'])
-def delete_torrent_attribute(torrent_id, attribute_name, value):
-    # Delete the attribute value from the database
-    delete_model_attribute(torrent_id, attribute_name, value)
-    return 'Attribute value deleted successfully!'
-
-
-@app.route('/rickroll')
 def rickroll():
     return redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ", code=302)
 

@@ -1,228 +1,28 @@
-f<!DOCTYPE html>
+<!doctype html>
 <html>
+    <head>
+        <title>Edit Torrent</title>
+    </head>
+    <body>
+        <h1>Edit Torrent {{ torrent_id }}</h1>
+        <form method="post">
+            <label for="name">Name:</label><br>
+            <input type="text" id="name" name="name" value="{{ current_name }}"><br><br>
 
-<head>
-    <title>Edit Torrent - {{ torrent.name }}</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            font-family: 'Montserrat', sans-serif;
-            background-color: #f7f7f7;
-        }
+            <label for="image_link">Image Link:</label><br>
+            <input type="text" id="image_link" name="image_link" value="{{ current_image_link }}"><br><br>
 
-        form {
-            max-width: 500px;
-            margin: 0 auto;
-        }
+            <label for="description">Description:</label><br>
+            <textarea id="description" name="description">{{ current_description }}</textarea><br><br>
 
-        label {
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        select,
-        input[type="text"] {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            font-family: 'Montserrat', sans-serif;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            color: #555;
-        }
-
-        input[type="submit"] {
-            display: block;
-            width: 100%;
-            padding: 10px;
-            font-size: 16px;
-            font-family: 'Montserrat', sans-serif;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 20px;
-            color: #fff;
-            background-color: #0f4c81;
-        }
-
-        input[type="submit"]:hover {
-            background-color: #fff;
-            color: #0f4c81;
-            border: 2px solid #0f4c81;
-        }
-
-        .delete-button {
-          display:inline-block; 
-          padding :8px 16px; 
-          background-color:#0f4c81; 
-          color:#fff; 
-          font-size :14px; 
-          font-weight :700; 
-          text-transform :uppercase; 
-          text-decoration:none; 
-          border-radius :4px; 
-          transition :all .3s ease; 
-          margin-top :30px; 
-          cursor:pointer; 
-        }
-
-        .delete-button:hover {
-          background-color:#fff; 
-          color:#0f4c81; 
-          border :2px solid #0f4c81; 
-        }
-        
-        .guide {
-           font-size :14px ;  
-           color:#555 ;  
-           margin-bottom :20px ;  
-         }
-         
-         .delete-attribute-button {
-    display: inline-block;
-    padding: 4px 8px;
-    background-color: #0f4c81;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    text-transform: uppercase;
-    text-decoration: none;
-    border-radius: 4px;
-    transition: all .3s ease;
-    margin-top: 10px;
-    cursor: pointer;
-}
-
-.delete-attribute-button:hover {
-    background-color: #fff;
-    color: #0f4c81;
-    border: 2px solid #0f4c81;
-}
-
-
-    </style>
-    
-<head>
-    <title>Edit Torrent - {{ torrent.name }}</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script>
-    $(document).ready(function() {
-
-        function fetchAttributes(category_id) {
-            $.ajax({
-                url: '/get_attributes/' + category_id,
-                type: 'GET',
-                dataType: 'json',
-                success: function(response) {
-                    var attributesHtml = '';
-                    response.forEach(function(attribute) {
-                        attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
-                        attributesHtml += '<div class="input-group">';
-                        attributesHtml += '<input type="' + attribute['type'] + '" name="' + attribute['name'] + '[]">';
-                        attributesHtml += '<button class="add-button" type="button">+</button>';
-                        attributesHtml += '</div><br>';
-                    });
-                    $('#attributes_container').html(attributesHtml);
-
-                    // Add event listener to create new input field when plus button is clicked
-                    $(document).on('click', '.add-button', function() {
-                        var new_input = $('<input type="' + $(this).prev().attr('type') + '" name="' + $(this).prev().attr('name') + '">');
-                        var delete_button = $('<button class="delete-button">Delete</button>');
-                        var add_button = $('<button class="add-button" type="button">+</button>');
-                        var new_input_group = $('<div class="input-group"></div>');
-                        new_input_group.append(new_input);
-                        new_input_group.append(add_button);
-                        new_input_group.append(delete_button);
-                        $(this).parent().after(new_input_group);
-                        new_input.focus();
-                    });
-
-                    // Add event listener to delete input field when delete button is clicked
-                    $(document).on('click', '.delete-button', function() {
-                        $(this).parent().remove();
-                    });
-
-                    // Add category_id to JSON
-                    var category_id_input = '<input type="hidden" name="category_id" value="' + category_id + '">';
-                    $('#attributes_container').append(category_id_input);
-
-                },
-
-            });
-        }
-
-        // When a category is selected, send an AJAX request to get the category attributes
-        $('#category').change(function() {
-            var category_id = $(this).val();
-            fetchAttributes(category_id);
-        });
-
-        // Fetch attributes for category on page load
-        var category_id = $('#category').val();
-        fetchAttributes(category_id);
-
-    });
-</script>
-
-
-
-
-
-</head>
-<body>
-    <div style="text-align:right;">
-        <a href="/">StableBay</a> | <a href="/logout">Logout</a>
-    </div>
-
-    <h1>Edit Torrent - {{ torrent.name }}</h1>
-
-    <form method="POST">
-        <label for="model__name">Torrent Name:</label><br>
-        <input type="text" id="model_name" name="model_name" value="{{ torrent.name }}"><br><br>
-
-        <!-- Disable the category selection dropdown -->
-        <label for="category">Category:</label><br>
-        <select id="category" name="category" disabled>
-            {% for category in categories %}
-            <option value="{{ category[0] }}" {% if category[0] == torrent.category %}selected{% endif %}>{{ category[1] }}</option>
+            <h2>Attributes</h2>
+            {% for attribute_name, attribute_value in current_attributes.items() %}
+                <label for="{{ 'attribute_' + attribute_name }}">{{ attribute_name }}:</label><br>
+                <input type="text" id="{{ 'attribute_' + attribute_name }}" name="{{ 'attribute_' + attribute_name }}" value="{{ attribute_value }}"><br><br>
             {% endfor %}
-        </select><br><br>
 
-        <!-- New section for displaying current attribute values -->
-        <h3>Current Attributes:</h3>
-        <ul>
-            {% for attribute in torrent.attributes %}
-            <li>{{ attribute.name }}:<input type="text" name="update_attribute_{{ attribute.name }}" value="{{ attribute.value }}">
-                <!-- Add delete button -->
-                <button class="delete-attribute-button" data-attribute-name="{{ attribute.name }}">Delete</button></li>
-            {% endfor %}
-            <!-- Add clear attributes button -->
-            <button class="delete-button">Clear Attributes</button><br>
-        </ul>
-
-        <!-- New section for adding new attribute values -->
-        <h3>Add Attributes:</h3>
-        <div id="attributes_container"></div>
-
-        <!-- Add a "Add another value" button -->
-        <button id="add_value_button">Add another value</button><br>
-
-        <p class="guide">Tip: Press the `Tab` key after entering a value in any of the input fields to create a new input field for that attribute.</p>
-
-        <label for="description">Description:</label><br>
-        <textarea id="description" name="description">{{ torrent.description }}</textarea><br><br>
-        <!-- Add an input field for the image link -->
-        <label for="image_link">Image Link:</label><br>
-        <input type="text" id="image_link" name="image_link" value="{{ torrent.image_link }}"><br><br>
-
-        <input type="submit" value="Save">
-    </form>
-</body>
-
+            <input type="submit" value="Save">
+        </form>
+    </body>
 </html>
-
 

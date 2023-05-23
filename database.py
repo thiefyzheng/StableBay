@@ -29,15 +29,6 @@ cursor.execute('''
 
 
 
-
-
-
-
-
-
-
-
-
 # Create the homepage table if it doesn't exist yet
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS homepage (
