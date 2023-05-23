@@ -8,6 +8,13 @@ db_name = 'StableDB'
 
 
 def get_torrent_details(torrent_id):
+    # Check if the torrent_id is None
+    if torrent_id is None:
+        print("Error: Invalid torrent ID")
+        return None
+
+    print(f"Getting details for torrent with ID: {torrent_id}")
+
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
     cursor = conn.cursor(dictionary=True)
 
@@ -16,16 +23,19 @@ def get_torrent_details(torrent_id):
         "SELECT models.id, models.name, models.description, models.magnet_link, models.image_link, models.uploaded_by, models.upload_date, categories.id as category_id, categories.name as category FROM models INNER JOIN categories ON models.category = categories.id WHERE models.id = %s",
         (torrent_id,))
     torrent = cursor.fetchone()
+    print(f"Torrent details: {torrent}")
 
     # Retrieve attribute details for the torrent from the database
     cursor.execute(
         "SELECT attributes.name, model_attributes.value FROM attributes INNER JOIN model_attributes ON attributes.id = model_attributes.attribute_id WHERE model_attributes.model_id = %s",
         (torrent_id,))
     attributes = cursor.fetchall()
+    print(f"Torrent attributes: {attributes}")
 
     # Retrieve comments for the torrent from the database
     cursor.execute("SELECT * FROM comments WHERE torrent_id=%s", (torrent_id,))
     comments = cursor.fetchall()
+    print(f"Torrent comments: {comments}")
 
     # Add attributes to torrent list
     torrent['attributes'] = []

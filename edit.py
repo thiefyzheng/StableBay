@@ -81,7 +81,11 @@ def get_current_values(model_id):
     attributes_query = "SELECT attributes.name,model_attributes.value FROM model_attributes JOIN attributes ON model_attributes.attribute_id=attributes.id WHERE model_attributes.model_id=%s"
     cursor.execute(attributes_query, (model_id,))
     for row in cursor:
-        current_values['attributes'][row[0]] = row[1]
+        attribute_name = row[0]
+        attribute_value = row[1]
+        if attribute_name not in current_values['attributes']:
+            current_values['attributes'][attribute_name] = []
+        current_values['attributes'][attribute_name].append(attribute_value)
 
     close_db_connection(conn)
     return current_values

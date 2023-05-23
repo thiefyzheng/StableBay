@@ -16,9 +16,12 @@
             <textarea id="description" name="description">{{ current_description }}</textarea><br><br>
 
             <h2>Attributes</h2>
-            {% for attribute_name, attribute_value in current_attributes.items() %}
-                <label for="{{ 'attribute_' + attribute_name }}">{{ attribute_name }}:</label><br>
-                <input type="text" id="{{ 'attribute_' + attribute_name }}" name="{{ 'attribute_' + attribute_name }}" value="{{ attribute_value }}"><br><br>
+            {% for attribute_name, attribute_values in current_attributes.items() %}
+                <label>{{ attribute_name }}:</label><br>
+                {% for attribute_value in attribute_values %}
+                    <input type="text" name="{{ 'attribute_' + attribute_name }}" value="{{ attribute_value }}"><br>
+                {% endfor %}
+                <br>
             {% endfor %}
 
             <input type="submit" value="Save">

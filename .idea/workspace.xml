@@ -7,12 +7,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="fixed the problem where attribute values for the same attribute are identical">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="started rework of the edit page.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/edit_torrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_torrent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/torrent_details.py" beforeDir="false" afterPath="$PROJECT_DIR$/torrent_details.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -117,13 +117,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00020" summary="Started major overhaul...">
-      <created>1683371354587</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1683371354587</updated>
     </task>
     <task id="LOCAL-00021" summary="Got that category and attribute selection at slightly fuctional :D">
       <created>1683503366681</created>
@@ -461,7 +454,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684761940853</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="started rework of the edit page.">
+      <created>1684845976525</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1684845976525</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -476,7 +476,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Upvoting now doesn't cause the page to reset1" />
     <MESSAGE value="Fixed the details page not going to the top after a reload..............." />
     <MESSAGE value="Added Deletionss" />
     <MESSAGE value="Added Deletions" />
@@ -501,6 +500,7 @@
     <MESSAGE value="allowed deleting individual attributes" />
     <MESSAGE value="changs" />
     <MESSAGE value="fixed the problem where attribute values for the same attribute are identical" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed the problem where attribute values for the same attribute are identical" />
+    <MESSAGE value="started rework of the edit page." />
+    <option name="LAST_COMMIT_MESSAGE" value="started rework of the edit page." />
   </component>
 </project>

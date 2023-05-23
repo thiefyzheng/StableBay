@@ -370,14 +370,12 @@ def edit_torrent(torrent_id):
             for attribute_name in new_attributes:
                 edit.add_attribute(torrent_id, attribute_name.strip())
 
-        return redirect(url_for('view_torrent', torrent_id=torrent_id))
-    else:
-        current_values = get_current_values(torrent_id)
-        return render_template('edit_torrent.html', torrent_id=torrent_id,
-                               current_name=current_values['name'],
-                               current_image_link=current_values['image_link'],
-                               current_description=current_values['description'],
-                               current_attributes=current_values['attributes'])
+    current_values = get_current_values(torrent_id)
+    return render_template('edit_torrent.html', torrent_id=torrent_id,
+                           current_name=current_values['name'],
+                           current_image_link=current_values['image_link'],
+                           current_description=current_values['description'],
+                           current_attributes=current_values['attributes'])
 
 
 def rickroll():
