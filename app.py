@@ -370,7 +370,17 @@ def edit_torrent(torrent_id):
         for key, value in request.form.items():
             if key.startswith('attribute_'):
                 attribute_name = key[len('attribute_'):]
-                attributes[attribute_name] = value
+                if attribute_name not in attributes:
+                    attributes[attribute_name] = []
+                attributes[attribute_name].append(value)
+
+        # Clean up attribute names
+        cleaned_attributes = {}
+        for key, value in attributes.items():
+            cleaned_key = key.split('_')[0]
+            if cleaned_key not in cleaned_attributes:
+                cleaned_attributes[cleaned_key] = []
+            cleaned_attributes[cleaned_key].extend(value)
 
         # Parse updated attribute values from form data
         updated_attributes = {}
@@ -378,18 +388,20 @@ def edit_torrent(torrent_id):
             if key.startswith('update_attribute_'):
                 attribute_name = key[len('update_attribute_'):]
                 if attribute_name != "Uploaded By":
-                    updated_attributes[attribute_name] = value
+                    if attribute_name not in updated_attributes:
+                        updated_attributes[attribute_name] = []
+                    updated_attributes[attribute_name].append(value)
 
         print(
-            f"Updating torrent {torrent_id} with values: model_name={model_name}, description={description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={attributes}")
+            f"Updating torrent {torrent_id} with values: model_name={model_name}, description={description}, magnet_link={magnet_link}, image_link={image_link}, category={category}, attributes={cleaned_attributes}")
 
         edit_model(torrent_id, model_name=model_name, short_description=description, magnet_link=magnet_link,
-                   image_link=image_link, category=category, attributes=attributes)
+                   image_link=image_link, category=category, attributes=cleaned_attributes)
 
         # Update individual attribute values
-        #print(f"updated_attributes: {updated_attributes}")
-       # for attribute_name, value in updated_attributes.items():
-           # update_model_attribute(torrent_id, attribute_name, value)
+        # print(f"updated_attributes: {updated_attributes}")
+        # for attribute_name, value in updated_attributes.items():
+        #     update_model_attribute(torrent_id, attribute_name, value)
 
         return 'Torrent updated successfully!'
 

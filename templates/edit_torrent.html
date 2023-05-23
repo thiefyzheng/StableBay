@@ -112,8 +112,6 @@ f<!DOCTYPE html>
 <script>
     $(document).ready(function() {
 
-        var torrent_id = '{{ torrent.id }}';
-
         function fetchAttributes(category_id) {
             $.ajax({
                 url: '/get_attributes/' + category_id,
@@ -121,47 +119,32 @@ f<!DOCTYPE html>
                 dataType: 'json',
                 success: function(response) {
                     var attributesHtml = '';
-
                     response.forEach(function(attribute) {
                         attributesHtml += '<label for="' + attribute['name'] + '">' + attribute['name'] + ':</label>';
                         attributesHtml += '<div class="input-group">';
-                        attributesHtml += '<input type="' + attribute['type'] + '" name="attribute_' + attribute['name'] + '">';
+                        attributesHtml += '<input type="' + attribute['type'] + '" name="' + attribute['name'] + '[]">';
+                        attributesHtml += '<button class="add-button" type="button">+</button>';
                         attributesHtml += '</div><br>';
-
                     });
-
                     $('#attributes_container').html(attributesHtml);
 
-                    // Add event listener to clear attributes button
-                    $('.delete-button').click(function(event) {
-                        event.preventDefault();
-                        if (confirm('Are you sure you want to clear all attributes?')) {
-                            $.ajax({
-                                url:'/torrents/' + torrent_id + '/edit/delete_all_attributes',
-                                type:'DELETE',
-                                success:function(response) {
-                                    alert(response);
-                                }
-                            });
-                        }
+                    // Add event listener to create new input field when plus button is clicked
+                    $(document).on('click', '.add-button', function() {
+                        var new_input = $('<input type="' + $(this).prev().attr('type') + '" name="' + $(this).prev().attr('name') + '">');
+                        var delete_button = $('<button class="delete-button">Delete</button>');
+                        var add_button = $('<button class="add-button" type="button">+</button>');
+                        var new_input_group = $('<div class="input-group"></div>');
+                        new_input_group.append(new_input);
+                        new_input_group.append(add_button);
+                        new_input_group.append(delete_button);
+                        $(this).parent().after(new_input_group);
+                        new_input.focus();
                     });
 
-                    // Add event listener to delete attribute button
-                    $('.delete-attribute-button').click(function(event) {
-    event.preventDefault();
-    var attribute_name = $(this).data('attribute-name');
-    var value = $(this).siblings('input').val();
-    if (confirm('Are you sure you want to delete this attribute?')) {
-        $.ajax({
-            url:'/torrents/' + torrent_id + '/edit/delete_attribute/' + attribute_name + '/' + value,
-            type:'DELETE',
-            success:function(response) {
-                alert(response);
-            }
-        });
-    }
-});
-
+                    // Add event listener to delete input field when delete button is clicked
+                    $(document).on('click', '.delete-button', function() {
+                        $(this).parent().remove();
+                    });
 
                     // Add category_id to JSON
                     var category_id_input = '<input type="hidden" name="category_id" value="' + category_id + '">';
@@ -171,7 +154,6 @@ f<!DOCTYPE html>
 
             });
         }
-
 
         // When a category is selected, send an AJAX request to get the category attributes
         $('#category').change(function() {
@@ -188,55 +170,57 @@ f<!DOCTYPE html>
 
 
 
-</head>
 
+
+</head>
 <body>
     <div style="text-align:right;">
-      <a href="/">StableBay</a> | <a href="/logout">Logout</a>
+        <a href="/">StableBay</a> | <a href="/logout">Logout</a>
     </div>
 
     <h1>Edit Torrent - {{ torrent.name }}</h1>
 
     <form method="POST">
-      <label for="model__name">Torrent Name:</label><br>
-      <input type="text" id="model_name" name="model_name" value="{{ torrent.name }}"><br><br>
+        <label for="model__name">Torrent Name:</label><br>
+        <input type="text" id="model_name" name="model_name" value="{{ torrent.name }}"><br><br>
 
-      <!-- Disable the category selection dropdown -->
-      <label for="category">Category:</label><br>
-      <select id="category" name="category" disabled>
-      {% for category in categories %}
-      <option value="{{ category[0] }}" {% if category[0] == torrent.category %}selected{% endif %}>{{ category[1] }}</option>
-      {% endfor %}
-      </select><br><br>
+        <!-- Disable the category selection dropdown -->
+        <label for="category">Category:</label><br>
+        <select id="category" name="category" disabled>
+            {% for category in categories %}
+            <option value="{{ category[0] }}" {% if category[0] == torrent.category %}selected{% endif %}>{{ category[1] }}</option>
+            {% endfor %}
+        </select><br><br>
 
-      <!-- New section for displaying current attribute values -->
-      <h3>Current Attributes:</h3>
-      <ul>
-      {% for attribute in torrent.attributes %}
-          <li>{{ attribute.name }}:<input type="text" name="update_attribute_{{ attribute.name }}" value="{{ attribute.value }}">
-          <!-- Add delete button -->
-          <button class="delete-attribute-button" data-attribute-name="{{ attribute.name }}">Delete</button></li>          
-      {% endfor %}
-       <!-- Add clear attributes button -->
-       <button class="delete-button">Clear Attributes</button><br>
-      </ul>
+        <!-- New section for displaying current attribute values -->
+        <h3>Current Attributes:</h3>
+        <ul>
+            {% for attribute in torrent.attributes %}
+            <li>{{ attribute.name }}:<input type="text" name="update_attribute_{{ attribute.name }}" value="{{ attribute.value }}">
+                <!-- Add delete button -->
+                <button class="delete-attribute-button" data-attribute-name="{{ attribute.name }}">Delete</button></li>
+            {% endfor %}
+            <!-- Add clear attributes button -->
+            <button class="delete-button">Clear Attributes</button><br>
+        </ul>
 
-      <!-- New section for adding new attribute values -->
-      <h3>Add Attributes:</h3>
-      <div id="attributes_container"></div>
+        <!-- New section for adding new attribute values -->
+        <h3>Add Attributes:</h3>
+        <div id="attributes_container"></div>
 
-      <p class="guide">Tip: Press the `Tab` key after entering a value in any of the input fields to create a new input field for that attribute.</p>
+        <!-- Add a "Add another value" button -->
+        <button id="add_value_button">Add another value</button><br>
 
-      <label for="description">Description:</label><br>
-      <textarea id="description" name="description">{{ torrent.description }}</textarea><br><br>
-      <!-- Add an input field for the image link -->
-<label for="image_link">Image Link:</label><br>
-<input type="text" id="image_link" name="image_link" value="{{ torrent.image_link }}"><br><br>
+        <p class="guide">Tip: Press the `Tab` key after entering a value in any of the input fields to create a new input field for that attribute.</p>
 
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description">{{ torrent.description }}</textarea><br><br>
+        <!-- Add an input field for the image link -->
+        <label for="image_link">Image Link:</label><br>
+        <input type="text" id="image_link" name="image_link" value="{{ torrent.image_link }}"><br><br>
 
-      <input type="submit" value="Save">
+        <input type="submit" value="Save">
     </form>
-
 </body>
 
 </html>

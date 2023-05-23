@@ -7,7 +7,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="changs">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="fixed the problem where attribute values for the same attribute are identical">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
@@ -116,13 +116,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Added some style">
-      <created>1683111510463</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1683111510463</updated>
     </task>
     <task id="LOCAL-00020" summary="Started major overhaul...">
       <created>1683371354587</created>
@@ -460,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684747182655</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="fixed the problem where attribute values for the same attribute are identical">
+      <created>1684761940853</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1684761940853</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -475,7 +475,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed upvotes and downvotes causing the server error also now you can remove your votessss" />
     <MESSAGE value="Upvoting now doesn't cause the page to reset1" />
     <MESSAGE value="Fixed the details page not going to the top after a reload..............." />
     <MESSAGE value="Added Deletionss" />
@@ -500,17 +499,7 @@
     <MESSAGE value="allows users the edit their individual value" />
     <MESSAGE value="allowed deleting individual attributes" />
     <MESSAGE value="changs" />
-    <option name="LAST_COMMIT_MESSAGE" value="changs" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app.py</url>
-          <line>344</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+    <MESSAGE value="fixed the problem where attribute values for the same attribute are identical" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed the problem where attribute values for the same attribute are identical" />
   </component>
 </project>

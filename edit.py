@@ -145,24 +145,26 @@ def edit_model(model_id, model_name=None, short_description=None, magnet_link=No
         execute_query(query, params)
 
     if attributes is not None:
-        for key, value in attributes.items():
+        for key, values in attributes.items():
             # Check if attribute value is blank
-            if value.strip() == '':
-                continue
+            for value in values:
+                if value.strip() == '':
+                    continue
 
-            query = "SELECT id FROM attributes WHERE name=%s"
-            params = (key,)
-            row = execute_query(query, params)
-            if row is None:
-                raise ValueError(f"Attribute {key} not found in attributes table")
-            attribute_id = row[0]
+                query = "SELECT id FROM attributes WHERE name=%s"
+                params = (key,)
+                row = execute_query(query, params)
+                if row is None:
+                    raise ValueError(f"Attribute {key} not found in attributes table")
+                attribute_id = row[0]
 
-            # Debugging statement
-            print(f"Inserting attribute value: model_id={model_id}, attribute_id={attribute_id}, value={value}")
+                # Debugging statement
+                print(f"Inserting attribute value: model_id={model_id}, attribute_id={attribute_id}, value={value}")
 
-            query = "INSERT INTO model_attributes (model_id ,attribute_id ,value) VALUES (%s,%s,%s)"
-            params = (model_id, attribute_id, value)
-            execute_query(query, params)
+                query = "INSERT INTO model_attributes (model_id ,attribute_id ,value) VALUES (%s,%s,%s)"
+                params = (model_id, attribute_id, value)
+                execute_query(query, params)
+
 def delete_model_attribute(model_id, attribute_name, value):
     # Connect to the database
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
