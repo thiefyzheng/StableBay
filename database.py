@@ -108,6 +108,15 @@ cursor.execute('''
 ''')
 
 
+# Create the homepage table if it doesn't exist yet
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS homepage (
+        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        message TEXT
+    )
+''')
+
+
 # Insert some sample attributes
 attributes = [('Training Data', 'The type of training data used'),
               ('Merge', 'Whether the model merges information'),
