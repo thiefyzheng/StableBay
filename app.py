@@ -683,14 +683,34 @@ def downvote(comment_id):
     # Redirect back to the torrent details page
     return redirect(request.referrer)
 
+from flask import session
+
 @app.route('/comments/<int:comment_id>/delete', methods=['POST', 'DELETE'])
 def delete_comment_route(comment_id):
-    delete_comment(comment_id)
-    return redirect(url_for('comments'))
-
-
-
-
+    # Get the username from the session
+    username = session.get('username')
+    if username:
+        conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
+        cursor = conn.cursor()
+        # Check if the username associated with the comment matches the username in the session
+        query = "SELECT users.username FROM comments JOIN users ON comments.user_id = users.id WHERE comments.id=%s"
+        cursor.execute(query, (comment_id,))
+        result = cursor.fetchone()
+        if result and result[0] == username:
+            # The usernames match, proceed with deleting the comment
+            delete_comment(comment_id)
+            # Redirect to the comments page
+            return redirect(url_for('comments'))
+        else:
+            # The usernames do not match or the comment does not exist
+            flash('Cannot delete comment')
+            return redirect(url_for('comments'))
+        cursor.close()
+        conn.close()
+    else:
+        # The user is not logged in
+        flash('Please log in to delete comments')
+        return redirect(url_for('login'))
 
 from flask import render_template
 from admin import is_admin
