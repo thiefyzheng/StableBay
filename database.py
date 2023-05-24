@@ -138,7 +138,8 @@ cursor.execute('''
 attributes = [('Training Data', 'The type of training data used'),
               ('Merge', 'Whether the model merges information'),
               ('Model Type', 'The type of model used, e.g. realism, anime, etc.'),
-              ('LoRA Type', 'The type of LoRA model used')]
+              ('LoRA Type', 'The type of LoRA model used'),
+              ('Trigger Words', 'The trigger words used by the model')]
 
 for attribute in attributes:
     query = "INSERT INTO attributes (name, description) SELECT %s, %s WHERE NOT EXISTS (SELECT * FROM attributes WHERE name=%s)"
@@ -150,8 +151,11 @@ category_attributes = [('Checkpoint', 'Training Data', True),
                        ('Checkpoint', 'Model Type', True),
                        ('LoRA', 'LoRA Type', True),
                        ('LoRA', 'Training Data', True),
+                       ('LoRA', 'Trigger Words', True),
                        ('Textual Inversion', 'Training Data', True),
+                       ('Textual Inversion', 'Trigger Words', True),
                        ('Hypernetwork', 'Training Data', True),
+                       ('Hypernetwork', 'Trigger Words', True),
                        ('Controlnet', 'Training Data', True)]
 
 for category_attribute in category_attributes:
