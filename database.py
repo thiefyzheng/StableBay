@@ -45,7 +45,14 @@ cursor.execute('''
 
 
 
-
+# Create comment_votes table
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS comment_votes (
+        user_id INT NOT NULL,
+        comment_id INT NOT NULL,
+        vote TINYINT NOT NULL
+    )
+''')
 
 
 # Create the homepage table if it doesn't exist yet
