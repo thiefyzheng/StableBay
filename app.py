@@ -7,6 +7,9 @@ from account import get_user_torrents
 from authent import register
 from torrents import get_torrents
 from upload import upload
+
+import database
+
 import mysql.connector
 from config import db_password
 from admin import is_admin, get_users, edit_user, get_user, remove_model
@@ -21,6 +24,7 @@ db_name = 'StableDB'
 
 app = Flask(__name__)
 app.secret_key = 'my_secret_key'
+database
 
 
 # Route for the homepage

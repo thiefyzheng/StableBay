@@ -11,7 +11,17 @@ conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password,
 
 # Create a cursor to execute queries
 cursor = conn.cursor()
-
+cursor.execute('''CREATE TABLE IF NOT EXISTS models (
+ id VARCHAR(66) NOT NULL PRIMARY KEY,
+ name VARCHAR(255) NOT NULL,
+ description VARCHAR(255),
+ magnet_link VARCHAR(10000) NOT NULL,
+ image_link VARCHAR(255),
+ uploaded_by VARCHAR(255) NOT NULL,
+ upload_date DATETIME NOT NULL,
+ category INT,
+ nsfw BOOLEAN DEFAULT FALSE
+ )''')
 # Create the users table if it doesn't exist yet
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS users (
