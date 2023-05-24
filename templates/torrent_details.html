@@ -192,43 +192,45 @@ li {
       </form>
       {% endif %}
 
-      <!-- Add comments section -->
-      <div class="comments-container">
-         <h2>Comments</h2>
+     <!-- Add comments section -->
+<div class="comments-container">
+  <h2>Comments</h2>
 
-         <!-- Add comment form -->
-         <form class="comment-form" action="/torrents/{{ torrent.id }}/comments" method="POST">
-           <textarea name="comment" placeholder="Add a comment..."></textarea>
-           <button type="submit">Submit</button>
-         </form>
+  <!-- Add comment form -->
+  <form class="comment-form" action="/torrents/{{ torrent.id }}/comments" method="POST">
+    <textarea name="comment" placeholder="Add a comment..."></textarea>
+    <button type="submit">Submit</button>
+  </form>
 
-         <!-- Display comments -->
-         {% for comment in torrent.comments %}
-           <div class="comment">
-             <p><span class="comment-author">{{ comment.username }}</span> said:</p>
-             <p>{{ comment.comment }}</p>
-             <p class="comment-actions">
-               <!-- Add edit and delete links if user is the author of the comment -->
-               {% if session['username'] == comment.username %}
-                 <a href="/comments/{{ comment.id }}/edit">Edit</a>
-                 <!-- Add a delete button with a data attribute for the comment ID -->
-<button class="delete-button" data-comment-id="{{ comment.id }}" onclick="deleteComment(event)">Delete</button>
+  <!-- Display comments -->
+  {% for comment in torrent.comments %}
+    <div class="comment">
+      <p><span class="comment-author">{{ comment.username }}</span> said:</p>
+      <p>{{ comment.comment }}</p>
+      <p class="comment-actions">
+        <!-- Add edit and delete links if user is the author of the comment -->
+        {% if session['username'] == comment.username %}
+          <a href="/comments/{{ comment.id }}/edit">Edit</a>
+          <!-- Add a delete button with a data attribute for the comment ID -->
+          <button class="delete-button" data-comment-id="{{ comment.id }}" onclick="deleteComment(event)">Delete</button>
+        {% endif %}
 
-               {% endif %}
+        <!-- Add a delete button for admins -->
+        {% if is_admin %}
+          <button class="delete-button" data-comment-id="{{ comment.id }}" onclick="deleteComment(event)">Delete</button>
+        {% endif %}
 
-               <!-- Add upvote and downvote links -->
-               <form action="/comments/{{ comment.id }}/upvote" method="POST">
-                 <button type="submit">Upvote ({{ comment.upvotes }})</button>
-               </form>
-               <form action="/comments/{{ comment.id }}/downvote" method="POST">
-                 <button type="submit">Downvote ({{ comment.downvotes }})</button>
-               </form>
-             </p>
-           </div>
-         {% endfor %}
-      </div>
-
+        <!-- Add upvote and downvote links -->
+        <form action="/comments/{{ comment.id }}/upvote" method="POST">
+          <button type="submit">Upvote ({{ comment.upvotes }})</button>
+        </form>
+        <form action="/comments/{{ comment.id }}/downvote" method="POST">
+          <button type="submit">Downvote ({{ comment.downvotes }})</button>
+        </form>
+      </p>
     </div>
+  {% endfor %}
+</div>
 
     <!-- Add JavaScript code to send DELETE request when delete button is clicked -->
     <script>
