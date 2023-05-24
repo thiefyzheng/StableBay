@@ -683,15 +683,10 @@ def downvote(comment_id):
     # Redirect back to the torrent details page
     return redirect(request.referrer)
 
-@app.route('/comments/<int:comment_id>', methods=['DELETE'])
+@app.route('/comments/<int:comment_id>/delete', methods=['POST', 'DELETE'])
 def delete_comment_route(comment_id):
-    # Call the delete_comment function
     delete_comment(comment_id)
-    # Return a success response
-    return '', 204
-
-
-
+    return redirect(url_for('comments'))
 
 
 

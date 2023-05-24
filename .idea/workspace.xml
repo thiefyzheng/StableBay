@@ -7,9 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="runs database.py at the startt">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added comment votes back to the db.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -116,13 +116,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00023" summary="search addeddddddddd">
-      <created>1683801114968</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1683801114968</updated>
     </task>
     <task id="LOCAL-00024" summary="Improved the search and login page, and added the details.">
       <created>1683850451022</created>
@@ -460,7 +453,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684906483688</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="added comment votes back to the db.">
+      <created>1684909295373</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1684909295373</updated>
+    </task>
+    <option name="localTasksCounter" value="73" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -475,7 +475,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Added Deletions" />
     <MESSAGE value="Fixed votespam/" />
     <MESSAGE value="added admin , editing userrrrrr" />
     <MESSAGE value="Enabled revoking admin." />
@@ -500,6 +499,7 @@
     <MESSAGE value="fixed database.py and stuff" />
     <MESSAGE value="improvements" />
     <MESSAGE value="runs database.py at the startt" />
-    <option name="LAST_COMMIT_MESSAGE" value="runs database.py at the startt" />
+    <MESSAGE value="added comment votes back to the db." />
+    <option name="LAST_COMMIT_MESSAGE" value="added comment votes back to the db." />
   </component>
 </project>

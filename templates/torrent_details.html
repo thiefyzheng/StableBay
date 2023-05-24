@@ -212,7 +212,8 @@ li {
                {% if session['username'] == comment.username %}
                  <a href="/comments/{{ comment.id }}/edit">Edit</a>
                  <!-- Add a delete button with a data attribute for the comment ID -->
-                 <button class="delete-button" data-comment-id="{{ comment.id }}">Delete</button>
+<button class="delete-button" data-comment-id="{{ comment.id }}" onclick="deleteComment(event)">Delete</button>
+
                {% endif %}
 
                <!-- Add upvote and downvote links -->
@@ -231,27 +232,29 @@ li {
 
     <!-- Add JavaScript code to send DELETE request when delete button is clicked -->
     <script>
-// Add event listener to delete buttons
-const deleteButtons = document.querySelectorAll('.delete-button');
-deleteButtons.forEach(button => {
-  button.addEventListener('click', event => {
-    console.log('Delete button clicked'); // Log when the delete button is clicked
-    // Display a confirmation dialog
-    if (confirm('Are you sure you want to delete this comment?')) {
-      // Get the comment ID from the data attribute
-      const commentId = event.target.getAttribute('data-comment-id');
-      console.log(`Comment ID: ${commentId}`); // Log the comment ID
-      // Send a DELETE request to the server
-      fetch(`/comments/${commentId}`, {
-        method: 'DELETE'
-      }).then(response => {
-        console.log(response); // Log the response from the server
-        // Reload the page after the comment is deleted
-        window.location.reload();
-      });
-    }
+<!-- Add JavaScript code to send DELETE request when delete button is clicked -->
+
+  // Add event listener to delete buttons
+  const deleteButtons = document.querySelectorAll('.delete-button');
+  deleteButtons.forEach(button => {
+    button.addEventListener('click', event => {
+      console.log('Delete button clicked'); // Log when the delete button is clicked
+      // Display a confirmation dialog
+      if (confirm('Are you sure you want to delete this comment?')) {
+        // Get the comment ID from the data attribute
+        const commentId = event.target.getAttribute('data-comment-id');
+        console.log(`Comment ID: ${commentId}`); // Log the comment ID
+        // Send a DELETE request to the server
+        fetch(`/comments/${commentId}/delete`, {
+          method: 'DELETE'
+        }).then(response => {
+          console.log(response); // Log the response from the server
+          // Reload the page after the comment is deleted
+          window.location.reload();
+        });
+      }
+    });
   });
-});
 
 
     // Function to display a confirmation dialog and check the entered username
@@ -271,7 +274,23 @@ deleteButtons.forEach(button => {
     
     
     
-    
+      function deleteComment(event) {
+    console.log('Delete button clicked'); // Log when the delete button is clicked
+    // Display a confirmation dialog
+    if (confirm('Are you sure you want to delete this comment?')) {
+      // Get the comment ID from the data attribute
+      const commentId = event.target.getAttribute('data-comment-id');
+      console.log(`Comment ID: ${commentId}`); // Log the comment ID
+      // Send a DELETE request to the server
+      fetch(`/comments/${commentId}/delete`, {
+        method: 'DELETE'
+      }).then(response => {
+        console.log(response); // Log the response from the server
+        // Reload the page after the comment is deleted
+        window.location.reload();
+      });
+    }
+  }
     
     // Save the scroll position in localStorage before the page is unloaded
 window.addEventListener('beforeunload', () => {
