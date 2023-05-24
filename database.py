@@ -178,3 +178,4 @@ for category_attribute in category_attributes:
 # Commit the changes and close the database connection
 conn.commit()
 conn.close()
+
