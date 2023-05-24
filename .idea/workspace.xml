@@ -9,9 +9,7 @@
   <component name="ChangeListManager">
     <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="changs">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/edit.py" beforeDir="false" afterPath="$PROJECT_DIR$/edit.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/edit_torrent.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/edit_torrent.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database.py" beforeDir="false" afterPath="$PROJECT_DIR$/database.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,10 +29,11 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="796ce665e1fd26832c6165803d3b283a9b6fd043" />
+        <entry key="$PROJECT_DIR$" value="searching" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -58,7 +57,7 @@
       <recent name="$PROJECT_DIR$" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.app">
+  <component name="RunManager">
     <configuration name="app" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="StableBay" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -116,13 +115,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00019" summary="Added some style">
-      <created>1683111510463</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1683111510463</updated>
     </task>
     <task id="LOCAL-00020" summary="Started major overhaul...">
       <created>1683371354587</created>
@@ -460,7 +452,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684747182655</updated>
     </task>
-    <option name="localTasksCounter" value="68" />
+    <task id="LOCAL-00068" summary="went back to the previous edit page">
+      <created>1684887793909</created>
+      <option name="number" value="00068" />
+      <option name="presentableId" value="LOCAL-00068" />
+      <option name="project" value="LOCAL" />
+      <updated>1684887793909</updated>
+    </task>
+    <option name="localTasksCounter" value="69" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -475,7 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fixed upvotes and downvotes causing the server error also now you can remove your votessss" />
     <MESSAGE value="Upvoting now doesn't cause the page to reset1" />
     <MESSAGE value="Fixed the details page not going to the top after a reload..............." />
     <MESSAGE value="Added Deletionss" />
@@ -500,7 +498,8 @@
     <MESSAGE value="allows users the edit their individual value" />
     <MESSAGE value="allowed deleting individual attributes" />
     <MESSAGE value="changs" />
-    <option name="LAST_COMMIT_MESSAGE" value="changs" />
+    <MESSAGE value="went back to the previous edit page" />
+    <option name="LAST_COMMIT_MESSAGE" value="went back to the previous edit page" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

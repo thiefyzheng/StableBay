@@ -74,6 +74,38 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS attributes (
     description VARCHAR(255),
     value_type TEXT
 )''')
+# Create the category_attributes table if it doesn't exist yet
+cursor.execute('''CREATE TABLE IF NOT EXISTS category_attributes (
+                   id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+                   category_id INT NOT NULL,
+                   attribute_id INT NOT NULL,
+                   is_required BOOLEAN NOT NULL DEFAULT 0,
+                   FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
+                   FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
+               )''')
+# Create the model_attributes table if it doesn't exist yet
+cursor.execute('''CREATE TABLE IF NOT EXISTS model_attributes (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    model_id VARCHAR(66) NOT NULL,
+    attribute_id INT NOT NULL,
+    value TEXT,
+    FOREIGN KEY (model_id) REFERENCES models(id) ON DELETE CASCADE,
+    FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
+)''')
+
+
+# Create comments table
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS comments (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        torrent_id CHAR(36) NOT NULL,
+        user_id INT NOT NULL,
+        comment TEXT NOT NULL,
+        upvotes INT DEFAULT 0,
+        downvotes INT DEFAULT 0,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    )
+''')
 
 
 # Insert some sample attributes
@@ -116,4 +148,3 @@ for category_attribute in category_attributes:
 # Commit the changes and close the database connection
 conn.commit()
 conn.close()
-
