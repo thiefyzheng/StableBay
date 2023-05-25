@@ -821,6 +821,12 @@ from flask import send_from_directory
 @app.route('/tos')
 def tos():
     return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'tos.txt', as_attachment=False)
+@app.route('/about')
+def about():
+    return render_template('about.html')
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
 
 
 
