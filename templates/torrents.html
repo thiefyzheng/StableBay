@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html>
-
 <head>
     <title>Torrents</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
@@ -12,10 +9,24 @@
         
         {% for torrent in torrents %}
         .torrent-box-{{ torrent.id }} {
-            background-image: url("{{ torrent.image_url }}");
-            background-size: cover;
-            background-position: center;
+            position: relative;
+            overflow: hidden;
         }
+        
+.torrent-box-{{ torrent.id }}::before {
+    content: "";
+    background-image: url("{{ torrent.image_url }}");
+    background-size: cover;
+    background-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    filter: var(--blur, blur(30px));
+}
+
         {% endfor %}
 
         .category-box,
@@ -23,6 +34,11 @@
             background-color: rgba(255, 255, 255, 0.8);
             padding: 10px;
             margin: 10px;
+                text-align: center;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
         }
 
         .search-container {
@@ -53,20 +69,36 @@
         }
 
         .search-container button[type="submit"] {
-            font-size: 24px;
-            padding: 10px;
-            border-radius: 5px;
-            background-color:#555; 
+          font-size: 24px;
+          padding: 10px;
+          border-radius: 5px;
+          background-color:#555; 
           color:#fff; 
           border:none; 
           margin-left :10px; 
           cursor:pointer; 
           }
+          
+          
+.thumbnail {
+    width: 50px;
+    height: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
       </style>
 <head>
     <title>StableBay - Search Torrents</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
-    <script src="<https://unpkg.com/browse/webtorrent@2.0.18/>"></script>
 </head>
 <body>
     <div style="text-align:right;">
@@ -96,53 +128,56 @@
               <div class="category-box">{{ torrent.category }}</div>
               <div class="torrent-details">
                   <h3>{{ torrent.name }}</h3>
-                  <p>Uploaded by: {{ torrent.uploaded_by }}</p>
-                  <!-- added -->
-                  <p>Seeder Count:<br><span id="seeder-count-{{ torrent.id }}"></span></p> 
+                  <p>{{ torrent.uploaded_by }}</p>
               </div>
               <!-- added -->
               <div class="download-button">
-                  <a href="{{ torrent.magnet_link }}">↓</a>
+              <a href="{{ torrent.magnet_link }}"><img class="thumbnail" src="{{ url_for('static', filename='download.png') }}" alt="Download"></a>
               </div>
+
+
           </div>
       </a>
   {% endfor %}
 </div>
 
+<!-- added -->
+<button onclick="toggleBlur()">Toggle Blur</button>
 
-    <!-- added -->
-    <!-- Pagination links -->
-    {% if page > 1 %}
-        <a href="{{ url_for('torrents', page=page-1) }}">Previous</a>
-    {% endif %}
-    {% if page * limit < total %}
-        <a href="{{ url_for('torrents', page=page+1) }}">Next</a>
-    {% endif %}
+<!-- Function to toggle blur on NSFW images -->
+<script>
 
-    <!-- Load WebTorrent library -->
-    <script src="<URL>"></script>
+function toggleBlur() {
+    const torrents = {{ torrents|tojson }};
+    torrents.forEach(function(torrent) {
+        if (torrent.nsfw) {
+            let torrentBox = document.querySelector('.torrent-box-' + torrent.id);
+            let pseudoElementStyle = window.getComputedStyle(torrentBox, '::before');
+            if (pseudoElementStyle.getPropertyValue('filter') === 'none') {
+                torrentBox.style.setProperty('--blur', 'blur(30px)');
+            } else {
+                torrentBox.style.setProperty('--blur', 'none');
+            }
+        }
+    });
+}
 
-    <!-- Use WebTorrent to get seeder count for each torrent -->
-    <script>
-      window.addEventListener('load', function() {
-          const client = new WebTorrent();
 
-          // Get seeder count for each torrent
-          const torrents = {{ torrents|tojson }};
-          torrents.forEach(function(torrent) {
-              client.add(torrent.magnet_link, function (torrent) {
-                  // Get the seeder count
-                  const seederCount = torrent.numPeers;
+</script>
 
-                  // Update seeder count in the template
-                  document.querySelector('#seeder-count-' + torrent.id).textContent = seederCount;
-              });
-          });
-      });
-    </script>
-    <p>page: {{ page }}</p>
-    <p>limit: {{ limit }}</p>
-    <p>total: {{ total }}</p>
+<!-- added -->
+<!-- Pagination links -->
+{% if page > 1 %}
+    <a href="{{ url_for('torrents', page=page-1) }}">Previous</a>
+{% endif %}
+{% if page * limit < total %}
+    <a href="{{ url_for('torrents', page=page+1) }}">Next</a>
+{% endif %}
+
+<p>page: {{ page }}</p>
+<p>limit: {{ limit }}</p>
+<p>total: {{ total }}</p>
+
 </body>
 
 </html>
