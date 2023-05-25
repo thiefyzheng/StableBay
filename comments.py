@@ -25,13 +25,43 @@ def delete_comment(comment_id):
     cursor.close()
     conn.close()
 
+
+from flask import session
+
+
 def edit_comment(comment_id, new_comment):
     conn = mysql.connector.connect(host=db_host, user=db_user, password=db_password, database=db_name)
     cursor = conn.cursor()
-    query = "UPDATE comments SET comment=%s WHERE id=%s"
-    params = (new_comment, comment_id)
-    cursor.execute(query, params)
-    conn.commit()
+
+    # Get the username of the current session
+    session_username = session.get('username')
+
+    # Get the username of the commentor
+    query = """
+    SELECT users.username
+    FROM comments
+    JOIN users ON comments.user_id = users.id
+    WHERE comments.id = %s
+    """
+    cursor.execute(query, (comment_id,))
+    result = cursor.fetchone()
+    if result:
+        comment_username = result[0]
+    else:
+        print("Comment not found")
+        return
+
+    # Check if the session username matches the comment username
+    if session_username == comment_username:
+        # Update the comment
+        query = "UPDATE comments SET comment=%s WHERE id=%s"
+        params = (new_comment, comment_id)
+        cursor.execute(query, params)
+        conn.commit()
+        print("Comment updated successfully")
+    else:
+        print("You do not have permission to edit this comment")
+
     cursor.close()
     conn.close()
 
