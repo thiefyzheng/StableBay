@@ -163,13 +163,35 @@ height :50px;
 <!-- Function to toggle blur on NSFW images -->
 <script>
 
+function setBlurCookie(value) {
+    document.cookie = `blurNSFW=${value}; expires=Fri, 31 Dec 9999 23:59:59 GMT; path=/`;
+}
+
+function getBlurCookie() {
+    let cookies = document.cookie.split('; ');
+    for (let i = 0; i < cookies.length; i++) {
+        let cookie = cookies[i].split('=');
+        if (cookie[0] === 'blurNSFW') {
+            return cookie[1];
+        }
+    }
+    return null;
+}
+
 function toggleBlur() {
     const torrents = {{ torrents|tojson }};
+    let blurValue = getBlurCookie();
+    if (blurValue === null || blurValue === 'false') {
+        setBlurCookie('true');
+        blurValue = 'true';
+    } else {
+        setBlurCookie('false');
+        blurValue = 'false';
+    }
     torrents.forEach(function(torrent) {
         if (torrent.nsfw) {
             let torrentBox = document.querySelector('.torrent-box-' + torrent.id);
-            let pseudoElementStyle = window.getComputedStyle(torrentBox, '::before');
-            if (pseudoElementStyle.getPropertyValue('filter') === 'none') {
+            if (blurValue === 'true') {
                 torrentBox.style.setProperty('--blur', 'blur(30px)');
             } else {
                 torrentBox.style.setProperty('--blur', 'none');
@@ -177,6 +199,27 @@ function toggleBlur() {
         }
     });
 }
+
+function initBlur() {
+    const torrents = {{ torrents|tojson }};
+    let blurValue = getBlurCookie();
+    if (blurValue === null) {
+        blurValue = 'true';
+        setBlurCookie(blurValue);
+    }
+    torrents.forEach(function(torrent) {
+        if (torrent.nsfw) {
+            let torrentBox = document.querySelector('.torrent-box-' + torrent.id);
+            if (blurValue === 'true') {
+                torrentBox.style.setProperty('--blur', 'blur(30px)');
+            } else {
+                torrentBox.style.setProperty('--blur', 'none');
+            }
+        }
+    });
+}
+
+initBlur();
 
 
 </script>

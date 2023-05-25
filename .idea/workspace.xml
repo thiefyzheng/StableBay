@@ -7,9 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="stylistic changeee">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added upcote and downvote button png">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/torrents.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrents.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -114,13 +114,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00031" summary="Fixed the issue where you could only upload one value">
-      <created>1684115985286</created>
-      <option name="number" value="00031" />
-      <option name="presentableId" value="LOCAL-00031" />
-      <option name="project" value="LOCAL" />
-      <updated>1684115985286</updated>
     </task>
     <task id="LOCAL-00032" summary="added verify1">
       <created>1684117176471</created>
@@ -458,7 +451,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684978403532</updated>
     </task>
-    <option name="localTasksCounter" value="80" />
+    <task id="LOCAL-00080" summary="added upcote and downvote button png">
+      <created>1684983286069</created>
+      <option name="number" value="00080" />
+      <option name="presentableId" value="LOCAL-00080" />
+      <option name="project" value="LOCAL" />
+      <updated>1684983286069</updated>
+    </task>
+    <option name="localTasksCounter" value="81" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -473,7 +473,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added style for the delete button.Added a button to download the torrentss" />
     <MESSAGE value="added a goofy ahh animation" />
     <MESSAGE value="added bio edit" />
     <MESSAGE value="added pagination to torrents pagee" />
@@ -498,6 +497,7 @@
     <MESSAGE value="allowed blur and unblur of nsfw" />
     <MESSAGE value="fixed the issue where non nsfw models are blurredd" />
     <MESSAGE value="stylistic changeee" />
-    <option name="LAST_COMMIT_MESSAGE" value="stylistic changeee" />
+    <MESSAGE value="added upcote and downvote button png" />
+    <option name="LAST_COMMIT_MESSAGE" value="added upcote and downvote button png" />
   </component>
 </project>
