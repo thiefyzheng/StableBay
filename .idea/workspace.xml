@@ -7,10 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="fixed the issue where non nsfw models are blurredd">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="stylistic changeee">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrents.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrents.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -115,13 +114,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00030" summary="Started on editzzzz">
-      <created>1684034167667</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1684034167667</updated>
     </task>
     <task id="LOCAL-00031" summary="Fixed the issue where you could only upload one value">
       <created>1684115985286</created>
@@ -459,7 +451,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684977660884</updated>
     </task>
-    <option name="localTasksCounter" value="79" />
+    <task id="LOCAL-00079" summary="stylistic changeee">
+      <created>1684978403532</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1684978403532</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -474,7 +473,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added image link editt" />
     <MESSAGE value="added style for the delete button.Added a button to download the torrentss" />
     <MESSAGE value="added a goofy ahh animation" />
     <MESSAGE value="added bio edit" />
@@ -499,6 +497,7 @@
     <MESSAGE value="changes." />
     <MESSAGE value="allowed blur and unblur of nsfw" />
     <MESSAGE value="fixed the issue where non nsfw models are blurredd" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed the issue where non nsfw models are blurredd" />
+    <MESSAGE value="stylistic changeee" />
+    <option name="LAST_COMMIT_MESSAGE" value="stylistic changeee" />
   </component>
 </project>
