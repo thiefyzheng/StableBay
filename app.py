@@ -392,10 +392,10 @@ def edit_torrent(torrent_id):
 
         # Update individual attribute values
         #print(f"updated_attributes: {updated_attributes}")
-       # for attribute_name, value in updated_attributes.items():
-           # update_model_attribute(torrent_id, attribute_name, value)
+        # for attribute_name, value in updated_attributes.items():
+        # update_model_attribute(torrent_id, attribute_name, value)
 
-        return 'Torrent updated successfully!'
+        return redirect('/updated')  # modified
 
     else:
         # Check if current user is uploader or admin
@@ -420,6 +420,7 @@ def edit_torrent(torrent_id):
 
         # Render edit form
         return render_template('edit_torrent.html', torrent=torrent, categories=categories)
+
 
 
 
