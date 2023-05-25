@@ -812,6 +812,18 @@ def delete_homepage_message():
     return redirect(url_for('admin_message'))
 
 
+
+
+
+import os
+from flask import send_from_directory
+
+@app.route('/tos')
+def tos():
+    return send_from_directory(os.path.dirname(os.path.abspath(__file__)), 'tos.txt', as_attachment=False)
+
+
+
 if __name__ == '__main__':
     print('Running app.py')
     app.run()

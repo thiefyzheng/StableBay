@@ -1,0 +1,43 @@
+Terms of Service for StableBay
+
+Welcome to StableBay, a website that allows users to share AI models and datasets on BitTorrent. By using our website, you agree to comply with these Terms of Service. Please read them carefully.
+
+Content
+You are solely responsible for the content that you upload, download, share, or access through our website. You must ensure that you have the necessary rights and permissions to use and distribute such content. You must not upload, download, share, or access any content that:
+
+- violates any laws, regulations, or third-party rights;
+- is unlawful, harmful, abusive, defamatory, obscene, hateful, or discriminatory;
+- contains viruses, malware, or other malicious code;
+- infringes or misappropriates any intellectual property rights, privacy rights, or other proprietary rights of any person or entity;
+- is false, misleading, or deceptive.
+
+We do not monitor, review, endorse, or verify any content that users upload, download, share, or access through our website. We do not assume any liability or responsibility for such content. However, we reserve the right to remove or disable access to any content that we deem to be in violation of these Terms of Service or applicable laws.
+
+User Conduct
+You agree to use our website in a lawful and respectful manner. You must not:
+
+- use our website for any illegal or unauthorized purpose;
+- interfere with or disrupt the operation of our website or the networks or servers connected to it;
+- attempt to gain unauthorized access to our website or any accounts, systems, or data associated with it;
+- use any automated means, such as bots, scripts, or scrapers, to access, collect, or manipulate data from our website;
+- violate any terms or conditions of any third-party services or platforms that you use in connection with our website.
+
+We reserve the right to terminate or suspend your access to our website at any time and for any reason, without notice or liability.
+
+Disclaimer of Warranties
+Our website is provided "as is" and "as available" without any warranties of any kind. We disclaim all warranties, express or implied, including but not limited to warranties of merchantability, fitness for a particular purpose, accuracy, completeness, reliability, security, availability, or non-infringement. We do not warrant that our website will meet your requirements, expectations, or needs; that our website will be uninterrupted, error-free, or bug-free; that our website will be free from viruses or other harmful components; that our website will be compatible with your devices or software; or that any errors or defects in our website will be corrected.
+
+Limitation of Liability
+To the fullest extent permitted by law, we shall not be liable for any direct, indirect, incidental,special, consequential, or exemplary damages arising out of or in connection with your use of or inability to use our website, including but not limited to damages for loss of profits, goodwill, data, or other intangible losses. This limitation of liability applies even if we have been advised of the possibility of such damages.
+
+Some jurisdictions do not allow the exclusion or limitation of certain damages, so the above exclusions and limitations may not apply to you. In such jurisdictions, our liability shall be limited to the maximum extent permitted by law.
+
+Indemnification You agree to indemnify and hold us harmless from and against any and all claims, liabilities, damages, losses, costs, and expenses (including reasonable attorneys’ fees) arising out of or in connection with your use of our website; your violation of these Terms of Service; your violation of any laws, regulations, or third-party rights; or any content that you upload, download, share, or access through our website.
+
+Governing Law These Terms of Service shall be governed by and construed in accordance with the laws of the jurisdiction in which we are located, without giving effect to any principles of conflicts of law. Any legal action or proceeding arising out of or relating to these Terms of Service or your use of our website shall be brought exclusively in the courts of such jurisdiction.
+
+Changes to These Terms We may revise these Terms of Service from time to time at our sole discretion. The most current version will always be available on our website. By continuing to use our website after any changes to these Terms of Service, you agree to be bound by the revised terms.
+
+Contact Us If you have any questions or concerns about these Terms of Service or our website, please contact us at [insert contact information].
+
+Last updated: 5/25/2023

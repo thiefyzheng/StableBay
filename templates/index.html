@@ -51,8 +51,37 @@
 
     </div>
 
+    <!-- ToS dialog box -->
+    <!-- Check if the user has already agreed to the ToS -->
+    <script type="text/javascript">
+        if (document.cookie.indexOf('tos_agreed') === -1) {
+            // Show the ToS dialog box
+            var tosDialog = document.createElement('div');
+            tosDialog.style.position = 'fixed';
+            tosDialog.style.bottom = '0';
+            tosDialog.style.width = '100%';
+            tosDialog.style.backgroundColor = 'lightgrey';
+            tosDialog.style.textAlign = 'center';
+            tosDialog.style.padding = '10px';
+            tosDialog.innerHTML = 'By using this site, you agree to our <a href="/tos">Terms of Service</a>. <button onclick="dontShowAgain()">Don\'t show again</button>';
+            document.body.appendChild(tosDialog);
+        }
+
+        function dontShowAgain() {
+            // Set a cookie to remember that the user doesn't want to see the ToS dialog box again
+            var date = new Date();
+            date.setFullYear(date.getFullYear() + 1);
+            document.cookie = 'tos_agreed=true; expires=' + date.toUTCString() + '; path=/';
+
+            // Hide the ToS dialog box
+            var tosDialog = document.querySelector('div[style*="position: fixed; bottom: 0;"]');
+            if (tosDialog) {
+                tosDialog.parentNode.removeChild(tosDialog);
+            }
+        }
+    </script>
+
 </body>
 
 </html>
-
 

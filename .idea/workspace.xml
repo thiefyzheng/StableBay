@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="fin">
-      <change afterPath="$PROJECT_DIR$/static/style.css" afterDir="false" />
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="fixed the ko-fi link.">
+      <change afterPath="$PROJECT_DIR$/templates/tod.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/tos.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tos.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/torrents.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrents.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -234,7 +236,14 @@
       <option name="project" value="LOCAL" />
       <updated>1683033407085</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="fixed the ko-fi link.">
+      <created>1684997006008</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1684997006009</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -258,7 +267,8 @@
     <MESSAGE value="Fixed comments again and fixed user page" />
     <MESSAGE value="Fixed comments again" />
     <MESSAGE value="Fixed accounts pag" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed accounts pag" />
+    <MESSAGE value="fixed the ko-fi link." />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed the ko-fi link." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
