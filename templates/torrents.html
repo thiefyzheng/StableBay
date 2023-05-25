@@ -1,101 +1,105 @@
 <head>
     <title>Torrents</title>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
-    <style>
-        .torrents-container {
-            display: flex;
-            flex-wrap: wrap;
-        }
-        
-        {% for torrent in torrents %}
-        .torrent-box-{{ torrent.id }} {
-            position: relative;
-            overflow: hidden;
-        }
-        
-.torrent-box-{{ torrent.id }}::before {
-    content: "";
-    background-image: url("{{ torrent.image_url }}");
-    background-size: cover;
-    background-position: center;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    filter: var(--blur, blur(30px));
-}
+<style>
+    .torrents-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    
+    {% for torrent in torrents %}
+    .torrent-box-{{ torrent.id }} {
+        position: relative;
+        overflow: hidden;
+    }
+    
+    {% if torrent.nsfw %}
+    .torrent-box-{{ torrent.id }}::before {
+        content: "";
+        background-image: url("{{ torrent.image_url }}");
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+        filter: var(--blur, blur(30px));
+    }
+    {% else %}
+    .torrent-box-{{ torrent.id }}::before {
+        content: "";
+        background-image: url("{{ torrent.image_url }}");
+        background-size: cover;
+        background-position: center;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: -1;
+    }
+    {% endif %}
+    
+    {% endfor %}
 
-        {% endfor %}
+    .category-box,
+    .torrent-details {
+        background-color: rgba(255, 255, 255, 0.8);
+        padding: 10px;
+        margin: 10px;
+            text-align:center;
+            overflow:hidden;
+            display:-webkit-box;
+            -webkit-line-clamp:2;
+            -webkit-box-orient:vertical;
+    }
 
-        .category-box,
-        .torrent-details {
-            background-color: rgba(255, 255, 255, 0.8);
-            padding: 10px;
-            margin: 10px;
-                text-align: center;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-        }
+    .search-container {
+        margin: 10px auto;
+        padding: 10px;
+        border: 1px solid gray;
+        border-radius: 5px;
+        width: 90%;
+        max-width: 600px;
+        display:flex;
+        justify-content:space-between; /* added */
+        align-items:center; /* added */
+    }
 
-        .search-container {
-            margin: 10px auto;
-            padding: 10px;
-            border: 1px solid gray;
-            border-radius: 5px;
-            width: 90%;
-            max-width: 600px;
-            display: flex;
-            justify-content: space-between; /* added */
-            align-items: center; /* added */
-        }
+    .search-container select {
+      font-size :24px; 
+      padding :10px; 
+      border-radius :5px; 
+      border :2px solid #555; 
+      }
 
-        .search-container select {
-            font-size: 24px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 2px solid #555;
-        }
+    .search-container input[type="text"] {
+      flex :1; 
+      font-size :24px; 
+      padding :10px; 
+      border-radius :5px; 
+      border :2px solid #555; 
+      }
 
-        .search-container input[type="text"] {
-            flex: 1;
-            font-size: 24px;
-            padding: 10px;
-            border-radius: 5px;
-            border: 2px solid #555;
-        }
-
-        .search-container button[type="submit"] {
-          font-size: 24px;
-          padding: 10px;
-          border-radius: 5px;
-          background-color:#555; 
-          color:#fff; 
-          border:none; 
-          margin-left :10px; 
-          cursor:pointer; 
-          }
-          
-          
+    .search-container button[type="submit"] {
+      font-size :24px; 
+      padding :10px; 
+      border-radius :5px; 
+      background-color:#555; 
+      color:#fff; 
+      border:none; 
+      margin-left :10px; 
+      cursor:pointer; 
+      }
+      
 .thumbnail {
-    width: 50px;
-    height: 50px;
+width :50px; 
+height :50px; 
 }
+</style>
 
-
-
-
-
-
-
-
-
-
-
-      </style>
 <head>
     <title>StableBay - Search Torrents</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
