@@ -82,7 +82,15 @@
       border-radius :5px; 
       border :2px solid #555; 
       }
-
+ button {
+        font-size: 24px;
+        padding: 10px;
+        border-radius: 5px;
+        background-color: #555;
+        color: #fff;
+        border: none;
+        cursor: pointer;
+    }
     .search-container button[type="submit"] {
       font-size :24px; 
       padding :10px; 
@@ -105,9 +113,13 @@ height :50px;
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div style="text-align:right;">
+<body>
+    <div style="text-align:left;">
       <a href="/">StableBay</a>
     </div>
+    
+</body>
+
     <div class="search-container">
         <form method="GET" action="/search">
           <div style="display:inline-block;">

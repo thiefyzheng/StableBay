@@ -7,8 +7,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="allowed blur and unblur of nsfw">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="fixed the issue where non nsfw models are blurredd">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/torrent_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrent_details.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/torrents.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/torrents.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -114,13 +115,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1679740664933</updated>
-    </task>
-    <task id="LOCAL-00029" summary="Verification has been improved 1">
-      <created>1684023390638</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1684023390638</updated>
     </task>
     <task id="LOCAL-00030" summary="Started on editzzzz">
       <created>1684034167667</created>
@@ -458,7 +452,14 @@
       <option name="project" value="LOCAL" />
       <updated>1684976049358</updated>
     </task>
-    <option name="localTasksCounter" value="78" />
+    <task id="LOCAL-00078" summary="fixed the issue where non nsfw models are blurredd">
+      <created>1684977660884</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1684977660884</updated>
+    </task>
+    <option name="localTasksCounter" value="79" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -473,7 +474,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="added confirmation dialog for adminz" />
     <MESSAGE value="added image link editt" />
     <MESSAGE value="added style for the delete button.Added a button to download the torrentss" />
     <MESSAGE value="added a goofy ahh animation" />
@@ -498,6 +498,7 @@
     <MESSAGE value="allow admins to delete comments" />
     <MESSAGE value="changes." />
     <MESSAGE value="allowed blur and unblur of nsfw" />
-    <option name="LAST_COMMIT_MESSAGE" value="allowed blur and unblur of nsfw" />
+    <MESSAGE value="fixed the issue where non nsfw models are blurredd" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed the issue where non nsfw models are blurredd" />
   </component>
 </project>
