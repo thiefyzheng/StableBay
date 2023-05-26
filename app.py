@@ -782,8 +782,12 @@ def admin_index():
     pass
 
 from admin import set_homepage_message
+from flask import session, redirect, url_for
+
 @app.route('/admin/message', methods=['GET', 'POST'])
 def admin_message():
+    if not is_admin(session.get('username')):
+        return redirect(url_for('rickroll'))
     if request.method == 'POST':
         message = request.form['message']
         set_homepage_message(message)
@@ -798,6 +802,7 @@ def admin_message():
     conn.close()
     message = row[0] if row else ''
     return render_template('admin_message.html', message=message)
+
 
 @app.route('/admin/message/delete', methods=['POST'])
 def delete_homepage_message():
