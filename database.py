@@ -14,7 +14,7 @@ cursor = conn.cursor()
 cursor.execute('''CREATE TABLE IF NOT EXISTS models (
  id VARCHAR(66) NOT NULL PRIMARY KEY,
  name VARCHAR(255) NOT NULL,
- description VARCHAR(255),
+ description TEXT,
  magnet_link VARCHAR(10000) NOT NULL,
  image_link VARCHAR(255),
  uploaded_by VARCHAR(255) NOT NULL,
@@ -22,6 +22,7 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS models (
  category INT,
  nsfw BOOLEAN DEFAULT FALSE
  )''')
+
 # Create the users table if it doesn't exist yet
 cursor.execute('''
     CREATE TABLE IF NOT EXISTS users (
@@ -78,11 +79,14 @@ categories = [('Checkpoint', 'All types of checkpoint'),
               ('Hypernetwork', 'All types of Hypernetwork'),
               ('Textual Inversion', 'All types of Textual Inversion'),
               ('Controlnet', 'All types of Controlnet'),
-              ('Image Dataset', 'All types of Image Dataset')]
+              ('Image Dataset', 'All types of Image Dataset'),
+              ('Model Pack', 'All types of Model Pack'),
+              ('GitHub Backup', 'All types of GitHub Backup')]
 
 for category in categories:
     query = "INSERT INTO categories (name, description) SELECT %s, %s WHERE NOT EXISTS (SELECT * FROM categories WHERE name=%s)"
     cursor.execute(query, (*category, category[0]))
+
 
 # Create the attributes table if it doesn't exist yet
 cursor.execute('''CREATE TABLE IF NOT EXISTS attributes (
