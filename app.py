@@ -847,19 +847,21 @@ def show_articles():
 def create_article():
     if request.method == 'POST':
         # Get the form data
+        title = request.form['title']
         text = request.form['text']
 
         # Set the date to the current date
         date = datetime.now().date()
 
         # Create the new article
-        articles.create_article(text, date)
+        articles.create_article(title, text)
 
         # Redirect to the articles page
         return redirect(url_for('show_articles'))
     else:
         # Render the create article form
         return render_template('create_article.html')
+
 
 from flask import Flask, render_template
 import articles
