@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Articles</title>
+    </head>
+    <body>
+        <h1>Latest Articles</h1>
+        <ul>
+            {% for article in articles %}
+                <li>
+                    <h2><a href="{{ url_for('show_article', id=article[0]) }}">{{ article[1] }}</a></h2>
+                    <p>By {{ article[2] }} on {{ article[4] }}</p>
+                    <p>{{ article[3] }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
+

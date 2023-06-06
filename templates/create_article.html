@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Create Article</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde@2/dist/easymde.min.css">
+    </head>
+    <body>
+        <h1>Create Article</h1>
+        <form method="post">
+            <label for="text">Text:</label><br>
+            <textarea name="text" id="text"></textarea><br><br>
+            <input type="submit" value="Create Article">
+        </form>
+
+        <!-- Load EasyMDE -->
+        <script src="https://cdn.jsdelivr.net/npm/easymde@2/dist/easymde.min.js"></script>
+
+        <!-- Initialize EasyMDE on the textarea -->
+        <script>
+            var easyMDE = new EasyMDE({element: document.getElementById('text')});
+        </script>
+    </body>
+</html>
+

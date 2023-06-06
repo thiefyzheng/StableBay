@@ -833,7 +833,45 @@ def about():
 def contact():
     return render_template('contact.html')
 
+import articles
 
+from datetime import datetime
+@app.route('/articles')
+def show_articles():
+    # Get the latest articles from the database
+    latest_articles = articles.get_articles()
+
+    # Render the template with the latest articles
+    return render_template('articles.html', articles=latest_articles)
+@app.route('/articles/create', methods=['GET', 'POST'])
+def create_article():
+    if request.method == 'POST':
+        # Get the form data
+        text = request.form['text']
+
+        # Set the date to the current date
+        date = datetime.now().date()
+
+        # Create the new article
+        articles.create_article(text, date)
+
+        # Redirect to the articles page
+        return redirect(url_for('show_articles'))
+    else:
+        # Render the create article form
+        return render_template('create_article.html')
+
+from flask import Flask, render_template
+import articles
+
+
+@app.route('/articles/<int:id>')
+def show_article(id):
+    # Get the article with the specified ID
+    article = articles.get_article(id)
+
+    # Render the template with the article data
+    return render_template('article.html', article=article)
 
 if __name__ == '__main__':
     print('Running app.py')

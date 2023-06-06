@@ -40,6 +40,16 @@ cursor.execute('''
 
 
 
+# Create the articles table if it doesn't exist yet
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS articles (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        writer VARCHAR(255) NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        text TEXT NOT NULL,
+        date DATE NOT NULL
+    )
+''')
 
 
 
