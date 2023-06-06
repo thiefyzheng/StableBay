@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Delete Article</title>
+    </head>
+    <body>
+        <h1>Delete Article</h1>
+        <p>Are you sure you want to delete this article?</p>
+        <form method="post">
+            <input type="submit" value="Yes, delete this article">
+        </form>
+        <a href="{{ url_for('show_article', id=id) }}">No, cancel</a>
+    </body>
+</html>
+

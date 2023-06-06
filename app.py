@@ -843,8 +843,14 @@ def show_articles():
 
     # Render the template with the latest articles
     return render_template('articles.html', articles=latest_articles)
+
 @app.route('/articles/create', methods=['GET', 'POST'])
 def create_article():
+    # Check if the user is an admin
+    if not is_admin(session.get('username')):
+        # If the user is not an admin, redirect to the /rickroll route
+        return redirect('/rickroll')
+
     if request.method == 'POST':
         # Get the form data
         title = request.form['title']
@@ -865,7 +871,7 @@ def create_article():
 
 from flask import Flask, render_template
 import articles
-from articles import get_article, edit_article
+from articles import get_article, edit_article, delete_article
 
 
 @app.route('/articles/<int:id>')
@@ -876,8 +882,14 @@ def show_article(id):
     # Render the template with the article data
     return render_template('article.html', article=article)
 
+
 @app.route('/articles/<int:id>/edit', methods=['GET', 'POST'])
 def edit(id):
+    # Check if the user is an admin
+    if not is_admin(session.get('username')):
+        # If the user is not an admin, redirect to the /rickroll route
+        return redirect('/rickroll')
+
     if request.method == 'POST':
         # Get the updated title and text from the form
         title = request.form['title']
@@ -895,6 +907,23 @@ def edit(id):
         # Render the edit page
         return render_template('edit_article.html', article=article)
 
+
+@app.route('/articles/<int:id>/delete', methods=['GET', 'POST'])
+def delete(id):
+    # Check if the user is an admin
+    if not is_admin(session.get('username')):
+        # If the user is not an admin, redirect to the /rickroll route
+        return redirect('/rickroll')
+
+    if request.method == 'POST':
+        # Delete the article from the database
+        delete_article(id)
+
+        # Redirect to the articles page
+        return redirect(url_for('show_articles'))
+    else:
+        # Render the delete confirmation page
+        return render_template('delete_article.html', id=id)
 if __name__ == '__main__':
     print('Running app.py')
     app.run()
