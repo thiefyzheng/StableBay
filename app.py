@@ -865,6 +865,7 @@ def create_article():
 
 from flask import Flask, render_template
 import articles
+from articles import get_article, edit_article
 
 
 @app.route('/articles/<int:id>')
@@ -874,6 +875,25 @@ def show_article(id):
 
     # Render the template with the article data
     return render_template('article.html', article=article)
+
+@app.route('/articles/<int:id>/edit', methods=['GET', 'POST'])
+def edit(id):
+    if request.method == 'POST':
+        # Get the updated title and text from the form
+        title = request.form['title']
+        text = request.form['text']
+
+        # Update the article in the database
+        edit_article(id, title, text)
+
+        # Redirect to the article page
+        return redirect(url_for('show_article', id=id))
+    else:
+        # Get the article from the database
+        article = get_article(id)
+
+        # Render the edit page
+        return render_template('edit_article.html', article=article)
 
 if __name__ == '__main__':
     print('Running app.py')

@@ -2,6 +2,7 @@
 <html>
     <head>
         <title>Articles</title>
+        <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
     </head>
     <body>
         <h1>Latest Articles</h1>
@@ -10,7 +11,13 @@
                 <li>
                     <h2><a href="{{ url_for('show_article', id=article[0]) }}">{{ article[2] }}</a></h2>
                     <p>By {{ article[1] }} on {{ article[4] }}</p>
-                    <p>{{ article[3] }}</p>
+                    <div class="content"></div>
+
+                    <script>
+                        let markdown = `{{ article[3] }}`;
+                        markdown = markdown.replace(/!\[[^\]]*\]\([^)]*\)/g, '(image)');
+                        document.querySelector('.content').innerHTML = marked.parse(markdown);
+                    </script>
                 </li>
             {% endfor %}
         </ul>

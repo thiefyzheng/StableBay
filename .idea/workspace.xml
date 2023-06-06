@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added articles">
+    <list default="true" id="e58d5e4b-0a4d-4503-a8e4-04a49950b8bb" name="Changes" comment="added image support for article">
+      <change afterPath="$PROJECT_DIR$/templates/edit_article.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/articles.py" beforeDir="false" afterPath="$PROJECT_DIR$/articles.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/article.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/article.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app.py" beforeDir="false" afterPath="$PROJECT_DIR$/app.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/articles.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/articles.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/create_article.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/create_article.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -284,7 +283,14 @@
       <option name="project" value="LOCAL" />
       <updated>1686028900611</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="added image support for article">
+      <created>1686044440583</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1686044440583</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -315,7 +321,8 @@
     <MESSAGE value="stop non admins from changing the message." />
     <MESSAGE value="fixed description length and added the model pack + github backup categories" />
     <MESSAGE value="added articles" />
-    <option name="LAST_COMMIT_MESSAGE" value="added articles" />
+    <MESSAGE value="added image support for article" />
+    <option name="LAST_COMMIT_MESSAGE" value="added image support for article" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
