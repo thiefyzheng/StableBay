@@ -924,6 +924,11 @@ def delete(id):
     else:
         # Render the delete confirmation page
         return render_template('delete_article.html', id=id)
+
+@app.route('/partners')
+def partners():
+    return render_template('partners.html')
+
 if __name__ == '__main__':
     print('Running app.py')
     app.run()
