@@ -75,7 +75,6 @@ cursor.execute('''
 ''')
 
 
-
 # Create the categories table if it doesn't exist yet
 cursor.execute('''CREATE TABLE IF NOT EXISTS categories (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -91,12 +90,12 @@ categories = [('Checkpoint', 'All types of checkpoint'),
               ('Controlnet', 'All types of Controlnet'),
               ('Image Dataset', 'All types of Image Dataset'),
               ('Model Pack', 'All types of Model Pack'),
-              ('GitHub Backup', 'All types of GitHub Backup')]
+              ('GitHub Backup', 'All types of GitHub Backup'),
+              ('LLM', 'All types of LLM')]
 
 for category in categories:
     query = "INSERT INTO categories (name, description) SELECT %s, %s WHERE NOT EXISTS (SELECT * FROM categories WHERE name=%s)"
     cursor.execute(query, (*category, category[0]))
-
 
 # Create the attributes table if it doesn't exist yet
 cursor.execute('''CREATE TABLE IF NOT EXISTS attributes (
@@ -105,6 +104,20 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS attributes (
     description VARCHAR(255),
     value_type TEXT
 )''')
+
+# Insert some sample attributes
+attributes = [('Training Data', 'The type of training data used'),
+              ('Merge', 'Whether the model merges information'),
+              ('Model Type', 'The type of model used, e.g. realism, anime, etc.'),
+              ('LoRA Type', 'The type of LoRA model used'),
+              ('Trigger Words', 'The trigger words used by the model'),
+              ('File Type', 'The type of file used by the model'),
+              ('Quantization', 'The quantization used')]
+
+for attribute in attributes:
+    query = "INSERT INTO attributes (name, description) SELECT %s, %s WHERE NOT EXISTS (SELECT * FROM attributes WHERE name=%s)"
+    cursor.execute(query, (*attribute, attribute[0]))
+
 # Create the category_attributes table if it doesn't exist yet
 cursor.execute('''CREATE TABLE IF NOT EXISTS category_attributes (
                    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -114,64 +127,23 @@ cursor.execute('''CREATE TABLE IF NOT EXISTS category_attributes (
                    FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE,
                    FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
                )''')
-# Create the model_attributes table if it doesn't exist yet
-cursor.execute('''CREATE TABLE IF NOT EXISTS model_attributes (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    model_id VARCHAR(66) NOT NULL,
-    attribute_id INT NOT NULL,
-    value TEXT,
-    FOREIGN KEY (model_id) REFERENCES models(id) ON DELETE CASCADE,
-    FOREIGN KEY (attribute_id) REFERENCES attributes(id) ON DELETE CASCADE
-)''')
-
-
-# Create comments table
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS comments (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        torrent_id CHAR(36) NOT NULL,
-        user_id INT NOT NULL,
-        comment TEXT NOT NULL,
-        upvotes INT DEFAULT 0,
-        downvotes INT DEFAULT 0,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    )
-''')
-
-
-# Create the homepage table if it doesn't exist yet
-cursor.execute('''
-    CREATE TABLE IF NOT EXISTS homepage (
-        id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-        message TEXT
-    )
-''')
-
-
-# Insert some sample attributes
-attributes = [('Training Data', 'The type of training data used'),
- ('Merge', 'Whether the model merges information'),
- ('Model Type', 'The type of model used, e.g. realism, anime, etc.'),
- ('LoRA Type', 'The type of LoRA model used'),
- ('Trigger Words', 'The trigger words used by the model'),
- ('File Type', 'The type of file used by the model')]
-
-for attribute in attributes:
-    query = "INSERT INTO attributes (name, description) SELECT %s, %s WHERE NOT EXISTS (SELECT * FROM attributes WHERE name=%s)"
-    cursor.execute(query, (*attribute, attribute[0]))
 
 # Define the category-attribute relationships
-category_attributes = [('Checkpoint', 'Training Data', True),
- ('Checkpoint', 'Merge', True),
- ('Checkpoint', 'Model Type', True),
- ('LoRA', 'LoRA Type', True),
- ('LoRA', 'Training Data', True),
- ('LoRA', 'Trigger Words', True),
- ('Textual Inversion', 'Training Data', True),
- ('Textual Inversion', 'Trigger Words', True),
- ('Hypernetwork', 'Training Data', True),
- ('Hypernetwork', 'Trigger Words', True),
- ('Controlnet', 'Training Data', True)]
+category_attributes = [('Checkpoint', 'Training Data'),
+                       ('Checkpoint', 'Merge'),
+                       ('Checkpoint', 'Model Type'),
+                       ('LoRA', 'LoRA Type'),
+                       ('LoRA', 'Training Data'),
+                       ('LoRA', 'Trigger Words'),
+                       ('Textual Inversion', 'Training Data'),
+                       ('Textual Inversion', 'Trigger Words'),
+                       ('Hypernetwork', 'Training Data'),
+                       ('Hypernetwork', 'Trigger Words'),
+                       ('Controlnet', 'Training Data'),
+                       ('LLM', 'Quantization'),
+                       ('LLM', 'Training Data'),
+                       ('LLM', 'File Type'),
+                       ('LLM', 'Merge')]
 
 for category_attribute in category_attributes:
     category_query = "SELECT id FROM categories WHERE name=%s"
@@ -187,8 +159,8 @@ for category_attribute in category_attributes:
     cursor.execute(query, (category_id, attribute_id))
     if not cursor.fetchone():
         # Insert the category-attribute relationship if it doesn't exist
-        query = "INSERT INTO category_attributes (category_id, attribute_id, is_required) VALUES (%s, %s, %s)"
-        cursor.execute(query, (category_id, attribute_id, category_attribute[2]))
+        query = "INSERT INTO category_attributes (category_id, attribute_id) VALUES (%s, %s)"
+        cursor.execute(query, (category_id, attribute_id))
 
 # Get the ID of the File Type attribute
 attribute_query = "SELECT id FROM attributes WHERE name='File Type'"
